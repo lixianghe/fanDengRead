@@ -132,16 +132,12 @@ module.exports = {
     }, 500)
 
   },
-<<<<<<< HEAD
- 
-=======
   // 添加/取消收藏函数
   like (e) {
     console.log(e.detail.contentType)     //类型
     console.log(e.detail.flag)    		// 状态（添加/取消）
     console.log(e.detail.typeid)    		// 内容id
   },
->>>>>>> 4fa923470f1928741d30f2ba0c786b6f9948a918
   close() {
     this.setData({showModal: false})
   },
