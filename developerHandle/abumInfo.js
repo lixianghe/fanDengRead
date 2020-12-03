@@ -17,7 +17,7 @@
       item.coverImgUrl = item.coverUrl                          // 歌曲的封面
     })
  */
-// import { albumMedia, isAlbumFavorite, fm, albumFavoriteAdd, albumFavoriteCancel } from '../utils/httpOpt/api'
+import { albumMedia } from '../utils/httpOpt/api'
 const { showData } = require('../utils/httpOpt/localData')
 
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
   async onLoad(options) {
     let id = options.id
     this._getList()
-    this.getAllList()
+    // this.getAllList()
   },
   onReady() {
 
@@ -43,14 +43,16 @@ module.exports = {
   // 获取分页歌曲列表，假数据
   async _getList(params) {
     let canplay = await this.getData()
-    this.setData({canplay})
-    wx.setStorageSync('canplay', canplay)
+    // this.setData({canplay})
+    // wx.setStorageSync('canplay', canplay)
   },
-  getData() {
-    let canplay = showData.abumInfo.data
-    let total = showData.abumInfo.total
-    this.setData({total})
-    return canplay
+  async getData() {
+    let res = await albumMedia({fragmentId: 1686})
+    console.log('res', res)
+    // let canplay = showData.abumInfo.data
+    // let total = showData.abumInfo.total
+    // this.setData({total})
+    // return canplay
   },
   // 获取所有的播放列表
   async getAllList() {

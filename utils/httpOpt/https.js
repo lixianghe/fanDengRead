@@ -1,11 +1,11 @@
-const base = 'https://api.kaishustory.com'
-// const base = 'https://tapi.kaishustory.com'
+const base = 'https://gateway-api.dushu.io'
+
 const appId = 786474
 /**
  * 封封微信的的request
  */
 
-export function request(url, data = {}, method = 'GET') {
+export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     wx.request({
       url: base + url,
@@ -13,13 +13,13 @@ export function request(url, data = {}, method = 'GET') {
       method: method,
       dataType: 'json',
       header: {
-        'content-type': 'application/json',
-        'appId': appId,
-        'device': 'wxapp-car',
-        'channel': 'wxapp-car',
-        'platform': 'tencent-open',
-        'deviceId': wx.getStorageSync('deviceId') || '',
-        'token':  wx.getStorageSync('token') || ''
+        'Content-Type': 'application/json',
+        'X-DUSHU-APP-VER': '1.0.0',
+        'X-DUSHU-APP-PLT': '3',
+        'X-DUSHU-APP-CHN': 'TencentCarMini',
+        'X-DUSHU-APP-MUID': '00000000-0000-0000-0000-000000000000',
+        'X-DUSHU-APP-SYSVER': '1',
+        'X-DUSHU-APP-DEVID':  '1'
       },
       success: function (res) {
         if (res.statusCode === 200) {
