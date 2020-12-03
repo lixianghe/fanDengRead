@@ -1,4 +1,3 @@
-import { init, checkStatus } from './utils/httpOpt/api'
 import btnConfig from './utils/pageOtpions/pageOtpions'
 import { getMedia } from './developerHandle/playInfo'
 
@@ -10,16 +9,7 @@ App({
     // 屏幕类型
     screen: '',
     mainColor: btnConfig.colorOptions.mainColor,
-    // 登录相关
-    openid: '',
-    appId: '60008',
-    userId: '-1',
-    haveLogin: false,
-    token: '',
     appId: '60180',
-    // 版本号
-    version: '1.0.195.20200928',
-    isNetConnected: true,
     indexData: [], // 静态首页数据
     latelyListenId: [], // 静态记录播放id
     abumInfoData: [],
@@ -40,40 +30,14 @@ App({
     backgroundColor: 'transparent',
     defaultBgColor: '#151515'
   },
-   // 用户信息
-   userInfo: {
-    userId: null,
-    token: '',
-    refreshToken: ''
-  },
-  // 用户认证信息
-  authInfo: {
-    openId: '',
-    unionId: '',
-    authCode: ''
-  },
-  // 访客信息
-  guestInfo: {
-    token: '',
-    refreshToken: '',
-    deviceId: ''
-  },
-   // token状态，0-正常，1001-token过期，1003-refresh-token过期，1004-登录过期
-  tokenStatus: 0,
-  // 日志文本
-  logText: '',
   audioManager: null,
   currentIndex: null,
   onLaunch: function () {
-    this.initCode()
     // 获取小程序颜色主题
     this.getTheme()
     // 判断playInfo页面样式，因为这里最快执行所以放在这
     this.setStyle()
     this.audioManager = wx.getBackgroundAudioManager()
-    // 判断用户是否已经登录了
-    this.checkStatus()
-    // wx.setStorageSync('username', 'T-mac')
     
     // 判断横竖屏
     if (wx.getSystemInfoSync().windowWidth > wx.getSystemInfoSync().windowHeight) {
@@ -113,20 +77,6 @@ App({
       let res = wx.getPlayInfoSync()
     }
 
-  },
-
-  // 保存用户信息
-  setUserInfo(userInfo) {
-    this.userInfo = userInfo
-    wx.setStorageSync('userInfo', userInfo)
-  },
-  // 获取用户信息
-  getUserInfo(key) {
-    let userInfo = this.userInfo.userId ? this.userInfo : wx.getStorageSync('userInfo')
-    if (key) {
-      return userInfo[key]
-    }
-    return userInfo
   },
   vision: '1.0.0',
   cutplay: async function (that, type, cutFlag) {
@@ -251,90 +201,6 @@ App({
       // 1920*720
       this.globalData.PIbigScreen = true
     }
-  },
-  // 初始化token、deviceId、refreshToken
-  initCode() {
-    let guestInfo = wx.getStorageSync('guestInfo');
-    let userInfo = wx.getStorageSync('userInfo');
-    let authInfo = wx.getStorageSync('authInfo');
-    if (authInfo){
-      this.authInfo = authInfo;
-    }
-    if (userInfo){
-      this.userInfo = userInfo;
-      this.guestInfo = guestInfo;
-      return;
-    }
-    if (guestInfo){
-      this.guestInfo = guestInfo;
-      return;
-    }
-
-    const token = wx.getStorageSync('token')
-    if (token) return false
-    let deviceInfo = {
-      phoneDeviceCode: this.uuid()
-    }
-    wx.getSystemInfo({
-      success: async (res) => {
-        deviceInfo.phoneModel = res.system
-        deviceInfo.sysVersion = res.version
-        let initData = await init(deviceInfo)
-        wx.setStorageSync('deviceId', initData.deviceId)
-        wx.setStorageSync('refreshToken', initData.refreshToken)
-        wx.setStorageSync('token', initData.token)
-      }
-    })
-  },
-  checkStatus(){
-    if(!this.userInfo.token){
-      return
-    }
-    checkStatus({}).then(res => {
-      // 若code为0且changeFlag为true，更新token和refreshToken
-      if (res.changeFlag){
-        this.userInfo.token = res.token
-        this.userInfo.refreshToken = res.refreshToken
-        wx.setStorageSync('token', res.token)
-        wx.setStorageSync('refreshToken', res.refreshToken)
-      }
-
-      this.tokenStatus = 0
-      wx.setStorageSync('userInfo', this.userInfo)
-    }).catch(err => {
-
-    })
-  },
-  uuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0,
-        v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    })
-  },
-  /**
-   * 记录日志
-   */
-  log(...text){
-    for(let e of text){
-      if(typeof e == 'object'){
-        try{
-          if(e===null){
-            this.logText += 'null'
-          } else if(e.stack){
-            this.logText += e.stack
-          } else{
-            this.logText += JSON.stringify(e)
-          }
-        }catch(err){
-          this.logText += err.stack
-        }
-      } else {
-        this.logText += e
-      }
-      this.logText += '\n'
-    }
-    this.logText += '########################\n'
   },
   // 获取颜色主题
   getTheme: function () {
