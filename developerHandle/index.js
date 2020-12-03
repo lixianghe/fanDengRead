@@ -34,6 +34,7 @@
  *   ]
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
+import { layoutGroup } from '../utils/httpOpt/api'
 const app = getApp()
 
 module.exports = {
@@ -94,7 +95,7 @@ module.exports = {
   },
   onLoad(options) {
     // 初始化加载数据
-    this._getList('推荐')
+    this._getList()
   },
   onReady() {
 
@@ -115,6 +116,12 @@ module.exports = {
     
   },
   _getList(name) {
+    layoutGroup({}).then(res => {
+      console.log(111)
+    }).catch(err => {
+      console.log(2222)
+    })
+
     setTimeout(() => {
       wx.hideLoading()
       let data = [{

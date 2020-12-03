@@ -18,7 +18,6 @@
     })
  */
 import { albumMedia } from '../utils/httpOpt/api'
-const { showData } = require('../utils/httpOpt/localData')
 
 module.exports = {
   data: {
