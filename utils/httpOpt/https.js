@@ -23,8 +23,8 @@ export function request(url, data = {}, method = 'POST') {
       },
       success: function (res) {
         if (res.statusCode === 200) {
-          if (res.data.code === 0) {
-            resolve(res.data.data)
+          if (res.data.status === '0000') {
+            resolve(res.data)
           } else {
             if (res.data.error === '1111') {
               wx.showToast({

@@ -151,8 +151,10 @@ App({
     const songInfo = this.globalData.songInfo
     // 如果是车载情况
     if (this.globalData.useCarPlay) {
+      console.log('车载播放')
       this.carHandle(seek)
     } else {
+      console.log('小程序播放')
       this.wxPlayHandle(songInfo, seek, cb)
     }
 

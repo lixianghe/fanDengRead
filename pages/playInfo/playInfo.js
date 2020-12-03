@@ -69,7 +69,7 @@ Page({
       songInfo: songInfo,
       canplay: canplay,
       noPlay: options.noPlay || null,
-      abumInfoName: options.abumInfoName || null,
+      abumInfoName: options.abumInfoName || '',
       loopType: wx.getStorageSync('loopType') || 'listLoop'
     })
     // 把abumInfoName存在缓存中，切歌的时候如果不是专辑就播放同一首
@@ -77,6 +77,16 @@ Page({
     const nativeList = wx.getStorageSync('nativeList') || []
     if (!nativeList.length || abumInfoName !== options.abumInfoName) wx.setStorageSync('nativeList', canplay)
     if (options.noPlay !== 'true') wx.showLoading({ title: '加载中...', mask: true })
+    // 如果没有abumInfoName就删除more按钮
+    console.log(this.data.abumInfoName)
+    // if (!this.data.abumInfoName) {
+    //   let index = this.data.playInfoBtns.findIndex(n => n.name === 'more')
+    //   console.log(index)
+    //   this.data.playInfoBtns.splice(index, 1)
+    //   this.setData({
+    //     playInfoBtns: this.data.playInfoBtns
+    //   })
+    // }
   },
   onShow: function () {
     const that = this;
