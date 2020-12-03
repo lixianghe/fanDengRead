@@ -26,26 +26,7 @@ Page({
     
   },
   onLoad(options) {
-    setTimeout(() => {
-      wx.checkSession({
-        success:(res)=> {
-          if(JSON.stringify(wx.getStorageSync('username'))) {
-            wx.setTabBarItem({
-              index: 2, 
-              text: wx.getStorageSync('username'),
-            })
-          }
-        },
-        fail: (res) => {
-          app.userInfo.token = ''
-          app.userInfo.vipStatus = '';
-          app.userInfo.expireTime = '';
-          wx.removeStorageSync('userInfo');
-          wx.removeStorageSync('username')
-        }
-      })
-      
-    }, 800);
+
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()

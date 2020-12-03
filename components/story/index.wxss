@@ -10,12 +10,11 @@
 }
 .halbumCard .image {
   width: 41.81vh;
-  height: 41.81vh;
   border-radius: 2vh;
   vertical-align: bottom;
 }
 .halbumCard .albumTit {
-  margin-top: 3.5vh;
+  margin-top: 2.8vh;
   color: #ffffff;
   font-size: 5.2vh;
   box-sizing: content-box;
