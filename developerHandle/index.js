@@ -183,18 +183,11 @@ module.exports = {
     const src = e.currentTarget.dataset.src
     const title = e.currentTarget.dataset.title
     wx.setStorageSync('img', src)
-    const routeType = e.currentTarget.dataset.contentype
 
     if (!app.globalData.latelyListenId.includes(id)) {
       app.globalData.latelyListenId.push(id)
     }
-    let url
-    if (routeType === 'album' || routeType === 'fm') {
-      url = `../abumInfo/abumInfo?id=${id}&title=${title}&routeType=${routeType}`
-    } else if (routeType === 'media') {
-      url = `../playInfo/playInfo?id=${id}`
-    }
-
+    let url = `../playInfo/playInfo?id=${id}`
     wx.navigateTo({
       url: url
     })
