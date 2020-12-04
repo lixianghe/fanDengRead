@@ -37,21 +37,6 @@ module.exports = {
         name: 'next',                                            
         img: '/images/next2.png'                                 
       },
-      // {
-      //   name: 'like',                                             
-      //   img: {
-      //     noLike: '/images/info_like_no.png' ,                    
-      //     liked: '/images/info_like.png'                          
-      //   }
-      // },
-      // {
-      //   name: 'loopType',                                         
-      //   img: {
-      //     listLoop: '/images/listLoop.png' ,                      
-      //     singleLoop: '/images/singleLoop.png',                   
-      //     shufflePlayback: '/images/shufflePlayback.png'          
-      //   }
-      // },
       {
         name: 'more',                                             
         img: '/images/more2.png'                                  
@@ -70,7 +55,7 @@ module.exports = {
   async getMedia(params, that = this) {  
     const app = getApp()
     // 模拟请求数据    
-    let data = await albumMedia({fragmentId: 1686})
+    let data = (await albumMedia({fragmentId: 1686})).data
     let songInfo = {}
     songInfo.src = data.mediaUrls[0]                                  // 音频地址
     songInfo.title = data.title                                       // 音频名称

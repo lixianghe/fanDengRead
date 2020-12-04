@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "播放中",
-  "component": true,  
+  "navigationBarTitleText": "test",
+  "enablePullDownRefresh": true,
+  "component": true,
+  "disableScroll": true,
   "usingComponents": {
-    "modal": "/components/modal/index"
+
   }
 }
