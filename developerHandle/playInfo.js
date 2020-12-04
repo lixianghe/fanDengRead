@@ -13,8 +13,8 @@
  * 4、其他模板外的功能开发者在这个文件自行开发
  */
 const app = getApp()
-import { mediaPlay, mediaFavoriteAdd, mediaFavoriteCancel, isFavorite, saveHistory } from '../utils/httpOpt/api'
-const { showData } = require('../utils/httpOpt/localData')
+import { albumMedia } from '../utils/httpOpt/api'
+import tool from '../utils/util'
 
 module.exports = {
   data: {
@@ -44,14 +44,14 @@ module.exports = {
       //     liked: '/images/info_like.png'                          
       //   }
       // },
-      {
-        name: 'loopType',                                         
-        img: {
-          listLoop: '/images/listLoop.png' ,                      
-          singleLoop: '/images/singleLoop.png',                   
-          shufflePlayback: '/images/shufflePlayback.png'          
-        }
-      },
+      // {
+      //   name: 'loopType',                                         
+      //   img: {
+      //     listLoop: '/images/listLoop.png' ,                      
+      //     singleLoop: '/images/singleLoop.png',                   
+      //     shufflePlayback: '/images/shufflePlayback.png'          
+      //   }
+      // },
       {
         name: 'more',                                             
         img: '/images/more2.png'                                  
@@ -63,16 +63,22 @@ module.exports = {
     // 拿到歌曲的id: options.id
     let getInfoParams = {mediaId: options.id || app.globalData.songInfo.id, contentType: 'story'}
     this.getMedia(getInfoParams).then(() => {
+      console.log('play')
       this.play() 
     })
   },
-  async getMedia(params, that = this) {   
+  async getMedia(params, that = this) {  
     const app = getApp()
     // 模拟请求数据    
-    let canplay = wx.getStorageSync('canplay')
-    let data = (canplay.filter(n => Number(n.id) === Number(params.mediaId)))[0]
-    app.globalData.songInfo = Object.assign({}, data)
-    that.setData({ songInfo: data })
-    wx.setStorageSync('songInfo', data)
+    let data = await albumMedia({fragmentId: 1686})
+    let songInfo = {}
+    songInfo.src = data.mediaUrls[0]                                  // 音频地址
+    songInfo.title = data.title                                       // 音频名称
+    songInfo.id = data.fragmentId                                     // 音频Id
+    songInfo.dt = tool.formatduration(data.duration, 'second')        // 音频时常
+    songInfo.coverImgUrl = data.titleImageUrl + '.jpg'                 // 音频封面
+    app.globalData.songInfo = Object.assign({}, songInfo)
+    that.setData({ songInfo: songInfo })
+    wx.setStorageSync('songInfo', songInfo)
   }
 }

@@ -34,7 +34,7 @@
  *   ]
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
-import { layoutGroup } from '../utils/httpOpt/api'
+import { layout, layoutGroup } from '../utils/httpOpt/api'
 const app = getApp()
 
 module.exports = {
@@ -63,19 +63,20 @@ module.exports = {
       show: true,
       data: [{
         "name": "推荐",
-        "id": 1
+        "id": 'suggest'
       }, {
         "name": "近期新书",
-        "id": 2
-      }, {
-        "name": "榜单top10",
-        "id": 3
+        "id": 'recentNewBooks'
       }, {
         "name": "免费体验",
-        "id": 4
+        "id": 'freeBooks'
       }]
     },
-
+    allData: {
+      suggest:[],
+      freeBooks: [],
+      recentNewBooks: []
+    },
     countPic: '/images/media_num.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
@@ -102,52 +103,72 @@ module.exports = {
   },
   selectTap(e) {
     const index = e.currentTarget.dataset.index
-    const name = e.currentTarget.dataset.name
+    const groupid = e.currentTarget.dataset.groupid
     this.setData({
       currentTap: index
     })
+    
+    // 这里可以自定义传值传到_getList中
+    // this._getList(groupid)
+    this.setData({
+      info: this.data.allData[groupid]
+    })
+  },
+
+  _getList() {
     wx.showLoading({
       title: '加载中',
     })
-    // 这里可以自定义传值传到_getList中
-    this._getList(name)
-  },
-  _getLabels() {
-    
-  },
-  _getList(name) {
-    layoutGroup({}).then(res => {
-      console.log(111)
-    }).catch(err => {
-      console.log(2222)
-    })
+    let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
+    Promise.all([layoutGroup().catch(err => console.log(err)), layout(params).catch(err => console.log(err))]).then(res => {
+      console.log(res)
+      let allData = {}
+        // 近期新书
+        let recentNewBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
 
-    setTimeout(() => {
-      wx.hideLoading()
-      let data = [{
-          "bookName": "非暴力沟通", //书籍名称
-          "bookTime": 3061, //书籍时长
-          "fragmentId": 1686, //音频id
-          "imgUrl": "/images/asset/bookTest.png", //封面图片
-        },{
-          "bookName": "非暴力沟通", //书籍名称
-          "bookTime": 3061, //书籍时长
-          "fragmentId": 1686, //音频id
-          "imgUrl": "/images/asset/bookTest.png", //封面图片
-        }
-      ]
-      let info = data.map(item => {
-        let obj = {}
-        obj.id = item.fragmentId
-        obj.src = item.imgUrl
-        obj.title = item.bookName
-        return obj
-      })
-      this.setData({
-        reqL: true,
-        info: info
-      })
-    }, 500)
+        // 免费体验
+        let freeBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
+
+        // 推荐  suggest
+        let suggest = res[1].data.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
+
+        allData.recentNewBooks = recentNewBooks
+        allData.freeBooks = freeBooks
+        allData.suggest = suggest
+        console.log(allData.suggest)
+        this.setData({
+          allData: allData,
+          info: allData.suggest,
+          reqL: true
+        })
+        wx.hideLoading()
+    }).catch(err => {
+      console.log(err)
+    })
+    
+    // layoutGroup({}).then(res => {
+    // })
   },
   // 跳转到快捷入口页面
   tolatelyListen(e) {

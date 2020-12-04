@@ -48,7 +48,10 @@ module.exports = {
   async getData() {
     let res = await albumMedia({fragmentId: 1686})
     console.log('res', res)
-    // let canplay = showData.abumInfo.data
+    res.map(item => {
+
+    })
+    // let canplay = res
     // let total = showData.abumInfo.total
     // this.setData({total})
     // return canplay

@@ -44,11 +44,15 @@
 }
 .halbumCard .conut {
   position: absolute;
-  top: 1.04vh;
-  right: 1.81vh;
-  height: 4.58vh;
+  top: 2vh;
+  right: 0;
+  height: 7.66vh;
   overflow: hidden;
-  line-height: 4.58vh;
+  line-height: 7.66vh;
+  border-top-left-radius: 3vh;
+  border-bottom-left-radius: 3vh;
+  background-color: rgba(0,0,0,0.6);
+  padding: 0 1.5vh 0 3vh;
 }
 .halbumCard .linerbg {
   position: absolute;
@@ -64,6 +68,7 @@
   height: 4.58vh;
   margin-right: 1.5vh;
   float: left;
+  margin-top: 1.5vh;
 }
 .halbumCard .countxt {
   font-size: 4.27vh;

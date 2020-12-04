@@ -4,8 +4,12 @@ function formatNumber(n) {
 }
 
 //转换播放时间
-function formatduration(duration) {
-  duration = new Date(duration);
+function formatduration(duration, type = 'millisecond') {
+  if (type === 'second') {
+    duration = new Date(duration * 1000);
+  } else if (type === 'millisecond' ) {
+    duration = new Date(duration);
+  }
   return formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds());
 }
 

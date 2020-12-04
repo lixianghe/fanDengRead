@@ -23,7 +23,7 @@ export function request(url, data = {}, method = 'POST') {
       },
       success: function (res) {
         if (res.statusCode === 200) {
-          if (res.data.code === 0) {
+          if (res.data.status === '0000' || res.data.status === 1) {
             resolve(res.data)
           } else {
             if (res.data.error === '1111') {
