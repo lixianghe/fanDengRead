@@ -44,7 +44,7 @@ module.exports = {
       show: true,
       data: [{
           icon: '/images/zjst.png',
-          title: "最近收听",
+          title: "最近播放",
           name: 'latelyListen',
           islogin: false
         },
@@ -77,6 +77,9 @@ module.exports = {
       freeBooks: [],
       recentNewBooks: []
     },
+    // 封面图片形状 rect矩形，square，正方形
+    shape: 'rect',
+    // 数量图片
     countPic: '/images/media_num.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
@@ -134,7 +137,7 @@ module.exports = {
         })
 
         // 免费体验
-        let freeBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+        let freeBooks = res[0].freeBooks.map(v => {
           let obj = {}
           obj.id = v.fragmentId
           obj.src = v.coverImage
