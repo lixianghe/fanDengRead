@@ -2,7 +2,7 @@ const app = getApp()
 
 Component({
   properties: {
-    noDataImg: String 
+    noContent: String 
   },
   data: {
     

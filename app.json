@@ -42,7 +42,7 @@
       "pagePath": "pages/search/search",
       "iconPath": "images/search.png",
       "selectedIconPath": "images/searched.png",
-      "text": "搜索"
+      "text": "分类"
     },
     {
       "index": 2, 
@@ -56,7 +56,9 @@
   "usingComponents": {
     "mini-player": "/components/miniPlayer/index",
     "selectWorks": "/components/selectWorks/index",
-    "bgConfirm": "/components/bgConfirm/index"
+    "bgConfirm": "/components/bgConfirm/index",
+    "no-data": "/components/noData/index",
+    "no-network": "/components/noNetwork/index"
   },
   "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap.json"

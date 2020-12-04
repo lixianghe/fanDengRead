@@ -56,7 +56,6 @@ App({
     });
     //监听音乐暂停，保存播放进度广播暂停状态
     wx.onBackgroundAudioPause(function () {
-      that.globalData.playing = false;
       wx.getBackgroundAudioPlayerState({
         complete: function (res) {
           that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
@@ -92,7 +91,6 @@ App({
     let no = allList.findIndex(n => Number(n.id) === Number(this.globalData.songInfo.id))
     let index = this.setIndex(type, no, allList)
     //歌曲切换 停止当前音乐
-    this.globalData.playing = false;
     let song = allList[index] || allList[0]
     wx.pauseBackgroundAudio();
     that.setData({
@@ -149,6 +147,7 @@ App({
   // 根据歌曲url播放歌曲
   playing: function (seek, cb) {
     const songInfo = this.globalData.songInfo
+    console.log('songInfo', songInfo)
     // 如果是车载情况
     if (this.globalData.useCarPlay) {
       console.log('车载播放')
@@ -173,7 +172,6 @@ App({
   },
   // 非车载情况的播放
   wxPlayHandle(songInfo, seek, cb) {
-    var that = this
     wx.playBackgroundAudio({
       dataUrl: songInfo.src,
       title: songInfo.title,
@@ -183,7 +181,6 @@ App({
             position: seek
           })
         };
-        that.globalData.playing = true;
         cb && cb();
       },
       fail: function () {
