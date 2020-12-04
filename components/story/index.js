@@ -25,6 +25,10 @@ Component({
     countpic:{
       type: String,
       value: ''
+    },
+    shape: {
+      type: String,
+      value: 'square'
     }
   },
 
@@ -38,7 +42,9 @@ Component({
     // backgroundColor: app.sysInfo.backgroundColor
     mainColor: app.globalData.mainColor,
     src: [],
-    flag: 0
+    flag: 0,
+    width: '',
+    height: ''
   },
 
   /**
@@ -69,6 +75,25 @@ Component({
       this.setData({
         src: this.data.likePic[this.data.flag]
       })
+    }
+
+    // 封面形状
+    switch (this.data.shape) {
+      case 'square':
+        this.setData({
+          width: 41.8,
+          height: 41.8 
+        })
+        break;
+      case 'rect':
+        this.setData({
+          width: 35.07,
+          height: 46.27
+        })
+        break;
+    
+      default:
+        break;
     }
   }
 })

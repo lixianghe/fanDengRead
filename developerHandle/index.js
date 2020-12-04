@@ -34,6 +34,7 @@
  *   ]
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
+import { layout, layoutGroup } from '../utils/httpOpt/api'
 const app = getApp()
 
 module.exports = {
@@ -42,17 +43,18 @@ module.exports = {
     lalyLtn: {
       show: true,
       data: [{
-        icon: '/images/zjst.png',
-        title: "最近收听",
-        name: 'latelyListen',
-        islogin: false
-      },
-      {
-        icon: '/images/icon_collect.png',
-        title: "我喜欢的",
-        name: 'like',
-        islogin: true
-      }],
+          icon: '/images/zjst.png',
+          title: "最近收听",
+          name: 'latelyListen',
+          islogin: false
+        },
+        {
+          icon: '/images/icon_collect.png',
+          title: "我喜欢的",
+          name: 'like',
+          islogin: true
+        }
+      ],
     },
     // 开发者注入模板页面数据
     info: [],
@@ -61,16 +63,20 @@ module.exports = {
       show: true,
       data: [{
         "name": "推荐",
-        "id": 1
+        "id": 'suggest'
       }, {
-        "name": "精品",
-        "id": 2
+        "name": "近期新书",
+        "id": 'recentNewBooks'
       }, {
-        "name": "潮流",
-        "id": 3
+        "name": "免费体验",
+        "id": 'freeBooks'
       }]
     },
-
+    allData: {
+      suggest:[],
+      freeBooks: [],
+      recentNewBooks: []
+    },
     countPic: '/images/media_num.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
@@ -90,77 +96,79 @@ module.exports = {
   },
   onLoad(options) {
     // 初始化加载数据
-    this._getList('推荐')
+    this._getList()
   },
   onReady() {
 
   },
   selectTap(e) {
     const index = e.currentTarget.dataset.index
-    const name = e.currentTarget.dataset.name
+    const groupid = e.currentTarget.dataset.groupid
     this.setData({
       currentTap: index
     })
+    
+    // 这里可以自定义传值传到_getList中
+    // this._getList(groupid)
+    this.setData({
+      info: this.data.allData[groupid]
+    })
+  },
+
+  _getList() {
     wx.showLoading({
       title: '加载中',
     })
-    // 这里可以自定义传值传到_getList中
-    this._getList(name)
-  },
-  _getList(name) {
-    setTimeout(() => {
-      wx.hideLoading()
-      let data = [{
-        id: 958,
-        title: "内容标题1",
-        src: "https://cdn.kaishuhezi.com/kstory/ablum/image/389e9f12-0c12-4df3-a06e-62a83fd923ab_info_w=450&h=450.jpg",
-        contentType: "media",
-        count: 17,
-        isVip: true
-      },
-      {
-        id: 959,
-        title: "内容标题2",
-        src: "https://cdn.kaishuhezi.com/kstory/ablum/image/f20dda35-d945-4ce0-99fb-e59db62ac7c9_info_w=450&h=450.jpg",
-        contentType: "album",
-        count: 13,
-        isVip: true
-      },
-      {
-        id: 960,
-        title: "内容标题3",
-        src:  "https://cdn.kaishuhezi.com/kstory/ablum/image/7b0fe07a-e036-4d93-a8ab-bf6ad2b5a390_info_w=450&h=450.jpg",
-        contentType: "album",
-        count: 10,
-        isVip: true
-      },
-      {
-        id: 961,
-        title: "内容标题4",
-        src: "https://cdn.kaishuhezi.com/kstory/ablum/image/0816edeb-f8b0-4894-91ad-ab64e1b72549_info_w=450&h=450.jpg",
-        contentType: "album",
-        count: 19,
-        isVip: false
+    let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
+    Promise.all([layoutGroup().catch(err => console.log(err)), layout(params).catch(err => console.log(err))]).then(res => {
+      console.log(res)
+      let allData = {}
+        // 近期新书
+        let recentNewBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
 
-      },
+        // 免费体验
+        let freeBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
+
+        // 推荐  suggest
+        let suggest = res[1].data.map(v => {
+          let obj = {}
+          obj.id = v.fragmentId
+          obj.src = v.coverImage
+          obj.title = v.title,
+          obj.count = v.readCount
+          return obj
+        })
+
+        allData.recentNewBooks = recentNewBooks
+        allData.freeBooks = freeBooks
+        allData.suggest = suggest
+        console.log(allData.suggest)
+        this.setData({
+          allData: allData,
+          info: allData.suggest,
+          reqL: true
+        })
+        wx.hideLoading()
+    }).catch(err => {
+      console.log(err)
+    })
     
-      {
-        id: 962,
-        title: "内容标题1",
-        src: "https://cdn.kaishuhezi.com/kstory/story/image/2af5072c-8f22-4b5d-acc2-011084c699f8_info_w=750_h=750_s=670433.jpg",
-        contentType: "media",
-        count: 0,
-        isVip: false
-      }]
-      let info = data.map(item => {
-        item.title = `${name}-${item.title}`
-        return item
-      })
-      this.setData({
-        reqL: true,
-        info: info
-      })
-    }, 500)
+    // layoutGroup({}).then(res => {
+    // })
   },
   // 跳转到快捷入口页面
   tolatelyListen(e) {

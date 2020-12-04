@@ -3,7 +3,7 @@ import { request } from './https'
 // 分类
 const layoutGroupApi = '/resource-orchestration-system/bookPortal/v102/forApp'                         
 // 推荐
-const layoutApi = '/mini-orch/auth/carLoadMini/v100/suggest'   
+const layoutApi = '/mini-orch/carLoadMini/v100/suggest'   
 // 查询专辑故事
 const albumMediaApi = '/resource-orchestration-system/fragment/v101/content'                                                                               
 // 最近播放
