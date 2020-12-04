@@ -26,6 +26,9 @@
     })
  */
 const app = getApp()
+import {
+  history
+} from '../utils/httpOpt/api'
 
 module.exports = {
   data: {
@@ -34,18 +37,21 @@ module.exports = {
     countPic: '/images/media_num.png',
     // 开发者注入模板标签数据
     labels: {
-      show: true,
+      show: false,
       data: [{
-        name: '专辑',
-        value: 'album'
-      },
-      {
-        name: '故事',
-        value: 'media'
-      }]
+          name: '专辑',
+          value: 'album'
+        },
+        {
+          name: '故事',
+          value: 'media'
+        }
+      ]
     },
     // 开发者注入模板页面数据
-    info: []
+    info: [],
+    // 封面图片形状 rect矩形，square，正方形
+    shape: 'rect',
   },
   onShow() {
 
@@ -60,15 +66,10 @@ module.exports = {
   linkAbumInfo(e) {
     let id = e.currentTarget.dataset.id
     const src = e.currentTarget.dataset.src
-    const title = e.currentTarget.dataset.title
+    // const title = e.currentTarget.dataset.title
     wx.setStorageSync('img', src)
-    const routeType = e.currentTarget.dataset.contentype
-    let url
-    if (routeType === 'album') {
-      url = `../abumInfo/abumInfo?id=${id}&title=${title}`
-    } else if (routeType === 'media') {
-      url = `../playInfo/playInfo?id=${id}`
-    }
+    // const routeType = e.currentTarget.dataset.contentype
+    let url = `../playInfo/playInfo?id=${id}`
 
     wx.navigateTo({
       url: url
@@ -87,9 +88,17 @@ module.exports = {
     this._getList(name)
   },
   _getList(name) {
-    setTimeout(() => {
-      let info = []
+    wx.showLoading({
+      title: '加载中',
+    })
+
+    history().then(res => {
       wx.hideLoading()
+      console.log(res)
+    }).catch(err => {
+      wx.hideLoading()
+      console.log(err)
+      let info = []
       let data = [{
           id: 958,
           title: "内容标题1",
@@ -128,9 +137,8 @@ module.exports = {
           showModal: true
         })
       }
-    }, 500)
+    })
 
-    
   },
   close() {
     this.setData({
