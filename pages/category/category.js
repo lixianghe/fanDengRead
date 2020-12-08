@@ -63,9 +63,19 @@ Page({
     })
     let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
     layoutGroup(params).then((res) => {
-      let labels = []
+      let labels = [
+        {
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        }
+      ]
+      console.log(res)
       let allData = []
-      let data = res.categories
+      let data = [...res.recentNewBooks, ...res.freeBooks, ...res.categories]
+      console.log('data', data)
       for (let n of data) {
         labels.push({name: n.name, id: n.id})
         n.categoryBooks.map(v => {
