@@ -17,11 +17,37 @@ Page({
     songInfo: {},
     mainColor: btnConfig.colorOptions.mainColor
   },
+  // login () {
+  //   wx.login({
+  //     success(res) {
+  //       console.log('微信code: '+JSON.stringify(res.code))
+  //       wx.getSystemInfo({
+  //         success(dev) {
+  //           console.log('型号'+JSON.stringify(dev))
+  //         },
+  //         fail() {
 
-  // 测试用清除最近收听数据
-  clearStorage() {
-    wx.setStorageSync('indexData', null)
-  },
+  //         }
+  //       })
+  //       wx.getUserInfo({
+  //         success(user) {
+  //           console.log(user)
+  //           console.log('rawData: '+JSON.stringify(user.rawData))
+  //           console.log('encryptedData: '+JSON.stringify(user.encryptedData))
+  //           console.log('iv: '+JSON.stringify(user.iv))
+  //           console.log('signature: '+JSON.stringify(user.signature))
+  //           console.log('getUserInfo全部信息: '+JSON.stringify(user))
+  //         },
+  //         fail(fail) {
+  //           console.log(fail)
+  //         }
+  //       })
+  //     },
+  //     fail(err) {
+  //       console.log(err)
+  //     }
+  //   })
+  // },
   onLoad(options) {
   },
   onShow() {

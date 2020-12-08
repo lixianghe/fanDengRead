@@ -42,6 +42,7 @@ module.exports = {
     // 开发者注入快捷入口数据
     lalyLtn: {
       show: true,
+      containLogin: true,
       data: [{
           icon: '/images/zjst.png',
           title: "最近播放",
@@ -50,7 +51,7 @@ module.exports = {
         },
         {
           icon: '/images/icon_collect.png',
-          title: "我喜欢的",
+          title: "我的收藏",
           name: 'like',
           islogin: true
         }
@@ -60,7 +61,7 @@ module.exports = {
     info: [],
     // 开发者注入模板标签数据
     labels: {
-      show: true,
+      show: false,
       data: [{
         "name": "推荐",
         "id": 'suggest'
@@ -72,8 +73,29 @@ module.exports = {
         "id": 'freeBooks'
       }]
     },
+    // 模态框组件
+    bgConfirm: {
+      title: '立即续费',
+      content: '一年VIP，价格365元，持续每周更新一本书籍，继续伴你成长。',
+      background: 'url("/images/asset/bg_popup.png")',
+      color: '#fff',
+      button: [
+        {
+          bgColor: app.globalData.mainColor,
+          color: '#1f1f1f',
+          btnName: '续费',
+          btnType: 'confirm'
+        }, {
+          bgColor: '#49494B',
+          color: '#E6E6E6',
+          btnName: '取消',
+          btnType: 'cancle'
+        }
+      ]
+    },
+    bgShow: false,
     allData: {
-      suggest:[],
+      suggest: [],
       freeBooks: [],
       recentNewBooks: []
     },
@@ -104,6 +126,17 @@ module.exports = {
   onReady() {
 
   },
+  // 模态框回调函数
+  btnCallback(opt){
+    if(opt.detail.type === 'confirm') {
+
+    } else if (opt.detail.type === 'cancle') {
+      this.setData({
+        bgShow: false
+      })
+    }
+  },
+
   selectTap(e) {
     const index = e.currentTarget.dataset.index
     const groupid = e.currentTarget.dataset.groupid
@@ -122,53 +155,72 @@ module.exports = {
     wx.showLoading({
       title: '加载中',
     })
-    let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
-    Promise.all([layoutGroup().catch(err => console.log(err)), layout(params).catch(err => console.log(err))]).then(res => {
-      console.log(res)
-      let allData = {}
-        // 近期新书
-        let recentNewBooks = res[0].recentNewBooks.categoryBooks.map(v => {
-          let obj = {}
-          obj.id = v.fragmentId
-          obj.src = v.coverImage
-          obj.title = v.title,
-          obj.count = v.readCount
-          return obj
-        })
-
-        // 免费体验
-        let freeBooks = res[0].freeBooks.map(v => {
-          let obj = {}
-          obj.id = v.fragmentId
-          obj.src = v.coverImage
-          obj.title = v.title,
-          obj.count = v.readCount
-          return obj
-        })
-
-        // 推荐  suggest
-        let suggest = res[1].data.map(v => {
-          let obj = {}
-          obj.id = v.fragmentId
-          obj.src = v.coverImage
-          obj.title = v.title,
-          obj.count = v.readCount
-          return obj
-        })
-
-        allData.recentNewBooks = recentNewBooks
-        allData.freeBooks = freeBooks
-        allData.suggest = suggest
-        console.log(allData.suggest)
-        this.setData({
-          allData: allData,
-          info: allData.suggest,
-          reqL: true
-        })
-        wx.hideLoading()
+    layout({}).then(res => {
+      // 推荐  suggest
+      let suggest = res.data.map(v => {
+        let obj = {}
+        obj.id = v.fragmentId
+        obj.src = v.coverImage
+        obj.title = v.title,
+        obj.count = v.readCount
+        return obj
+      })
+      this.setData({
+        info: suggest,
+        reqL: true
+      })
+      wx.hideLoading()
     }).catch(err => {
       console.log(err)
+      wx.hideLoading()
     })
+    // Promise.all([layoutGroup().catch(err => console.log(err)), layout({}).catch(err => console.log(err))]).then(res => {
+    //   console.log(res)
+    //   let allData = {}
+    //     // 近期新书
+    //     let recentNewBooks = res[0].recentNewBooks.categoryBooks.map(v => {
+    //       let obj = {}
+    //       obj.id = v.fragmentId
+    //       obj.src = v.coverImage
+    //       obj.title = v.title,
+    //       obj.count = v.readCount
+    //       return obj
+    //     })
+
+    //     // 免费体验
+    //     let freeBooks = res[0].freeBooks.map(v => {
+    //       let obj = {}
+    //       obj.id = v.fragmentId
+    //       obj.src = v.coverImage
+    //       obj.title = v.title,
+    //       obj.count = v.readCount
+    //       return obj
+    //     })
+
+    //     // 推荐  suggest
+    //     let suggest = res[1].data.map(v => {
+    //       let obj = {}
+    //       obj.id = v.fragmentId
+    //       obj.src = v.coverImage
+    //       obj.title = v.title,
+    //       obj.count = v.readCount
+    //       return obj
+    //     })
+
+    //     allData.recentNewBooks = recentNewBooks
+    //     allData.freeBooks = freeBooks
+    //     allData.suggest = suggest
+    //     console.log(allData.suggest)
+    //     this.setData({
+    //       allData: allData,
+    //       info: allData.suggest,
+    //       reqL: true
+    //     })
+    //     wx.hideLoading()
+    // }).catch(err => {
+    //   console.log(err)
+    //   wx.hideLoading()
+    // })
     
     // layoutGroup({}).then(res => {
     // })

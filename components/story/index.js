@@ -80,6 +80,7 @@ Component({
     // 封面形状
     switch (this.data.shape) {
       case 'square':
+        
         this.setData({
           width: 41.8,
           height: 41.8 

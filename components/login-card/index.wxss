@@ -1,0 +1,6 @@
+.loginCard {
+  width: 43.65vh;
+  display: inline-block;
+  height: 68.6vh;
+  overflow: hidden;
+}

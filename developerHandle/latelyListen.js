@@ -91,43 +91,16 @@ module.exports = {
     wx.showLoading({
       title: '加载中',
     })
-
-    history().then(res => {
-      wx.hideLoading()
-      console.log(res)
-    }).catch(err => {
-      wx.hideLoading()
-      console.log(err)
-      let info = []
-      let data = [{
-          id: 958,
-          title: "内容标题1",
-          src: "https://cdn.kaishuhezi.com/kstory/ablum/image/389e9f12-0c12-4df3-a06e-62a83fd923ab_info_w=450&h=450.jpg",
-          contentType: "album",
-          count: 17,
-          isVip: true
-        },
-        {
-          id: 959,
-          title: "内容标题2",
-          src: "https://cdn.kaishuhezi.com/kstory/ablum/image/f20dda35-d945-4ce0-99fb-e59db62ac7c9_info_w=450&h=450.jpg",
-          contentType: "album",
-          count: 13,
-          isVip: true
-        },
-        {
-          id: 962,
-          title: "内容标题1",
-          src: "https://cdn.kaishuhezi.com/kstory/story/image/2af5072c-8f22-4b5d-acc2-011084c699f8_info_w=750_h=750_s=670433.jpg",
-          contentType: "media",
-          count: 0,
-          isVip: false
-        }
-      ]
-      info = data.map(item => {
-        item.title = `${name}-${item.title}`
-        return item
+    let params = {token: '20201208J5wfgHL8ktarM2RLYGj', pageSize: 20}
+    history(params).then(res => {
+      let info = res.data.playRecords.map(v => {
+        let obj = {}
+        obj.id = v.fragmentId ? v.fragmentId : ''
+        obj.src = v.iconUrl ? v.iconUrl : ''
+        obj.title = v.bookTitle ? v.bookTitle : ''
+        return obj
       })
+
       this.setData({
         req: true,
         info: info
@@ -137,6 +110,12 @@ module.exports = {
           showModal: true
         })
       }
+
+      wx.hideLoading()
+      console.log(res)
+    }).catch(err => {
+      wx.hideLoading()
+      console.log(err)
     })
 
   },

@@ -31,6 +31,7 @@
 .h .mianContent {
   display: inline-block;
   vertical-align: top;
+  margin-top: 3vh;
 }
 .h .albumCard {
   width: 41.81vh;

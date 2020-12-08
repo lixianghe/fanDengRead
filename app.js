@@ -5,7 +5,10 @@ require('./utils/minixs')
 
 App({
   globalData: {
-    appName: 'kaishustory',
+    // 登录状态
+    isLogin: false,
+    isVip: false,
+    appName: 'fandengbook',
     // 屏幕类型
     screen: '',
     mainColor: btnConfig.colorOptions.mainColor,
@@ -24,6 +27,7 @@ App({
     useCarPlay: wx.canIUse('backgroundAudioManager.onUpdateAudio'),
     PIbigScreen: null
   },
+  
   // 小程序颜色主题
   sysInfo: {
     colorStyle: 'dark',

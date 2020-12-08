@@ -1,23 +1,32 @@
 <view class="{{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;">
   <view class="personalCenter">
-    <!-- 登录部分 -->
-    <view class="mine">
-      <view class="adminCenter" wx:if="{{isLogin}}">
-        <image class="image" src="{{userInfo.avatar}}"></image>
-        <view class="adminCenterName">
-          <text>{{userInfo.nickname}}</text>
-        </view>
-
-        <view class="adminBtnIn" bindtap="logoutTap" data-state="out">退出登录</view>
-      </view>
-
+    <view class="mine" style="background: url('/images/asset/bg_mecard.png');">
+    <!-- 未登录部分 -->
       <view class="adminCenter" wx:if="{{!isLogin}}">
-        <view class="adminCenterZwdl">暂未登录</view>
-        <view class="adminCenterDetail">请登录后查看详情</view>
-        <view class="adminBtnOut" bindtap="loginIn" data-state="login" style="background-color: {{mainColor}}"
-          wx:if="{{showWxLogin}}">立即登录</view>
-        <button class="adminBtnOut" style="background-color: {{mainColor}}"
-         bindtap="getUserInfo" wx:if="{{!showWxLogin}}">用户授权</button>
+        <image class="image" src="{{userInfo.avatar}}"></image>
+        <view class="adminCenterName">{{userInfo.nickname}}</view>
+        <view class="viptime">登录收听更多经典书籍讲解 ></view>
+        <view class="adminBtnIn" bindtap="login">立即登录</view>
+      </view>
+      <!-- 登录非会员部分 -->
+      <view class="adminCenter" wx:if="{{isLogin && !isVip}}">
+        <image class="image" src="{{userInfo.avatar}}"></image>
+        <view class="adminCenterName">{{userInfo.nickname}}</view>
+        <view class="viptime" style="color: #FF4C4C">会员畅听300+经典好书 ></view>
+        <view class="buttomBox">
+          <view class="adminBtno openVip" bindtap="openVip">开通VIP</view>
+          <view class="adminBtno logout" bindtap="logout">退出登录</view>
+        </view>
+      </view>
+      <!-- 登录是会员部分 -->
+      <view class="adminCenter" wx:if="{{isLogin && isVip}}">
+        <image class="image" src="{{userInfo.avatar}}"></image>
+        <view class="adminCenterName">用户昵称</view>
+        <view class="viptime">{{userInfo.vipEndTime}}樊登讲书VIP到期 ></view>
+        <view class="buttomBox">
+          <view class="adminBtno openVip" bindtap="renewalVip" wx:if="{{userInfo.vipState === 1}}">立即续费</view>
+          <view class="adminBtno logout" bindtap="logout">退出登录</view>
+        </view>
       </view>
     </view>
 
