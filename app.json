@@ -2,10 +2,8 @@
   "pages": [
    
     "pages/index/index", 
-    "pages/test/test", 
-    
-    
     "pages/personalCenter/personalCenter",
+    "pages/test/test", 
     "pages/like/like",
     "pages/abumInfo/abumInfo",
     "pages/playInfo/playInfo",
@@ -61,7 +59,8 @@
     "selectWorks": "/components/selectWorks/index",
     "bgConfirm": "/components/bgConfirm/index",
     "no-data": "/components/noData/index",
-    "no-network": "/components/noNetwork/index"
+    "no-network": "/components/noNetwork/index",
+    "login-card": "/components/login-card/index"
   },
   "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap.json"

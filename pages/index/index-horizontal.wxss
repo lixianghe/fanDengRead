@@ -58,7 +58,7 @@
   margin-right: 7.6vh;
   height: 68.6vh;
   overflow: hidden;
-  margin-top: 14.7vh;
+  margin-top: 7.7vh;
 }
 .h .imgB {
   width: 41.81vh;

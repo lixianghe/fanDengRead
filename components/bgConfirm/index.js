@@ -2,49 +2,40 @@ const app = getApp()
 
 Component({
   properties: {
-    msg: String,
-    confirm: String,
-    cancel: String
+    bgconfirm: Object
   },
   data: {
-    isBgContent: false,
-    contentName: '',
-    handleCallback: null
+    data: {
+      title: '模态框标题',
+      content: '模态框内容模态框内容模态框内容',
+      background: 'rgba(0,0,0,0.6)',
+      color: '#fff',
+      button: [
+        {
+          bgColor: app.globalData.mainColor,
+          color: '#1f1f1f',
+          btnName: '确定'
+        }, {
+          bgColor: '#49494B',
+          color: '#E6E6E6',
+          btnName: '取消'
+        }
+      ]
+    },
   },
   methods: {
-    closeBgConfirm () {
-      this.setData({
-        isBgContent: false,
-        contentName: ''
-      })
+    handle(e) {
+      let type = e.currentTarget.dataset
+      this.triggerEvent('callback', type);
     },
-    hideShow(val, name, callback) {
-      this.setData({
-        isBgContent: val,
-        contentName: name,
-        handleCallback: callback
-      })
-
-      if (name === 'login') {
-        this.login()
-      }
-    },
-    login () {
-      // 模拟扫码后登录成功
-      setTimeout(() => {
-        // 执行登录
-        this.data.handleCallback()
-        this.setData({
-          isBgContent: false
-        })
-      }, 1000)
-    },
-    loginOut () {
-      this.data.handleCallback()
-      this.closeBgConfirm()
-    }
+ 
   },
   attached(options) {
-
+    if(this.data.bgconfirm) {
+      console.log(this.data.bgconfirm)
+      this.setData({
+        data: this.data.bgconfirm
+      })
+    }
   }
 })

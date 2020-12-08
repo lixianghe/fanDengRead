@@ -23,31 +23,26 @@ const app = getApp()
 
 module.exports = {
   data: {
-    // 是否登录
-    isLogin: false,
-    showWxLogin: true,
     // 开发者注入模板用户信息
     userInfo: {
-      avatar: '',
-      nickname: '用户',
+      avatar: '/images/asset/mine_no_login.png',
+      nickname: '未登录',
+      vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
+      vipEndTime: ''
     },
+    // 登录标志
+    isLogin: app.globalData.isLogin,
+    // vip标志
+    isVip: app.globalData.isVip,
     // 开发者注入模板其他入口
     data: [{
-      method: 'order',
-      icon: '/images/my_buy.png',
-      title: '开通/续费会员'
+      method: 'latelyListen',
+      icon: '/images/asset/icon_history_me.png',
+      title: '最近播放' 
     }, {
       method: 'like',
-      icon: '/images/mine_like.png',
-      title: '我喜欢的' 
-    }, {
-      method: 'latelyListen',
-      icon: '/images/latelyListen.png',
-      title: '最近收听' 
-    }, {
-      method: 'myBuy',
-      icon: '/images/vip.png',
-      title: '我购买的'
+      icon: '/images/asset/icon_collect_me.png',
+      title: '我的收藏' 
     }]
   },
   onShow() {
@@ -62,13 +57,10 @@ module.exports = {
   /**
    * 登录
    */
-  loginIn(event) {
-
+  login(event) {
     wx.login({
       success: (loginRes) => {
-        this.setData({
-          showWxLogin: false
-        })
+        this.getUserInfo()
       },
       fail: (err) => {
         console.log('扫码失败', JSON.stringify(err))
@@ -82,51 +74,68 @@ module.exports = {
     const that = this
     wx.getUserInfo({
       success: res => {
+        // 测试用vip字段
+        let vip = 0
+        let vipEndTime = '2020.12.21'
+
         let obj = {
           nickname: res.userInfo.nickName,
-          avatar: res.userInfo.avatarUrl
+          avatar: res.userInfo.avatarUrl,
+          vipState: vip,
+          vipEndTime: vipEndTime
         }
-        console.log(res.userInfo)
         console.log(obj)
+
         that.setData({
           userInfo: obj,
-          isLogin: true
+          isLogin: true,
+          isVip: (vip === 0) ? false : true
         })
+
+        app.globalData.isVip = (vip === 0) ? false : true
+        app.globalData.isLogin = true
       },
       fail: err => {
         console.log('error !'+err)
-      },
-      complete: com => {
-        console.log('complete!'+com)
       }
     })
   },
 
-  logoutTap(){
+  logout(){
     let obj = {
-      nickname: '',
-      avatar: ''
+      avatar: '/images/asset/mine_no_login.png',
+      nickname: '未登录',
+      vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
+      vipEndTime: ''
     }
     this.setData({
       userInfo: obj,
-      isLogin: false
+      isLogin: false,
+      isVip: false
     })
+    app.globalData.isVip = false
+    app.globalData.isLogin = false
   },
-
-  order() {
-    if (!app.userInfo || !app.userInfo.token) {
+  // 开通VIP
+  openVip () {
+    console.log('开通VIP')
+  },
+  // 立即续费
+  renewalVip () {
+    console.log('立即续费')
+  },
+  like() {
+    if (!app.isLogin) {
       wx.showToast({ icon: 'none', title: '请登录后进行操作' })
       return;
     }
-    wx.navigateTo({ url: '../member/member' })
-  },
-  like() {
     wx.navigateTo({ url: '../like/like' })
   },
   latelyListen() {
+    if (!app.isLogin) {
+      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+      return;
+    }
     wx.navigateTo({ url: '../latelyListen/latelyListen' })
-  },
-  myBuy() {
-    wx.navigateTo({ url: '../myBuy/myBuy' })
-  },
+  }
 }
