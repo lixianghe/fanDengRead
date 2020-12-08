@@ -46,7 +46,7 @@ module.exports = {
   onLoad(options) {
     const app = getApp()
     // 拿到歌曲的id: options.id
-    let getInfoParams = {mediaId: options.id || app.globalData.songInfo.id, contentType: 'story'}
+    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
     this.getMedia(getInfoParams).then(() => {
       console.log('play')
       this.play() 
@@ -55,7 +55,7 @@ module.exports = {
   async getMedia(params, that = this) {  
     const app = getApp()
     // 模拟请求数据    
-    let data = (await albumMedia({fragmentId: 1686})).data
+    let data = (await albumMedia(params)).data
     let songInfo = {}
     songInfo.src = data.mediaUrls[0]                                  // 音频地址
     songInfo.title = data.title                                       // 音频名称
