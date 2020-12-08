@@ -74,10 +74,13 @@ Page({
       ]
       console.log(res)
       let allData = []
-      let data = [...res.recentNewBooks, ...res.freeBooks, ...res.categories]
+      res.freeBooks = {categoryBooks: res.freeBooks}
+      let data = [res.recentNewBooks, res.freeBooks, ...res.categories]
       console.log('data', data)
-      for (let n of data) {
+      for (let n of res.categories) {
         labels.push({name: n.name, id: n.id})
+      }
+      for (let n of data) {
         n.categoryBooks.map(v => {
           v.id = v.fragmentId
           v.src = v.coverImage
