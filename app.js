@@ -19,7 +19,7 @@ App({
     globalStop: true,
     currentPosition: 0,
     canplay: [],
-    currentList: [],
+    currentData: [],
     loopType: 'listLoop', // 默认列表循环
     useCarPlay: wx.canIUse('backgroundAudioManager.onUpdateAudio'),
     PIbigScreen: null
@@ -62,9 +62,10 @@ App({
         }
       })
     });
+    wx.setStorageSync('playing', false)
     if (wx.canIUse('getShareData')) {
       wx.getShareData({
-        name: this.globalData.appName,
+        name: that.globalData.appName,
         success: (res) => {
           let playing = res.data.playStatus
           wx.setStorageSync('playing', playing)
@@ -75,7 +76,6 @@ App({
     if (wx.canIUse('getPlayInfoSync')) {
       let res = wx.getPlayInfoSync()
     }
-
   },
   vision: '1.0.0',
   cutplay: async function (that, type, cutFlag) {
@@ -187,7 +187,22 @@ App({
       }
     })
   },
-
+  // 获取网络信息，给出相应操作
+  getNetWork(that) {
+    // 监听网络状态
+    let pages = getCurrentPages()
+    let currentPage = pages[pages.length - 1]
+    wx.onNetworkStatusChange(res => {
+      const networkType = res.isConnected
+      if (!networkType) {
+        that.setData({showNonet: true})
+        wx.hideLoading()
+      } else {
+        that.setData({showNonet: false})
+        currentPage.onLoad(currentPage.options)
+      }
+    })
+  },
   // 根据分辨率判断显示哪种样式
   setStyle() {
     // 判断分辨率的比列

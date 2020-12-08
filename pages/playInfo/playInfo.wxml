@@ -46,7 +46,14 @@
 
       <text class="duration" wx:if="{{percentBar}}">{{songInfo.dt}}</text>
       <view class="btns">
-        <view wx:for="{{playInfoBtns.length ? playInfoBtns : defaultBtns}}" wx:key="index" bindtouchstart="btnstart" bindtouchend="btend" data-index="{{index}}">
+        <view
+          wx:for="{{playInfoBtns.length ? playInfoBtns : defaultBtns}}"
+          wx:key="index"
+          bindtouchstart="btnstart"
+          bindtouchend="btend"
+          data-index="{{index}}"
+          style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh"
+          >
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
           <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->
@@ -58,17 +65,33 @@
     </view>
   </view>
   <view class="playRight">
-    <image class="rightImg" bindload="imgOnLoad" style="display:{{showImg ? 'block' : 'none'}}" src="{{songInfo.coverImgUrl}}" />
-    <view class="image" wx:if="{{!showImg}}"></view>
+    <image class="rightImg"
+      bindload="imgOnLoad"
+      style="display:{{showImg ? 'block' : 'none'}};width: {{shape === 'rect' ? '46.9vh' : '18.65vw'}};height: {{shape === 'rect' ? '62.15vh' : '18.65vw'}}"
+      src="{{songInfo.coverImgUrl}}" />
+    <view 
+      class="image"
+      wx:if="{{!showImg}}"
+      style="width: {{shape === 'rect' ? '46.9vh' : '18.65vw'}};height: {{shape === 'rect' ? '62.15vh' : '18.65vw'}}"
+      ></view>
   </view>
 </view>
 <!-- 高于1/2的分辨率 -->
 <view class="page {{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;" wx:else>
   <view class="playLeft songDc">
     <view class="songDcTitle">
-      <image bindload="imgOnLoad" style="display:{{showImg ? 'block' : 'none'}}" src="{{songInfo.coverImgUrl}}" />
+      <image
+        bindload="imgOnLoad"
+        style="display:{{showImg ? 'block' : 'none'}}"
+        src="{{songInfo.coverImgUrl}}"
+        style="width: {{shape === 'rect' ? '17.3vh' : '23vh'}};height: {{shape === 'rect' ? '23vh' : '23vh'}}"
+        />
 
-      <view class="image" wx:if="{{!showImg}}"></view>
+      <view
+        class="image"
+        wx:if="{{!showImg}}"
+        style="width: {{shape === 'rect' ? '17.3vh' : '23vh'}};height: {{shape === 'rect' ? '23vh' : '23vh'}}"
+        ></view>
 
 
       <view class="title" wx:if="{{songInfo.title}}">
@@ -101,7 +124,13 @@
 
       <text class="duration" wx:if="{{percentBar}}">{{songInfo.dt}}</text>
       <view class="btns">
-        <view wx:for="{{playInfoBtns.length ? playInfoBtns : defaultBtns}}" wx:key="index" bindtouchstart="btnstart" bindtouchend="btend" data-index="{{index}}">
+        <view
+          wx:for="{{playInfoBtns.length ? playInfoBtns : defaultBtns}}"
+          wx:key="index"
+          bindtouchstart="btnstart"
+          bindtouchend="btend"
+          data-index="{{index}}"
+          style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh">
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
           <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->

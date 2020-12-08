@@ -3,7 +3,7 @@ const app = getApp()
 
 Page({
   data: {
-    noDataImg: ''
+
   },
   audioManager: null,
   ctx: null,

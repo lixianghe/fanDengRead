@@ -1,13 +1,16 @@
 {
   "pages": [
+   
     "pages/index/index", 
     "pages/test/test", 
+    
+    
     "pages/personalCenter/personalCenter",
     "pages/like/like",
     "pages/abumInfo/abumInfo",
     "pages/playInfo/playInfo",
     "pages/latelyListen/latelyListen",
-    "pages/search/search",
+    "pages/category/category",
     "pages/member/pay",
     "pages/member/member",
     "pages/myBuy/myBuy"
@@ -39,9 +42,9 @@
     },
     {
       "index": 1, 
-      "pagePath": "pages/search/search",
-      "iconPath": "images/search.png",
-      "selectedIconPath": "images/searched.png",
+      "pagePath": "pages/category/category",
+      "iconPath": "images/asset/icon_classification_n.png",
+      "selectedIconPath": "images/asset/icon_classification_s.png",
       "text": "分类"
     },
     {

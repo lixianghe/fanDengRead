@@ -68,8 +68,8 @@
   display: flex;
 }
 .playing-status .btns .image {
-  width: 20vh;
-  height: 14vh;
+  width: 10vh;
+  height: 10vh;
   vertical-align: middle;
 }
 .playing-status .btns .pic {
@@ -79,7 +79,7 @@
 }
 .playing-status .btns .view{
   display: flex;
-  margin-right: 6.67vh;
+  margin-right: 13.84vh;
   align-items: center;
   position: relative;
   
@@ -96,8 +96,8 @@
 
 
 .playing-status .btns .modal {
-  width: 20vh;
-  height: 14vh;
+  width: 10vh;
+  height: 10vh;
   border-radius: 7.5vh;
   background: #111111;
   opacity: 0.32;

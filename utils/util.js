@@ -22,24 +22,35 @@ function formatToSend(dt) {
 
 //音乐播放监听
 function playAlrc(that, app) {
-  var time = 0, playtime = 0;
-  app.audioManager.onTimeUpdate((res) => {
-    time = app.audioManager.currentTime / app.audioManager.duration * 100
-    playtime = app.audioManager.currentTime
-    app.globalData.percent = time
-    app.globalData.currentPosition = app.audioManager.currentTime
-    if (!that.data.isDrag) {
+  wx.getBackgroundAudioPlayerState({
+    complete: function (res) {
+      var time = 0, playing = false, playtime = 0;
+      // 1是正常播放，2是异常
+      if (res.status != 2) {
+        time = res.currentPosition / res.duration * 100 || 0
+        playtime = res.currentPosition;
+      }
+      if (res.status == 1) {
+        playing = true;
+        wx.hideLoading()
+      }
+      app.globalData.playing = playing;
+      app.globalData.percent = time
+      app.globalData.currentPosition = playtime
+      if (that.data.isDrag) return
       that.setData({
         playtime: playtime ? formatduration(playtime * 1000) : '00:00',
-        percent: time || 0
+        percent: time || 0,
+        playing: playing
       })
-      setTimeout(()=> {
-        wx.hideLoading()
-      }, 1000)
+      wx.setStorage({
+        key: "playing",
+        data: playing
+      })
+      // 设置abumInfo页面的播放状态用来控制gif是否展示
+      that.triggerEvent('setPlaying', playing)
     }
-    // 设置abumInfo页面的播放状态用来控制gif是否展示
-    that.triggerEvent('setPlaying', true)
-  })
+  });
 };
 
 

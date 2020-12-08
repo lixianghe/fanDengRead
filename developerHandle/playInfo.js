@@ -21,32 +21,43 @@ module.exports = {
     showModal: false,               // 控制弹框
     content: '该内容为会员付费内容，您需要先成为会员后再购买此内容就可以收听精品内容啦',
     // 播放详情页面按钮配置
+    pictureWidth: 90,
+    pictureHeight: 90,
     playInfoBtns: [
       {
         name: 'pre',                                             
-        img: '/images/pre2.png',                                 
+        img: '/images/asset/icon_last_song_big.png',                                 
       },
       {
         name: 'toggle',                                          
         img: {
-          stopUrl: '/images/stop2.png' ,                         
-          playUrl: '/images/play2.png'                           
+          stopUrl: '/images/asset/icon_pause_big.png' ,                         
+          playUrl: '/images/asset/icon_play_big.png'                           
         }
       },
       {
         name: 'next',                                            
-        img: '/images/next2.png'                                 
+        img: '/images/asset/icon_next_song_big.png'                                 
+      },
+      {
+        name: 'like',                                                       // 收藏
+        img: {
+          noLike: '/images/asset/icon_collect_big.png' ,                    // 未收藏的图标
+          liked: '/images/asset/icon_collected_big.png'                     // 已收藏的图标
+        }
       },
       {
         name: 'more',                                             
-        img: '/images/more2.png'                                  
+        img: '/images/asset/icon_play_list_big.png'                                  
       }
-    ]
+    ],
+    // 封面图片形状 rect矩形，square，正方形
+    shape: 'rect'
   },
   onLoad(options) {
     const app = getApp()
     // 拿到歌曲的id: options.id
-    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
+    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id, token: '20201204UhTVfhO8sfdvTLYs2rV'}
     this.getMedia(getInfoParams).then(() => {
       console.log('play')
       this.play() 
