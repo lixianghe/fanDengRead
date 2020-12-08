@@ -58,7 +58,7 @@
   margin-right: 7.6vh;
   height: 68.6vh;
   overflow: hidden;
-  margin-top: 7.7vh;
+  margin-top: 1.7vh;
 }
 .h .imgB {
   width: 41.81vh;
@@ -105,7 +105,7 @@
   position: absolute;
 }
 .storyBox {
-  margin-top: 5.89vh;
+  /* margin-top: 5.89vh; */
   margin-left: 6.12vh;
 }
 .label-box {

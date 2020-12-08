@@ -20,12 +20,11 @@ const albumFavoriteCancelApi = '/resource-orchestration-system/fragment/v101/unf
 const isAlbumFavoriteApi = '/open/album/favorite/exist'               
 // 获取个人信息
 const userInfoApi = '/user-orchestration/user/api/v101/userInfo' 
-
-
-
-
 // 微信授权
-const authApi = '/open/user/auth'                                                                      
+const validationAuthorizeApi = 'mini-orch/auth/carLoadMini/v100/validationAuthorize'
+      
+
+
 // 微信登录
 const loginWxApi = '/open/user/wechat/login'                                                    
 // 开通会员
@@ -47,7 +46,7 @@ export const albumFavoriteAdd = (data) => request(albumFavoriteAddApi, data)
 export const albumFavoriteCancel = (data) => request(albumFavoriteCancelApi, data)
 export const isAlbumFavorite = (data) => request(isAlbumFavoriteApi, data)
 export const albumMedia = (data) => request(albumMediaApi, data)
-export const auth = (data) => request(authApi, data)
+export const validationAuthorize = (data) => request(validationAuthorizeApi, data)
 export const loginWx = (data) => request(loginWxApi, data)
 export const vipList = (data) => request(vipListApi, data)
 export const signature = (data) => request(signatureApi, data)

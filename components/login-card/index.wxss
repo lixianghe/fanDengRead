@@ -1,6 +1,48 @@
 .loginCard {
-  width: 43.65vh;
+  width: 84.83vh;
   display: inline-block;
-  height: 68.6vh;
+  height: 68.35vh;
   overflow: hidden;
+  margin-left: 6.6vh;
+}
+.loginVip {
+  width: 84.83vh;
+  height: 46.77vh;
+  border-radius: 2vh;
+}
+.clatelyLtnbox {
+  height: 16vh;
+  width: 84.83vh;
+  display: flex;
+  justify-content: space-between;
+}
+.clatelyLtnBtn {
+  height: 16vh;
+  line-height: 16vh;
+  width: 38.15vh;
+  background-color: #353537;
+  text-align: center;
+  font-size: 6.76vh;
+  border-radius: 2vh;
+  color: #fff;
+  margin-top: 4.83vh;
+}
+.adminBtnIn {
+  margin-top: 17vh;
+  margin-left: 50vh;
+  font-size: 4.9vh;
+  width: 28.9vh;
+  height: 11.1vh;
+  line-height: 11.1vh;
+  color: #e8e8e8;
+  background: #282829;
+  border-radius: 5.5vh;
+  text-align: center;
+}
+.viptime {
+  color: #1f1f1f;
+  font-size: 5.53vh;
+  position: relative;
+  top: 6.15vh;
+  margin-left: 4.61vh;
 }

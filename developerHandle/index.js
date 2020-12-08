@@ -152,9 +152,9 @@ module.exports = {
   },
 
   _getList() {
-    wx.showLoading({
-      title: '加载中',
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     layout({}).then(res => {
       // 推荐  suggest
       let suggest = res.data.map(v => {
@@ -166,12 +166,21 @@ module.exports = {
         return obj
       })
       this.setData({
-        info: suggest,
+        // info: suggest,
+        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
         reqL: true
       })
       wx.hideLoading()
     }).catch(err => {
       console.log(err)
+      this.setData({
+        // info: suggest,
+        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
+        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
+        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
+        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
+        reqL: true
+      })
       wx.hideLoading()
     })
     // Promise.all([layoutGroup().catch(err => console.log(err)), layout({}).catch(err => console.log(err))]).then(res => {

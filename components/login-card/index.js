@@ -13,11 +13,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    // // 系统配色
-    // colorStyle: app.sysInfo.colorStyle,
-    // // 系统背景色
-    // backgroundColor: app.sysInfo.backgroundColor
     mainColor: app.globalData.mainColor,
+    background: 'url("/images/asset/bg_login card.png")'
   },
 
   /**

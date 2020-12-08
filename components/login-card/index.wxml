@@ -1,3 +1,10 @@
 <view class="loginCard">
-  123123123123
+  <view class='loginVip' style="background: {{background}}">
+    <view class="viptime">登录收听更多经典书籍讲解 </view>
+    <view class="adminBtnIn" bindtap="login">立即登录</view>
+  </view>
+  <view class="clatelyLtnbox">
+    <view class="clatelyLtnBtn">最近播放</view>
+    <view class="clatelyLtnBtn">我的收藏</view>
+  </view>
 </view>

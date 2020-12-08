@@ -19,7 +19,7 @@
  *  其他入口，配置入口点击事件方法名，入口图标，入口名称；入口数量开发者根据项目需要配置
  */
 const app = getApp()
-
+import {validationAuthorize} from '../utils/httpOpt/api'
 
 module.exports = {
   data: {
@@ -57,19 +57,19 @@ module.exports = {
   /**
    * 登录
    */
-  login(event) {
-    wx.login({
-      success: (loginRes) => {
-        this.getUserInfo()
-      },
-      fail: (err) => {
-        console.log('扫码失败', JSON.stringify(err))
-      },
-      complete: (res) => {
+  // login(event) {
+  //   wx.login({
+  //     success: (loginRes) => {
+  //       this.getUserInfo()
+  //     },
+  //     fail: (err) => {
+  //       console.log('扫码失败', JSON.stringify(err))
+  //     },
+  //     complete: (res) => {
 
-      }
-    })
-  },
+  //     }
+  //   })
+  // },
   getUserInfo() {
     const that = this
     wx.getUserInfo({
@@ -125,17 +125,17 @@ module.exports = {
     console.log('立即续费')
   },
   like() {
-    if (!app.isLogin) {
-      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
-      return;
-    }
+    // if (!app.isLogin) {
+    //   wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+    //   return;
+    // }
     wx.navigateTo({ url: '../like/like' })
   },
   latelyListen() {
-    if (!app.isLogin) {
-      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
-      return;
-    }
+    // if (!app.isLogin) {
+    //   wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+    //   return;
+    // }
     wx.navigateTo({ url: '../latelyListen/latelyListen' })
   }
 }
