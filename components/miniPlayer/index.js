@@ -36,26 +36,26 @@ Component({
     miniBtns: [
       {
         name: 'pre',
-        img: '/images/pre.png',
+        img: '/images/asset/btn_last song_playbar.png',
       },
       {
         name: 'toggle',
         img: {
-          stopUrl: '/images/stop.png' ,
-          playUrl: '/images/play.png'
+          stopUrl: '/images/asset/btn_pause_playbar.png' ,
+          playUrl: '/images/asset/btn_play_playbar.png'
         }
       },
       {
         name: 'next',
-        img: '/images/next.png'
+        img: '/images/asset/btn_next song_playbar.png'
       },
-      // {
-      //   name: 'like',                                         
-      //   img: {
-      //     noLike: '/images/like_none.png' ,                   
-      //     liked: '/images/like.png'                          
-      //   }
-      // }
+      {
+        name: 'like',                                         
+        img: {
+          noLike: '/images/asset/btn_uncollected_playbar.png' ,                   
+          liked: '/images/asset/btn_collect_playbar.png'                          
+        }
+      }
     ],
     // 开发者不传的话默认的按钮
     defaultBtns: [

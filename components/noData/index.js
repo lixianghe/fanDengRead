@@ -1,14 +1,13 @@
 const app = getApp()
 
 Component({
-  properties: {
-    noDataImg: String 
-  },
   data: {
-    
+    noDataImg: '../../images/asset/img_zanwushuju.png'
   },
   methods: {
-  
+    linkHome() {
+      
+    }
   },
   attached(options) {
   }

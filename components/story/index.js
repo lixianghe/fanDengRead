@@ -88,8 +88,8 @@ Component({
         break;
       case 'rect':
         this.setData({
-          width: 35.07,
-          height: 46.27
+          width: 36.77,
+          height: 48.55
         })
         break;
     

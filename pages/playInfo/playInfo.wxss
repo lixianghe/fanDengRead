@@ -113,8 +113,8 @@
   border-radius: 50%;
 }
 .page .playLeft image {
-  width: 15.3vh;
-  height: 15.3vh;
+  width: 100%;
+  height: 100%;
 }
 .page .playRight {
   height: 100%;

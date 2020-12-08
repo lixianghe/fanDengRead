@@ -3,6 +3,7 @@ const app = getApp()
 import tool from '../../utils/util'
 import btnConfig from '../../utils/pageOtpions/pageOtpions'
 
+var timer = null
 
 Page({
   mixins: [require('../../developerHandle/playInfo')],
@@ -84,13 +85,15 @@ Page({
     const that = this;
     // 监听歌曲播放状态，比如进度，时间
     tool.playAlrc(that, app);
-    
+    timer = setInterval(function () {
+      tool.playAlrc(that, app);
+    }, 1000);
   },
   onUnload: function () {
-
+    clearInterval(timer);
   },
   onHide: function () {
-
+    clearInterval(timer);
   },
   imgOnLoad() {
     this.setData({ showImg: true })
@@ -239,9 +242,11 @@ Page({
     }
     let percent = (process * 100).toFixed(3)
     let currentTime = process * tool.formatToSend(app.globalData.songInfo.dt)
+    let playtime = currentTime ? tool.formatduration(currentTime * 1000) : '00:00'
     this.setData({
       percent,
-      currentTime
+      currentTime,
+      playtime
     })
   },
   // 拖拽结束
@@ -249,7 +254,9 @@ Page({
     wx.seekBackgroundAudio({
       position: this.data.currentTime
     })
-    this.setData({isDrag: ''})
+    setTimeout(() => {
+      this.setData({isDrag: ''})
+    }, 500)
   },
   // 查询processBar宽度
   queryProcessBarWidth() {
