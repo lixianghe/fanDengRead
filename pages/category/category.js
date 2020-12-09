@@ -61,8 +61,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
-    layoutGroup(params).then((res) => {
+    layoutGroup({}).then((res) => {
       let labels = [
         {
           "name": "近期新书",

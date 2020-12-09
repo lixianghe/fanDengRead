@@ -9,7 +9,7 @@ const albumMediaApi = '/resource-orchestration-system/fragment/v101/content'
 // 最近播放
 const historyApi = '/resource-behavior-orchestration/play/v100/histories'                              
 // 添加播放记录
-const saveHistoryApi = '/ubd/open/listenHistory/batch/save'             
+const saveHistoryApi = '/resource-orchestration-system/play/duration'             
 // 收藏书籍
 const albumFavoriteApi = '/resource-orchestration-system/favorite/v100/folder/detail'                     
 // 添加书籍收藏
@@ -17,7 +17,7 @@ const albumFavoriteAddApi = '/resource-orchestration-system/fragment/v101/favori
 // 取消书籍收藏
 const albumFavoriteCancelApi = '/resource-orchestration-system/fragment/v101/unfavorite'               
 // 书籍是否收藏
-const isAlbumFavoriteApi = '/open/album/favorite/exist'               
+const isAlbumFavoriteApi = '/info-system/freeReadInfo/v100/getFreeReadBookList'               
 // 获取个人信息
 const userInfoApi = '/user-orchestration/user/api/v101/userInfo' 
 

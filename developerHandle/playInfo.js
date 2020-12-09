@@ -13,7 +13,7 @@
  * 4、其他模板外的功能开发者在这个文件自行开发
  */
 const app = getApp()
-import { albumMedia } from '../utils/httpOpt/api'
+import { albumMedia, albumFavoriteAdd, albumFavoriteCancel, saveHistory } from '../utils/httpOpt/api'
 import tool from '../utils/util'
 
 module.exports = {
@@ -57,7 +57,7 @@ module.exports = {
   onLoad(options) {
     const app = getApp()
     // 拿到歌曲的id: options.id
-    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id, token: '20201204UhTVfhO8sfdvTLYs2rV'}
+    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
     this.getMedia(getInfoParams).then(() => {
       console.log('play')
       this.play() 
@@ -65,7 +65,7 @@ module.exports = {
   },
   async getMedia(params, that = this) {  
     const app = getApp()
-    // 模拟请求数据    
+    // 模拟请求数据  
     let data = (await albumMedia(params)).data
     let songInfo = {}
     songInfo.src = data.mediaUrls[0]                                  // 音频地址
@@ -73,8 +73,47 @@ module.exports = {
     songInfo.id = data.fragmentId                                     // 音频Id
     songInfo.dt = tool.formatduration(data.duration, 'second')        // 音频时常
     songInfo.coverImgUrl = data.titleImageUrl + '.jpg'                 // 音频封面
+    songInfo.existed = data.isFavorite
     app.globalData.songInfo = Object.assign({}, songInfo)
-    that.setData({ songInfo: songInfo })
+    that.setData({ songInfo: songInfo, existed: data.isFavorite })
     wx.setStorageSync('songInfo', songInfo)
+    // 添加播放历史
+    let opt = {
+      fragmentType: '2',
+      finished: 0,
+      fragmentId: data.fragmentId,
+      duration: data.duration
+    }
+    saveHistory(opt)  
+  },
+  // 收藏和取消收藏,playInfo和minibar用到这里
+  like(that = this) {
+    const app = getApp()
+    let params = {
+      appId: "2001",
+      id: app.globalData.songInfo.id,
+      sourceType: 1,
+      resourceType: 1,
+      fragmentId: app.globalData.songInfo.id
+    }
+    if (!app.isLogin) {
+      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+      // return;
+    }
+    if (that.data.existed) {
+      albumFavoriteCancel(params).then(res => {
+        wx.showToast({ icon: 'none', title: '取消收藏成功' })
+        that.setData({
+          existed: false
+        })
+      })
+    } else {
+      albumFavoriteAdd(params).then(res => {
+        wx.showToast({ icon: 'none', title: '收藏成功' })
+        that.setData({
+          existed: true
+        })
+      })
+    }
   }
 }
