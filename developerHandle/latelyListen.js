@@ -91,7 +91,7 @@ module.exports = {
     wx.showLoading({
       title: '加载中',
     })
-    let params = {token: '20201209DDG0nnhhpPjhXkNZTwa', pageSize: 20}
+    let params = {pageSize: 20}
     history(params).then(res => {
       let info = res.data.playRecords.map(v => {
         let obj = {}

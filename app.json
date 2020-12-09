@@ -34,8 +34,8 @@
     {
       "index": 0, 
       "pagePath": "pages/index/index",
-      "iconPath": "images/index.png",
-      "selectedIconPath": "images/index-select.png",
+      "iconPath": "images/asset/icon_home_n.png",
+      "selectedIconPath": "images/asset/icon_home_s.png",
       "text": "推荐"
     },
     {
@@ -48,8 +48,8 @@
     {
       "index": 2, 
       "pagePath": "pages/personalCenter/personalCenter",
-      "iconPath": "images/admin.png",
-      "selectedIconPath": "images/admin-select.png",
+      "iconPath": "images/asset/icon_me_n.png",
+      "selectedIconPath": "images/asset/icon_me_s.png",
       "text": "我的"
     }
   ]

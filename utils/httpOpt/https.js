@@ -7,6 +7,8 @@ const appId = 786474
 
 export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
+    data.token = '20201209DDG0nnhhpPjhXkNZTwa'
+    data.appId = '2001'
     wx.request({
       url: base + url,
       data: data,

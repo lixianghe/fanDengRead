@@ -61,13 +61,25 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    let params = {token: '20201204UhTVfhO8sfdvTLYs2rV'}
-    layoutGroup(params).then((res) => {
-      let labels = []
+    layoutGroup({}).then((res) => {
+      let labels = [
+        {
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        }
+      ]
+      console.log(res)
       let allData = []
-      let data = res.categories
-      for (let n of data) {
+      res.freeBooks = {categoryBooks: res.freeBooks}
+      let data = [res.recentNewBooks, res.freeBooks, ...res.categories]
+      console.log('data', data)
+      for (let n of res.categories) {
         labels.push({name: n.name, id: n.id})
+      }
+      for (let n of data) {
         n.categoryBooks.map(v => {
           v.id = v.fragmentId
           v.src = v.coverImage
