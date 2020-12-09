@@ -95,7 +95,7 @@ module.exports = {
     let params = {
       "appId": "2001",
       "id": 0,
-      "token": "20201208J5wfgHL8ktarM2RLYGj"
+      "token": "20201209DDG0nnhhpPjhXkNZTwa"
      }
     albumFavorite(params).then(res => {
       console.log(res)

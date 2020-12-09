@@ -1,4 +1,4 @@
-// import { getData } from '../../utils/httpOpt/httpOpt'
+// import { albumFavoriteAdd } from '../../utils/httpOpt/api'
 const app = getApp()
 
 Page({
@@ -26,7 +26,15 @@ Page({
     
   },
   onLoad(options) {
-
+    // let param = {
+    //   "appid": '2001',
+    //   "token": "20201209DDG0nnhhpPjhXkNZTwa"
+    // }
+    // albumFavoriteAdd(param).then(res => {
+    //   console.log(res)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()

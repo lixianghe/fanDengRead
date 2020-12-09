@@ -57,19 +57,22 @@ module.exports = {
   /**
    * 登录
    */
-  // login(event) {
-  //   wx.login({
-  //     success: (loginRes) => {
-  //       this.getUserInfo()
-  //     },
-  //     fail: (err) => {
-  //       console.log('扫码失败', JSON.stringify(err))
-  //     },
-  //     complete: (res) => {
+  haha() {
+    console.log(12234)
+  },
+  login(event) {
+    wx.login({
+      success: (loginRes) => {
+        this.getUserInfo()
+      },
+      fail: (err) => {
+        console.log('扫码失败', JSON.stringify(err))
+      },
+      complete: (res) => {
 
-  //     }
-  //   })
-  // },
+      }
+    })
+  },
   getUserInfo() {
     const that = this
     wx.getUserInfo({

@@ -21,7 +21,9 @@ const isAlbumFavoriteApi = '/open/album/favorite/exist'
 // 获取个人信息
 const userInfoApi = '/user-orchestration/user/api/v101/userInfo' 
 // 微信授权
-const validationAuthorizeApi = 'mini-orch/auth/carLoadMini/v100/validationAuthorize'
+const validationAuthorizeApi = '/mini-orch/auth/carLoadMini/v100/validationAuthorize'
+// 支付接口
+const getPayQrCodeApi = '/mini-orch/auth/carLoadMini/v100/getPayQrCode'
       
 
 
@@ -47,6 +49,7 @@ export const albumFavoriteCancel = (data) => request(albumFavoriteCancelApi, dat
 export const isAlbumFavorite = (data) => request(isAlbumFavoriteApi, data)
 export const albumMedia = (data) => request(albumMediaApi, data)
 export const validationAuthorize = (data) => request(validationAuthorizeApi, data)
+export const getPayQrCode = (data) => request(getPayQrCodeApi, data)
 export const loginWx = (data) => request(loginWxApi, data)
 export const vipList = (data) => request(vipListApi, data)
 export const signature = (data) => request(signatureApi, data)

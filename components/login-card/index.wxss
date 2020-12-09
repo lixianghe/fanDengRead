@@ -9,6 +9,7 @@
   width: 84.83vh;
   height: 46.77vh;
   border-radius: 2vh;
+  overflow: hidden;
 }
 .clatelyLtnbox {
   height: 16vh;
@@ -28,8 +29,8 @@
   margin-top: 4.83vh;
 }
 .adminBtnIn {
-  margin-top: 17vh;
-  margin-left: 50vh;
+  margin-top: 11vh;
+  margin-left: 48vh;
   font-size: 4.9vh;
   width: 28.9vh;
   height: 11.1vh;
@@ -42,7 +43,56 @@
 .viptime {
   color: #1f1f1f;
   font-size: 5.53vh;
-  position: relative;
-  top: 6.15vh;
+  margin-top: 6.15vh;
   margin-left: 4.61vh;
+}
+.agreementText {
+  color: #1f1f1f;
+  font-size: 3.07vh;
+  display: flex;
+  margin-left: 4.61vh;
+  margin-top: 3vh;
+}
+.selectPic {
+  width: 4vh;
+  height: 4vh;
+  margin-right: 2vh;
+} 
+.agreement,
+.hide {
+  text-decoration: underline;
+}
+.userTop {
+  display: flex;
+}
+.image {
+  flex:  0 0 13.84vh;
+  width: 13.84vh;
+  height: 13.84vh;
+  border-radius: 7vh;
+  border: 0.9vh solid #ffffff;
+  vertical-align: top;
+  margin: 4.61vh 3vh 0 4.61vh;
+}
+.userInfo {
+  flex: 1;
+}
+.userInfo .viptime{
+  margin-top: 4.61vh;
+  margin-left: 0vh;
+}
+.vipIntroduce {
+  font-size: 4.3vh;
+  color: #1f1f1f;
+  margin-top: 1vh;
+}
+.openVip {
+  margin-top: 12vh;
+  margin-left: 51vh;
+  background-image: linear-gradient(to right, #E62929, #FF7214);
+ }
+.logout {
+  margin-top: 12vh;
+  margin-left: 51vh;
+  background: rgba(40,40,41,0.4)
 }

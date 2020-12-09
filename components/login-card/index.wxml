@@ -1,7 +1,33 @@
 <view class="loginCard">
   <view class='loginVip' style="background: {{background}}">
-    <view class="viptime">登录收听更多经典书籍讲解 </view>
-    <view class="adminBtnIn" bindtap="login">立即登录</view>
+    <block wx:if="{{0}}">
+      <view class="viptime">会员畅听300+本经典好书 </view>
+      <view class="adminBtnIn" bindtap="login">立即登录</view>
+      <view class="agreementText">
+        <image class="selectPic" src="/images/asset/select_no.png"></image>
+        <view>请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
+      </view>
+    </block>
+    <block wx:if="{{0}}">
+      <view class="userTop">
+        <image class="image" src="{{userInfo.avatar}}"></image>
+        <view class="userInfo">
+          <view class="viptime">{{ userInfo.nickname }}</view>
+          <view class="vipIntroduce">开通VIP畅听300+本经典好书</view>
+        </view>
+      </view>
+      <view class="adminBtnIn openVip" bindtap="openVip">开通VIP</view>
+    </block>
+    <block wx:if="{{1}}">
+      <view class="userTop">
+        <image class="image" src="{{userInfo.avatar}}"></image>
+        <view class="userInfo">
+          <view class="viptime">{{ userInfo.nickname }}</view>
+          <view class="vipIntroduce">{{userInfo.vipEndTime}}樊登讲书VIP到期</view>
+        </view>
+      </view>
+      <view class="adminBtnIn logout" bindtap="renewalVip">立即续费</view>
+    </block>
   </view>
   <view class="clatelyLtnbox">
     <view class="clatelyLtnBtn">最近播放</view>

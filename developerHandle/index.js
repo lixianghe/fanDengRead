@@ -38,6 +38,7 @@ import { layout, layoutGroup } from '../utils/httpOpt/api'
 const app = getApp()
 
 module.exports = {
+  mixins: [require('./personalCenter')],
   data: {
     // 开发者注入快捷入口数据
     lalyLtn: {
