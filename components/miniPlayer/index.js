@@ -73,7 +73,8 @@ Component({
     canplay: [],
     mianColor: btnConfig.colorOptions.mainColor,
     percentBar: btnConfig.percentBar,
-    existed: false
+    existed: false,
+    showImg: false
   },
   audioManager: null,
   attached: function () {
@@ -156,6 +157,9 @@ Component({
     like() {
       let that = this
       like(that)
+    },
+    imgload() {
+      this.setData({showImg: true})
     },
     watchPlay() {
       app.globalData.songInfo = wx.getStorageSync('songInfo')

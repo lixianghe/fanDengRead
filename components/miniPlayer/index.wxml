@@ -14,7 +14,8 @@
       <image class="image" bindtap="player" data-name="{{item.name}}" wx:else src="{{item.img}}" />
     </view>
     <view class="view" catchtap="playInfo">                                                                           
-      <image class="pic" src="{{songInfo.coverImgUrl}}" />
+      <image class="pic" style="display: {{showImg ? 'none' : 'inline-block'}}" src="/images/asset/img_default.png" />
+      <image class="pic" bindload="imgload" style="display: {{showImg ? 'inline-block' : 'none'}}" src="{{songInfo.coverImgUrl}}" />
       <text class="text" wx:if="{{songInfo.title}}">{{songInfo.title}}</text>
     </view>
   </view>

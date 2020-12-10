@@ -2,6 +2,6 @@
   <image class="img" src="{{noDataImg}}"></image>
   <view class="text-view">
     <text >暂无数据，</text>
-    <text bindtap="linkHome">随便听听去~</text>
+    <text class="link" bindtap="linkHome">随便听听去~</text>
   </view>
 </view>
