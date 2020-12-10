@@ -19,17 +19,13 @@
  *  其他入口，配置入口点击事件方法名，入口图标，入口名称；入口数量开发者根据项目需要配置
  */
 const app = getApp()
-import {validationAuthorize} from '../utils/httpOpt/api'
+import {agree,login,getUserInfo, logout, openVip, renewalVip,btnCallback} from '../utils/login'
+// import {validationAuthorize} from '../utils/httpOpt/api'
 
 module.exports = {
   data: {
     // 开发者注入模板用户信息
-    userInfo: {
-      avatar: '/images/asset/mine_no_login.png',
-      nickname: '未登录',
-      vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
-      vipEndTime: ''
-    },
+    userInfo: app.globalData.userInfo,
     // 登录标志
     isLogin: app.globalData.isLogin,
     // vip标志
@@ -43,90 +39,61 @@ module.exports = {
       method: 'like',
       icon: '/images/asset/icon_collect_me.png',
       title: '我的收藏' 
-    }]
+    }],
+    // 模态框组件控制
+    bgShow: app.globalData.bgShow,
+     // 模态框组件
+    bgConfirm: {
+      title: '-',
+      content: '一年VIP，价格365元，持续每周更新一本书籍，继续伴你成长。',
+      background: 'url("/images/asset/bg_popup.png")',
+      color: '#fff',
+      button: [
+        {
+          bgColor: app.globalData.mainColor,
+          color: '#1f1f1f',
+          btnName: '续费',
+          btnType: 'confirm'
+        }, {
+          bgColor: '#49494B',
+          color: '#E6E6E6',
+          btnName: '取消',
+          btnType: 'cancle'
+        }
+      ]
+    },
   },
   onShow() {
-
+    this.setData({
+      isAgree: app.globalData.isAgree,
+      userInfo: app.globalData.userInfo,
+      isLogin: app.globalData.isLogin,
+      isVip: app.globalData.isVip
+    })
+  },
+  confirmHandle(e) {
+    
+    if(e.currentTarget.dataset.type === 'renewalVip') {
+      this.btnCallback({
+        detail: {type: 'open', text: '立即续费', btnTxt: '续费'}
+      })
+    } else if (e.currentTarget.dataset.type === 'openVip') {
+      this.btnCallback({
+        detail: {type: 'open', text: '开通会员', btnTxt: '开通'}
+      })
+    }
   },
   onLoad(options) {
+    this.agree = agree.bind(this)
+    this.login = login.bind(this)
+    this.getUserInfo = getUserInfo.bind(this)
+    this.logout = logout.bind(this)
+    this.btnCallback = btnCallback.bind(this)
   },
   onReady() {
 
   },
 
-  /**
-   * 登录
-   */
-  haha() {
-    console.log(12234)
-  },
-  login(event) {
-    wx.login({
-      success: (loginRes) => {
-        this.getUserInfo()
-      },
-      fail: (err) => {
-        console.log('扫码失败', JSON.stringify(err))
-      },
-      complete: (res) => {
-
-      }
-    })
-  },
-  getUserInfo() {
-    const that = this
-    wx.getUserInfo({
-      success: res => {
-        // 测试用vip字段
-        let vip = 0
-        let vipEndTime = '2020.12.21'
-
-        let obj = {
-          nickname: res.userInfo.nickName,
-          avatar: res.userInfo.avatarUrl,
-          vipState: vip,
-          vipEndTime: vipEndTime
-        }
-        console.log(obj)
-
-        that.setData({
-          userInfo: obj,
-          isLogin: true,
-          isVip: (vip === 0) ? false : true
-        })
-
-        app.globalData.isVip = (vip === 0) ? false : true
-        app.globalData.isLogin = true
-      },
-      fail: err => {
-        console.log('error !'+err)
-      }
-    })
-  },
-
-  logout(){
-    let obj = {
-      avatar: '/images/asset/mine_no_login.png',
-      nickname: '未登录',
-      vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
-      vipEndTime: ''
-    }
-    this.setData({
-      userInfo: obj,
-      isLogin: false,
-      isVip: false
-    })
-    app.globalData.isVip = false
-    app.globalData.isLogin = false
-  },
-  // 开通VIP
-  openVip () {
-    console.log('开通VIP')
-  },
-  // 立即续费
-  renewalVip () {
-    console.log('立即续费')
-  },
   like() {
     // if (!app.isLogin) {
     //   wx.showToast({ icon: 'none', title: '请登录后进行操作' })

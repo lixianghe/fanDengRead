@@ -11,7 +11,8 @@
     "pages/category/category",
     "pages/member/pay",
     "pages/member/member",
-    "pages/myBuy/myBuy"
+    "pages/myBuy/myBuy",
+    "pages/userAgree/userAgree"
     
   ],
   "window": {
@@ -19,7 +20,7 @@
     "navigationBarBackgroundColor": "#202020",
     "navigationBarTitleText": "小程序模板",
     "navigationBarTextStyle": "white",
-    "mossPkgName": "kaishustory"
+    "mossPkgName": "60348"
   },
   "permission": {
     "scope.userLocation": {

@@ -34,7 +34,9 @@
  *   ]
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
-import { layout, layoutGroup } from '../utils/httpOpt/api'
+
+import { layout } from '../utils/httpOpt/api'
+import { btnCallback, openVip, renewalVip } from '../utils/login'
 const app = getApp()
 
 module.exports = {
@@ -54,29 +56,22 @@ module.exports = {
           icon: '/images/icon_collect.png',
           title: "我的收藏",
           name: 'like',
-          islogin: true
+          islogin: false
         }
       ],
     },
+    // 登录卡片组件
+    loginCard: '',
     // 开发者注入模板页面数据
     info: [],
     // 开发者注入模板标签数据
     labels: {
       show: false,
-      data: [{
-        "name": "推荐",
-        "id": 'suggest'
-      }, {
-        "name": "近期新书",
-        "id": 'recentNewBooks'
-      }, {
-        "name": "免费体验",
-        "id": 'freeBooks'
-      }]
+      data: []
     },
     // 模态框组件
     bgConfirm: {
-      title: '立即续费',
+      title: '-',
       content: '一年VIP，价格365元，持续每周更新一本书籍，继续伴你成长。',
       background: 'url("/images/asset/bg_popup.png")',
       color: '#fff',
@@ -94,7 +89,8 @@ module.exports = {
         }
       ]
     },
-    bgShow: false,
+    // 模态框组件控制
+    bgShow: app.globalData.bgShow,
     allData: {
       suggest: [],
       freeBooks: [],
@@ -118,40 +114,31 @@ module.exports = {
     hasNext: true,
   },
   onShow() {
-
+    this.loginCard = this.selectComponent('#loginCard')
+    this.loginCard._onshow()
   },
   onLoad(options) {
+    this.btnCallback = btnCallback.bind(this)
+    this.openVip = openVip.bind(this)
+    this.renewalVip = renewalVip.bind(this)
     // 初始化加载数据
     this._getList()
   },
   onReady() {
 
-  },
-  // 模态框回调函数
-  btnCallback(opt){
-    if(opt.detail.type === 'confirm') {
-
-    } else if (opt.detail.type === 'cancle') {
-      this.setData({
-        bgShow: false
+  },  
+  // 处理logincard组件事件响应
+  confirmHandle(opt) {
+    if(opt.detail.type === 'renewalVip') {
+      this.btnCallback({
+        detail: {type: 'open', text: '立即续费', btnTxt: '续费'}
+      })
+    } else if (opt.detail.type === 'openVip') {
+      this.btnCallback({
+        detail: {type: 'open', text: '开通VIP', btnTxt: '开通'}
       })
     }
   },
-
-  selectTap(e) {
-    const index = e.currentTarget.dataset.index
-    const groupid = e.currentTarget.dataset.groupid
-    this.setData({
-      currentTap: index
-    })
-    
-    // 这里可以自定义传值传到_getList中
-    // this._getList(groupid)
-    this.setData({
-      info: this.data.allData[groupid]
-    })
-  },
-
   _getList() {
     // wx.showLoading({
     //   title: '加载中',
@@ -184,62 +171,19 @@ module.exports = {
       })
       wx.hideLoading()
     })
-    // Promise.all([layoutGroup().catch(err => console.log(err)), layout({}).catch(err => console.log(err))]).then(res => {
-    //   console.log(res)
-    //   let allData = {}
-    //     // 近期新书
-    //     let recentNewBooks = res[0].recentNewBooks.categoryBooks.map(v => {
-    //       let obj = {}
-    //       obj.id = v.fragmentId
-    //       obj.src = v.coverImage
-    //       obj.title = v.title,
-    //       obj.count = v.readCount
-    //       return obj
-    //     })
-
-    //     // 免费体验
-    //     let freeBooks = res[0].freeBooks.map(v => {
-    //       let obj = {}
-    //       obj.id = v.fragmentId
-    //       obj.src = v.coverImage
-    //       obj.title = v.title,
-    //       obj.count = v.readCount
-    //       return obj
-    //     })
-
-    //     // 推荐  suggest
-    //     let suggest = res[1].data.map(v => {
-    //       let obj = {}
-    //       obj.id = v.fragmentId
-    //       obj.src = v.coverImage
-    //       obj.title = v.title,
-    //       obj.count = v.readCount
-    //       return obj
-    //     })
-
-    //     allData.recentNewBooks = recentNewBooks
-    //     allData.freeBooks = freeBooks
-    //     allData.suggest = suggest
-    //     console.log(allData.suggest)
-    //     this.setData({
-    //       allData: allData,
-    //       info: allData.suggest,
-    //       reqL: true
-    //     })
-    //     wx.hideLoading()
-    // }).catch(err => {
-    //   console.log(err)
-    //   wx.hideLoading()
-    // })
-    
-    // layoutGroup({}).then(res => {
-    // })
   },
   // 跳转到快捷入口页面
-  tolatelyListen(e) {
-    let page = e.currentTarget.dataset.page
+  tolatelyListen(opt) {
+    console.log(opt.detail.islogin)
+    if(opt.detail.islogin) {
+      wx.showToast({
+        title: '请先登录后在操作',
+        icon: 'none'
+      })
+      return
+    }
     wx.navigateTo({
-      url: `../${page}/${page}`
+      url: `../${opt.detail.page}/${opt.detail.page}`
     })
   },
   // 跳转到播放详情界面

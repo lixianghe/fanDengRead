@@ -49,7 +49,7 @@
   border-radius: 10vh;
   border: 0.9vh solid #ffffff;
   vertical-align: top;
-  margin-top: 5.5vh;
+  margin-top: 5vh;
 }
 .adminCenterName {
   margin: 0 auto;
@@ -98,4 +98,20 @@
 }
 .logout {
   background: rgba(40,40,41,0.4)
+}
+.agreementText {
+  color: #1f1f1f;
+  font-size: 3.07vh;
+  display: flex;
+  margin-left: 4.61vh;
+  margin-top: 1.5vh;
+}
+.selectPic {
+  width: 4vh;
+  height: 4vh;
+  margin-right: 2vh;
+} 
+.agreement,
+.hide {
+  text-decoration: underline;
 }

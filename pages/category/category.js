@@ -2,7 +2,6 @@ import { layout, layoutGroup } from '../../utils/httpOpt/api'
 const app = getApp()
 
 Page({
-  mixins: [require('../../developerHandle/index')],
   data: {
     colorStyle: app.sysInfo.colorStyle,
     backgroundColor: app.sysInfo.backgroundColor,
@@ -37,6 +36,7 @@ Page({
     // 检测网络
     let that = this
     app.getNetWork(that)
+    this._getList()
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()

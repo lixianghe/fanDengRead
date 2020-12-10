@@ -8,6 +8,8 @@ App({
     // 登录状态
     isLogin: false,
     isVip: false,
+    isAgree: false,
+    bgShow: false,
     appName: 'fandengbook',
     // 屏幕类型
     screen: '',
@@ -25,7 +27,13 @@ App({
     currentData: [],
     loopType: 'listLoop', // 默认列表循环
     useCarPlay: wx.canIUse('backgroundAudioManager.onUpdateAudio'),
-    PIbigScreen: null
+    PIbigScreen: null,
+    userInfo: {
+      avatar: '/images/asset/mine_no_login.png',
+      nickname: '未登录',
+      vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
+      vipEndTime: ''
+    },
   },
   
   // 小程序颜色主题

@@ -14,7 +14,7 @@
     </view>
     <!-- 包含登录卡片 -->
     <block wx:if="{{lalyLtn.show && lalyLtn.containLogin}}">
-      <login-card></login-card>
+      <login-card id="loginCard" quickEnter="{{lalyLtn}}" bind:callback="tolatelyListen" bind:confirm="confirmHandle"></login-card>
     </block>
     
 
@@ -48,6 +48,6 @@
     </view>
   </scroll-view>
 
-  <bgConfirm bgconfirm="{{bgConfirm}}" bind:callback="btnCallback" wx:if="{{bgShow}}"></bgConfirm>
+  <bgConfirm bgconfirm="{{bgConfirm}}" bind:callback="btnCallback" wx:if="{{bgShow}}" ></bgConfirm>
   <mini-player id="miniPlayer" songInfo="{{songInfo}}"></mini-player>
 </view>

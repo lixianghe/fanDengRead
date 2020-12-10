@@ -6,7 +6,11 @@
         <image class="image" src="{{userInfo.avatar}}"></image>
         <view class="adminCenterName">{{userInfo.nickname}}</view>
         <view class="viptime">登录收听更多经典书籍讲解 ></view>
-        <view class="adminBtnIn" bindtap="login">立即登录</view>
+        <view class="adminBtnIn" bindtap="login" style="margin-top: 2vh">立即登录</view>
+        <view class="agreementText">
+          <image class="selectPic" bindtap="agree" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
+          <view>请同意并您仔细阅读完整版<text class="agreement" bindtap="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>
+        </view>
       </view>
       <!-- 登录非会员部分 -->
       <view class="adminCenter" wx:if="{{isLogin && !isVip}}">
@@ -14,7 +18,7 @@
         <view class="adminCenterName">{{userInfo.nickname}}</view>
         <view class="viptime" style="color: #FF4C4C">会员畅听300+经典好书 ></view>
         <view class="buttomBox">
-          <view class="adminBtno openVip" bindtap="openVip">开通VIP</view>
+          <view class="adminBtno openVip" data-type="openVip" bindtap="confirmHandle">开通VIP</view>
           <view class="adminBtno logout" bindtap="logout">退出登录</view>
         </view>
       </view>
@@ -24,7 +28,7 @@
         <view class="adminCenterName">用户昵称</view>
         <view class="viptime">{{userInfo.vipEndTime}}樊登讲书VIP到期 ></view>
         <view class="buttomBox">
-          <view class="adminBtno openVip" bindtap="renewalVip" wx:if="{{userInfo.vipState === 1}}">立即续费</view>
+          <view class="adminBtno openVip" data-type="renewalVip" bindtap="confirmHandle" wx:if="{{userInfo.vipState === 1}}">立即续费</view>
           <view class="adminBtno logout" bindtap="logout">退出登录</view>
         </view>
       </view>
@@ -37,4 +41,5 @@
     </view>
   </view>
   <mini-player songInfo="{{songInfo}}" id="miniPlayer"></mini-player>
+  <bgConfirm bgconfirm="{{bgConfirm}}" bind:callback="btnCallback" wx:if="{{bgShow}}"></bgConfirm>
 </view>

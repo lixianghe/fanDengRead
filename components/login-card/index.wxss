@@ -21,7 +21,7 @@
   height: 16vh;
   line-height: 16vh;
   width: 38.15vh;
-  background-color: #353537;
+  background-color: rgba(255,255,255, 0.06);
   text-align: center;
   font-size: 6.76vh;
   border-radius: 2vh;
