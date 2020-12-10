@@ -187,7 +187,10 @@ Component({
       if (playing) app.playing()
       // 是否被收藏
       let songInfo = wx.getStorageSync('songInfo')
-      that.setData({existed: songInfo.existed})
+      if (songInfo) {
+        that.setData({existed: songInfo.existed})
+      }
+      
     },
     setOnHide() {
       clearInterval(timer)
