@@ -116,7 +116,6 @@ App({
     }
     await getMedia(params, that)
     loopType === 'singleLoop' ? this.playing(0) : this.playing()
-    wx.setStorageSync("songInfo",song.id)
   },
   // 根据循环模式设置播放列表
   setList(loopType, list, cutFlag = false){

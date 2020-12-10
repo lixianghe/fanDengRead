@@ -32,33 +32,42 @@ export const login = function () {
 
 export const getUserInfo = function () {
  const that = this
- wx.getUserInfo({
-   success: res => {
-     // 测试用vip字段
-     let vip = 1
-     let vipEndTime = '2020.12.21'
-
-     let obj = {
-       nickname: res.userInfo.nickName,
-       avatar: res.userInfo.avatarUrl,
-       vipState: vip,
-       vipEndTime: vipEndTime
-     }
-
-     that.setData({
-       userInfo: obj,
-       isLogin: true,
-       isVip: (vip === 0) ? false : true
-     })
-
-     app.globalData.isVip = (vip === 0) ? false : true
-     app.globalData.isLogin = true
-     app.globalData.userInfo = obj
-   },
-   fail: err => {
-     console.log('error !'+err)
-   }
- })
+ wx.getSetting({
+  success (res){
+    if (res.authSetting['scope.userInfo']) {
+      // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+      wx.getUserInfo({
+        success: res => {
+          console.log('res', res)
+          // 测试用vip字段
+          let vip = 1
+          let vipEndTime = '2020.12.21'
+     
+          let obj = {
+            nickname: res.userInfo.nickName,
+            avatar: res.userInfo.avatarUrl,
+            vipState: vip,
+            vipEndTime: vipEndTime
+          }
+     
+          that.setData({
+            userInfo: obj,
+            isLogin: true,
+            isVip: (vip === 0) ? false : true
+          })
+     
+          app.globalData.isVip = (vip === 0) ? false : true
+          app.globalData.isLogin = true
+          app.globalData.userInfo = obj
+        },
+        fail: err => {
+          console.log('error !', err)
+        }
+      })
+    }
+  }
+})
+ 
 }
 
 export const logout = function (){
