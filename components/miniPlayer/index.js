@@ -163,14 +163,9 @@ Component({
     },
     watchPlay() {
       app.globalData.songInfo = wx.getStorageSync('songInfo')
-      const playing = wx.getStorageSync('playing')
       this.setData({
         songInfo: app.globalData.songInfo 
       })
-      // 如果上次退出是播放状态就继续播放
-      if (playing) {
-        app.playing()
-      }
     },
     // 因为1.9.2版本无法触发onshow和onHide所以事件由它父元素触发
     setOnShow() {
@@ -190,7 +185,6 @@ Component({
       if (songInfo) {
         that.setData({existed: songInfo.existed})
       }
-      
     },
     setOnHide() {
       clearInterval(timer)

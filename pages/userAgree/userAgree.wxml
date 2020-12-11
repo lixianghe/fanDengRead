@@ -1,2 +1,2 @@
 <!--pages/userAgree/userAgree.wxml-->
-<web-view src="http://118.24.105.14:5000/"></web-view>
+<web-view src="https://card.dushu.io/app/eula/index.html"></web-view>

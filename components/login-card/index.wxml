@@ -2,11 +2,11 @@
   <view class='loginVip' style="background: {{background}}">
     <block wx:if="{{!isLogin}}">
       <view class="viptime">会员畅听300+本经典好书 </view>
-      <view class="adminBtnIn" bindtap="login">立即登录</view>
+      <button class="adminBtnIn" open-type="getUserInfo" bindtap="login">立即登录</button>
       <view class="agreementText">
         <image class="selectPic" bindtap="agree" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
-        <view>请同意并您仔细阅读完整版<text class="agreement" bindtap="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>
-      </view>
+        <view bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
+      </view> 
     </block>
     <block wx:if="{{isLogin && !isVip}}">
       <view class="userTop">

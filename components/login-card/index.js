@@ -53,7 +53,6 @@ Component({
       })
     },
     agreement() {
-      console.log(121212)
       wx.navigateTo({
         url: '../../pages/userAgree/userAgree'
       })

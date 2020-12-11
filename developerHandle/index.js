@@ -99,7 +99,9 @@ module.exports = {
     // 封面图片形状 rect矩形，square，正方形
     shape: 'rect',
     // 数量图片
-    countPic: '/images/media_num.png',
+    countPic: '/images/asset/erji.png',
+    // 播放图片
+    playPic: '/images/asset/playing.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
     reqL: false,
@@ -114,6 +116,7 @@ module.exports = {
     hasNext: true,
   },
   onShow() {
+    // 跟樊登发包用到时候解开
     this.loginCard = this.selectComponent('#loginCard')
     this.loginCard._onshow()
   },
@@ -155,7 +158,7 @@ module.exports = {
       })
       this.setData({
         // info: suggest,
-        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
+        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
         reqL: true
       })
       wx.hideLoading()

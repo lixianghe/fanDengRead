@@ -22,6 +22,10 @@ Component({
       type: Array,
       value: []
     },
+    playpic:{
+      type: String,
+      value: []
+    },
     countpic:{
       type: String,
       value: ''

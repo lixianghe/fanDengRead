@@ -6,7 +6,7 @@
         <image class="image" src="{{userInfo.avatar}}"></image>
         <view class="adminCenterName">{{userInfo.nickname}}</view>
         <view class="viptime">登录收听更多经典书籍讲解 ></view>
-        <view class="adminBtnIn" bindtap="login" style="margin-top: 2vh">立即登录</view>
+        <button class="adminBtnIn" open-type="getUserInfo" bindtap="login" style="margin-top: 2vh">立即登录</button>
         <view class="agreementText">
           <image class="selectPic" bindtap="agree" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
           <view>请同意并您仔细阅读完整版<text class="agreement" bindtap="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>

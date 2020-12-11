@@ -7,6 +7,7 @@
     <image class="countpic" src="{{countpic}}"></image>
     <text class="countxt">{{datasource.count}}</text>
   </view>
+  <image class="playPic" src="{{playpic}}"></image>
   <view wx:if="{{src.length > 0}}"
       class="like"
       style="background-image:url({{src}})"

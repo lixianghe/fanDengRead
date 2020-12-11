@@ -26,7 +26,7 @@ Page({
     // 封面图片形状 rect矩形，square，正方形
     shape: 'rect',
     // 数量图片
-    countPic: '/images/media_num.png',
+    countPic: '/images/asset/erji.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
     reqL: false,

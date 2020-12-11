@@ -36,7 +36,12 @@ const signatureApi = '/open/buy/signature'
 // 购买下单接口
 const buyApi = '/open/buy/create'                                        
 // 查询支付结果接口
-const buyResultApi = '/open/buy/payResult'                               
+const buyResultApi = '/open/buy/payResult'        
+
+
+
+// 测试登录用
+const testNewApi = '/mini-orch/auth/carLoadMini/v100/testValidateSign'                               
                                                                   
 
 export const layoutGroup = (data) => request(layoutGroupApi, data)
@@ -56,3 +61,6 @@ export const signature = (data) => request(signatureApi, data)
 export const buy = (data) => request(buyApi, data)
 export const buyResult = (data) => request(buyResultApi, data)
 export const userInfo = (data) => request(userInfoApi, data)
+
+
+export const testNew = (data) => request(testNewApi, data)
