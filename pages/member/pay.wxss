@@ -9,21 +9,31 @@
   border-radius: 2.564vh;
   overflow: hidden;
 }
-
+.pay-panel {
+  display: flex;
+  /* width: 40.6vh; */
+  height: 40.6vh;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+}
 .ercode {
   display: block;
-  width: 51.282vh;
-  height: 51.282vh;
-  margin: 6.410vh auto 4.808vh;
+  width: 40.6vh;
+  height: 40.6vh;
+}
+.text {
+  color: #cecece;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10vh;
 }
 
 .price {
-  text-align: center;
-  color: #fff;
-  font-size: 6.410vh;
+  font-size: 6vh;
   height: 6.410vh;
   margin-bottom: 5.929vh;
-  font-weight: bold;
 }
 
 .price-val {
@@ -33,10 +43,16 @@
 .price-tip {
   text-align: center;
   font-size: 5.128vh;
-  line-height: 8.173vh;
-  color: rgba(255, 255, 255, 0.6);
 }
-
+.content-container button {
+  width: 83vh;
+  height: 14vh;
+  border-radius: 2vh;
+  background: #404040;
+  color: #c3c3c3;
+  font-size: 5vh;
+  margin-top: 10vh;
+}
 .pay-icon {
   display: block;
   margin: 17.628vh auto 4.808vh;
@@ -103,13 +119,7 @@
 
 /* 黑夜模式 */
 
-.dark .price {
-  color: #fff;
-}
 
-.dark .price-tip {
-  color: rgba(255, 255, 255, 0.6);
-}
 
 .dark .pay-status {
   color: #fff;

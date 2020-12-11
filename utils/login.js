@@ -40,7 +40,7 @@ export const getUserInfo = function () {
         success: res => {
           console.log('res', res)
           // 测试用vip字段
-          let vip = 1
+          let vip = 0
           let vipEndTime = '2020.12.21'
      
           let obj = {
@@ -105,7 +105,7 @@ export const renewalVip = function () {
 
 // 模态框回调函数
 export const btnCallback = function (opt){
-  console.log(opt)
+  console.log(opt.detail.type)
   if (opt.detail.type === 'open') { // 打开模态框
     // 动态设置模态框标题文字
     let item = 'bgConfirm.title'
@@ -117,7 +117,13 @@ export const btnCallback = function (opt){
     })
     app.globalData.bgShow = true
   } else if(opt.detail.type === 'confirm') {  // 模态框确认
-
+    this.setData({
+      bgShow: false
+    })
+    app.globalData.bgShow = false
+    wx.navigateTo({
+      url: '/pages/member/pay'
+    })
   } else if (opt.detail.type === 'cancle') {  // 模态框关闭
     this.setData({
       bgShow: false
