@@ -34,7 +34,7 @@ const vipListApi = '/open/vip/openPage'
 // 获取购买签名
 const signatureApi = '/open/buy/signature'                               
 // 购买下单接口
-const buyApi = '/open/buy/create'                                        
+const buyApi = 'mini-orch/auth/carLoadMini/v100/getPayQrCode'                                        
 // 查询支付结果接口
 const buyResultApi = '/open/buy/payResult'                               
                                                                   
