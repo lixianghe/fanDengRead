@@ -36,10 +36,12 @@ Page({
 
   async createOrder(){
     buy().then(res => {
-      let { totalPrice, payResult } = res
+      let { totalPrice, payUrl } = res
+      console.log('buy')
+      console.log(res)
       this.setData({
         totalPrice,
-        codeUrl: payResult.codeUrl
+        codeUrl: payUrl
       })
     })
   }
