@@ -84,6 +84,7 @@ module.exports = {
       fragmentId: data.fragmentId,
       duration: data.duration
     }
+    
     saveHistory(opt).then(res => {
       console.log('addHistory' + JSON.stringify(res))
     }).catch((err) =>{
