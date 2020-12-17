@@ -8,7 +8,7 @@ const appId = 786474
 export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     data.appId = '60348'
-    data.token = wx.getStorageSync('token') || ''
+    data.token = wx.getStorageSync('token') || '20201217uxJnffc0nke99oz2FYA'
     console.log(data.token)
     // data.token = '20201209DDG0nnhhpPjhXkNZTwa'
     wx.request({
@@ -29,7 +29,7 @@ export function request(url, data = {}, method = 'POST') {
         if (res.statusCode === 200) {
           if (res.data.status === '0000' || res.data.status === 1) {
             resolve(res.data)
-          } else {
+          } else { 
             if (res.data.error === '1111') {
               wx.showToast({
                 title: '登录信息已过期,请重新登录',
