@@ -79,13 +79,39 @@ Page({
         }, {
           "name": "免费体验",
           "id": 'freeBooks'
+        },{
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        },
+        {
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        },
+        {
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        },
+        {
+          "name": "近期新书",
+          "id": 'recentNewBooks'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
         }
       ]
       console.log(res)
       let allData = []
       res.freeBooks = {categoryBooks: res.freeBooks}
       let data = [res.recentNewBooks, res.freeBooks, ...res.categories]
-      console.log('data', data)
       for (let n of res.categories) {
         labels.push({name: n.name, id: n.id})
       }

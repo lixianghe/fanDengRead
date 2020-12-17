@@ -27,7 +27,7 @@ const authLoginApi = '/mini-orch/auth/carLoadMini/v100/authLogin'
 // 退出登录
 const logoutApi = '/mini-orch/auth/carLoadMini/v100/logout'
 // 支付接口
-const getPayQrCodeApi = '/mini-orch/auth/carLoadMini/v100/getPayQrCode'
+const getPayQrCodeApi = '/mini-orch/pay/carLoadMini/v100/getPayQrCode'
       
 
 

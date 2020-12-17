@@ -2,6 +2,9 @@
 //获取应用实例
 const app = getApp()
 import { signature, getPayQrCode, buyResult } from '../../utils/httpOpt/api'
+let drawQrcode = require("../../utils/wepapp-qrcode")
+
+console.log(drawQrcode)
 
 var payTimer = null
 Page({
@@ -14,7 +17,7 @@ Page({
     totalPrice: '',
     // 支付状态
     payStatus: 'pre',
-    codeUrl: '/images/asset/erweima.png',
+    codeUrl: '',
     totalPrice: '35',
     colorStyle: app.sysInfo.colorStyle,
     backgroundColor: app.sysInfo.backgroundColor,
@@ -37,16 +40,31 @@ Page({
 
   async createOrder(){
     getPayQrCode().then(res => {
-      let { totalPrice, payUrl } = res
-      console.log('buy')
-      console.log(res)
+      let payUrl = res.data.payUrl
       this.setData({
-        totalPrice,
         codeUrl: payUrl
       })
+      this.ewmChange(payUrl)
     }).catch((error) => {
-      console.log('errorbuy')
       console.log(error)
     })
+  },
+  ewmChange(url){
+    let size = {}
+    let query = wx.createSelectorQuery();
+    query.select('.myQrcode').boundingClientRect(rect=>{
+      let canvasHeight = rect.height - 10;
+      console.log(canvasHeight)
+      size.w = canvasHeight
+      size.h = size.w
+      drawQrcode({
+        width: size.w,
+        height: size.h,
+        canvasId: 'myQrcode',
+        // ctx: wx.createCanvasContext('myQrcode'),
+        text: url,
+        // v1.0.0+版本支持在二维码上绘制图片
+      })
+    }).exec();
   }
 })

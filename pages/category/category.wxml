@@ -1,26 +1,32 @@
 <view class="{{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;">
-  <scroll-view class="index" scroll-x="true" scroll-left="{{scrollLeft}}" lower-threshold="1920"bindscrolltolower="getLayoutData" bindscroll="scrollhandle">
+  <!-- <scroll-view class="index" > -->
 
 
-    <view class="mianContent">
-      <view class="label-box" wx:if="{{labels.show}}">
-        <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{info.length}}">
-          <view wx:for="{{labels.data}}" wx:key="index" class="title {{index === currentTap ? 'activeTitle' : ''}}" 
-            data-index="{{index}}"  data-groupid="{{item.id}}" data-name="{{item.name}}" bindtap="selectTap">
-            <text>{{item.name}}</text>
+    <view class="mianContent index">
+      
+      <scroll-view scroll-x="true">
+        <view class="label-box" wx:if="{{labels.show}}">
+          <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{info.length}}">
+            <view wx:for="{{labels.data}}" wx:key="index" class="title {{index === currentTap ? 'activeTitle' : ''}}" 
+              data-index="{{index}}"  data-groupid="{{item.id}}" data-name="{{item.name}}" bindtap="selectTap">
+              <text>{{item.name}}</text>
+            </view>
+          </view>
+          <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{!info.length}}">
+            <view class="titleBg" wx:for="{{5}}" wx:key="index"  >
+            </view>
           </view>
         </view>
-        <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{!info.length}}">
-          <view class="titleBg" wx:for="{{5}}" wx:key="index"  >
-          </view>
-        </view>
-      </view>
+      </scroll-view>
+
       <!-- 页面盒子 -->
-      <view class="storyBox" wx:if="{{info.length}}">
-        <story id="storyCom" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
-        data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" data-contentype="{{item.contentType}}" bindtap="linkAbumInfo"
-        datasource="{{item}}" countpic="{{countPic}}"  playpic="{{playPic}}" className="{{screen}}" shape="{{shape}}"></story>
-      </view>
+      <scroll-view scroll-x="true">
+        <view class="storyBox" wx:if="{{info.length}}">
+          <story id="storyCom" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
+          data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" data-contentype="{{item.contentType}}" bindtap="linkAbumInfo"
+          datasource="{{item}}" countpic="{{countPic}}"  playpic="{{playPic}}" className="{{screen}}" shape="{{shape}}"></story>
+        </view>
+      </scroll-view>
 
       <!-- 加载中盒子 -->
       <view class="albumCard" wx:if="{{!info.length}}" wx:for="{{3}}" wx:key="index">
@@ -33,7 +39,7 @@
     </view>
     
     
-  </scroll-view>
+  <!-- </scroll-view> -->
   <mini-player id="miniPlayer" songInfo="{{songInfo}}"></mini-player>
 </view>
 

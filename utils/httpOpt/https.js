@@ -8,7 +8,7 @@ const appId = 786474
 export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     data.appId = '60348'
-    data.token = wx.getStorageSync('token') || '20201217uxJnffc0nke99oz2FYA'
+    data.token = wx.getStorageSync('token') || '20201211OXy6bRzmqrS0Y6WbEkM'
     console.log(data.token)
     // data.token = '20201209DDG0nnhhpPjhXkNZTwa'
     wx.request({
