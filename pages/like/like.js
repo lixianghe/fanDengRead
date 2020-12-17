@@ -17,6 +17,12 @@ Page({
   onLoad(options) {
     
   },
+  scrollRight() {
+    wx.showToast({
+      title: '已经到底了',
+      icon: 'none'
+    })
+  },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
     this.selectComponent('#miniPlayer').watchPlay()

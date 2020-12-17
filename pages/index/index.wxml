@@ -1,5 +1,5 @@
 <view class="{{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;">
-  <scroll-view class="index" scroll-x="true" scroll-left="{{scrollLeft}}" lower-threshold="1920"bindscrolltolower="getLayoutData" bindscroll="scrollhandle">
+  <scroll-view class="index" scroll-x="true" scroll-left="{{scrollLeft}}" bindscrolltolower="scrollRight" bindscroll="scrollhandle">
     <!-- 快捷入口 -->
     <!-- 不包含登录卡片 -->
     <view class="quickEntry" wx:if="{{lalyLtn.show && !lalyLtn.containLogin}}">

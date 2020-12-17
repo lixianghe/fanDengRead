@@ -25,6 +25,12 @@ Page({
     }
     
   },
+  scrollRight() {
+    wx.showToast({
+      title: '已经到底了',
+      icon: 'none'
+    })
+  },
   onLoad(options) {
     // let param = {
     //   "appid": '2001',
