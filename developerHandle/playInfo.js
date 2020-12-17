@@ -78,11 +78,12 @@ module.exports = {
     that.setData({ songInfo: songInfo, existed: data.isFavorite })
     wx.setStorageSync('songInfo', songInfo)
     // 添加播放历史
+    let isVip = wx.getStorageSync('isVip')
     let opt = {
-      fragmentType: '2',
-      finished: 0,
+      bookId: data.id,
       fragmentId: data.fragmentId,
-      duration: data.duration
+      trial: !isVip,
+      playHistoryType: 1
     }
     saveHistory(opt).then(res => {
       console.log('addHistory' + JSON.stringify(res))
