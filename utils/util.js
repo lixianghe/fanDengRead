@@ -20,6 +20,17 @@ function formatToSend(dt) {
   return seconds
 }
 
+function timestampToTime(timestamp) {
+  var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+  var D = date.getDate() + ' ';
+  var h = date.getHours() + ':';
+  var m = date.getMinutes() + ':';
+  var s = date.getSeconds();
+  return Y+M+D
+}
+
 //音乐播放监听
 function playAlrc(that, app) {
   wx.getBackgroundAudioPlayerState({
@@ -141,7 +152,22 @@ function debounce(fn, interval = 300) {
   };
 }
 
-
+function isVipEnd (curr, now) {
+  console.log(curr, now)
+  let current = Number(curr)
+  let nows = Number(now)
+  let result = current - nows
+  if (result > 0) {
+    let rangeDateNum = result / (1000*3600*24);
+    if (rangeDateNum < 30) {
+      return 1
+    } else {
+      return 2
+    }
+  } else {
+    return 0
+  }
+}
 module.exports = {
   formatToSend: formatToSend,
   formatduration: formatduration,
@@ -150,5 +176,7 @@ module.exports = {
   initAudioManager: initAudioManager,
   EventListener: EventListener,
   throttle: throttle,
-  debounce: debounce
+  debounce: debounce,
+  timestampToTime: timestampToTime,
+  isVipEnd: isVipEnd
 }

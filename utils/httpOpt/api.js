@@ -22,26 +22,20 @@ const isAlbumFavoriteApi = '/info-system/freeReadInfo/v100/getFreeReadBookList'
 const userInfoApi = '/user-orchestration/user/api/v101/userInfo' 
 // 微信授权
 const validationAuthorizeApi = '/mini-orch/auth/carLoadMini/v100/validationAuthorize'
+// 通过手机号登录
+const authLoginApi = '/mini-orch/auth/carLoadMini/v100/authLogin'
+// 退出登录
+const logoutApi = '/mini-orch/auth/carLoadMini/v100/logout'
 // 支付接口
 const getPayQrCodeApi = '/mini-orch/auth/carLoadMini/v100/getPayQrCode'
       
 
 
-// 微信登录
-const loginWxApi = '/open/user/wechat/login'                                                    
-// 开通会员
-const vipListApi = '/open/vip/openPage'                                  
-// 获取购买签名
-const signatureApi = '/open/buy/signature'                               
-// 购买下单接口
-const buyApi = 'mini-orch/auth/carLoadMini/v100/getPayQrCode'                                        
-// 查询支付结果接口
-const buyResultApi = '/open/buy/payResult'        
-
-
 
 // 测试登录用
 const testNewApi = '/mini-orch/auth/carLoadMini/v100/testValidateSign'                               
+// 测试登录用
+const createOrUpdateWeChatUserApi = '/mini-orch/auth/carLoadMini/v100/createOrUpdateWeChatUser'                               
                                                                   
 
 export const layoutGroup = (data) => request(layoutGroupApi, data)
@@ -54,13 +48,13 @@ export const albumFavoriteCancel = (data) => request(albumFavoriteCancelApi, dat
 export const isAlbumFavorite = (data) => request(isAlbumFavoriteApi, data)
 export const albumMedia = (data) => request(albumMediaApi, data)
 export const validationAuthorize = (data) => request(validationAuthorizeApi, data)
+export const authLogin = (data) => request(authLoginApi, data)
+export const logout = (data) => request(logoutApi, data)
 export const getPayQrCode = (data) => request(getPayQrCodeApi, data)
-export const loginWx = (data) => request(loginWxApi, data)
-export const vipList = (data) => request(vipListApi, data)
-export const signature = (data) => request(signatureApi, data)
-export const buy = (data) => request(buyApi, data)
-export const buyResult = (data) => request(buyResultApi, data)
+
+
 export const userInfo = (data) => request(userInfoApi, data)
 
 
 export const testNew = (data) => request(testNewApi, data)
+export const createOrUpdateWeChatUser = (data) => request(createOrUpdateWeChatUserApi, data)

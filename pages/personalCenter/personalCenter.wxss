@@ -4,3 +4,7 @@ page {
   margin: 0;
   padding: 0;
 }
+.testparam {
+  color:#fff;
+  font-size: 4.5vh;
+}

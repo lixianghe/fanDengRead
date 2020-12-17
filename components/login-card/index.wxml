@@ -2,8 +2,9 @@
   <view class='loginVip' style="background: {{background}}">
     <block wx:if="{{!isLogin}}">
       <view class="viptime">会员畅听300+本经典好书 </view>
-      <button class="adminBtnIn" open-type="getUserInfo" bindtap="login">立即登录</button>
-      <view class="agreementText">
+      <button class="adminBtnIn" bindtap="login"  wx:if="{{!taiLogin}}">立即登录</button>
+      <button class="adminBtnIn" open-type="getPhoneNumber" bindgetphonenumber='getPhoneNumber' style="width: 42vh;margin-left: 35vh;" wx:if="{{taiLogin}}">授权手机号登录</button>
+      <view class="agreementText"  wx:if="{{!taiLogin}}">
         <image class="selectPic" bindtap="agree" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
         <view bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
       </view> 

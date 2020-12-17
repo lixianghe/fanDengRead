@@ -7,6 +7,7 @@ App({
   globalData: {
     // 登录状态
     isLogin: false,
+    taiLogin: false,
     isVip: false,
     isAgree: false,
     bgShow: false,
@@ -32,8 +33,16 @@ App({
       avatar: '/images/asset/mine_no_login.png',
       nickname: '未登录',
       vipState: 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
-      vipEndTime: ''
+      vipEndTime: '',
+      phoneNumber: ''
     },
+    // 权限信息
+    auth: { 
+      openid: '',
+      unionId: '',
+      sessionId: ''
+    },
+    playingId: '' // 正在播放歌曲id
   },
   
   // 小程序颜色主题
@@ -45,6 +54,16 @@ App({
   audioManager: null,
   currentIndex: null,
   onLaunch: function () {
+    // 初次进入判断
+    this.globalData.userInfo = {
+      avatar: wx.getStorageSync('avatarU') || '/images/asset/mine_no_login.png',
+      nickname: wx.getStorageSync('nickname'),
+      vipState: wx.getStorageSync('vipState'),
+      vipEndTime: wx.getStorageSync('vipEndTime')
+    }
+    this.globalData.isLogin = wx.getStorageSync('isLogin')
+    this.globalData.isVip = wx.getStorageSync('isVip')
+
     // 获取小程序颜色主题
     this.getTheme()
     // 判断playInfo页面样式，因为这里最快执行所以放在这

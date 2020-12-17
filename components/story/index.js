@@ -48,7 +48,8 @@ Component({
     src: [],
     flag: 0,
     width: '',
-    height: ''
+    height: '',
+    showPlay: false
   },
 
   /**
@@ -71,9 +72,18 @@ Component({
       this.setData({
         'item.coverUrl': app.sysInfo.defaultImg
       })
+    },
+    watchPlay (id) {
+      console.log(id, this.data.datasource.id)
+      if(id === this.data.datasource) {
+        this.setData({
+          showPlay: true
+        })
+      }
+      
     }
   },
-
+  
   attached: function () {
     if(this.data.likePic && this.data.likePic.length > 1) {
       this.setData({

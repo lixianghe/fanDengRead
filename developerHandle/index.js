@@ -35,7 +35,7 @@
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
 
-import { layout } from '../utils/httpOpt/api'
+import { layoutGroup } from '../utils/httpOpt/api'
 import { btnCallback, openVip, renewalVip } from '../utils/login'
 const app = getApp()
 
@@ -146,9 +146,10 @@ module.exports = {
     // wx.showLoading({
     //   title: '加载中',
     // })
-    layout({}).then(res => {
+    layoutGroup({}).then((res) => {
       // 推荐  suggest
-      let suggest = res.data.map(v => {
+      console.log(res.likedBookGroup.books)
+      let suggest = res.likedBookGroup.books.map(v => {
         let obj = {}
         obj.id = v.fragmentId
         obj.src = v.coverImage
@@ -157,8 +158,8 @@ module.exports = {
         return obj
       })
       this.setData({
-        // info: suggest,
-        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
+        info: suggest,
+        // info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
         reqL: true
       })
       wx.hideLoading()
@@ -167,8 +168,6 @@ module.exports = {
       this.setData({
         // info: suggest,
         info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
-        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
-        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
         {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
         reqL: true
       })

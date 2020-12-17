@@ -27,6 +27,8 @@ Page({
     shape: 'rect',
     // 数量图片
     countPic: '/images/asset/erji.png',
+    // 播放图片
+    playPic: '/images/asset/playing.png',
     // 频道列表，内容列表数据标志变量
     reqS: true,
     reqL: false,
@@ -41,6 +43,14 @@ Page({
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
     this.selectComponent('#miniPlayer').watchPlay()
+
+    // 卡片播放
+    let id = wx.getStorageSync('songInfo').id
+    console.log(id)
+    setTimeout(() => {
+      console.log(this.selectComponent('#storyCom').watchPlay(id))
+    }, 500)
+
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()

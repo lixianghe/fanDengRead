@@ -19,13 +19,15 @@
  *  其他入口，配置入口点击事件方法名，入口图标，入口名称；入口数量开发者根据项目需要配置
  */
 const app = getApp()
-import {agree,login,getUserInfo, logout, openVip, renewalVip,btnCallback} from '../utils/login'
+import {agree, login, getPhoneNumber, next, logoutTap,logoutTap2, openVip, renewalVip,btnCallback} from '../utils/login'
 // import {validationAuthorize} from '../utils/httpOpt/api'
 
 module.exports = {
   data: {
     // 开发者注入模板用户信息
     userInfo: app.globalData.userInfo,
+    // tai登录标志
+    taiLogin: false,
     // 登录标志
     isLogin: app.globalData.isLogin,
     // vip标志
@@ -62,12 +64,39 @@ module.exports = {
         }
       ]
     },
+    // 测试用参数
+    // test: {
+    //   code: '',
+    //   sessionId: '',
+    //   openId: '',
+    //   unionId: '',
+    //   rawData: '',
+    //   signature: '',
+    //   encryptedData: '',
+    //   iv: ''
+    // },
+    // testJson: '',
   },
   onShow() {
+    let that = this
+    if(wx.canIUse('onTaiAccountStatusChange')){
+      wx.onTaiAccountStatusChange((res)=>{
+        if(!res.isLoginUser){
+          console.log('tai退出tai退出tai退出tai退出')
+          that.logoutTap2()
+          wx.setStorageSync('taiLogin', false)
+          that.setData({
+            taiLogin: false
+          })
+        }
+      })
+    }
+
     this.setData({
       isAgree: app.globalData.isAgree,
       userInfo: app.globalData.userInfo,
       isLogin: app.globalData.isLogin,
+      taiLogin: wx.getStorageSync('taiLogin'),
       isVip: app.globalData.isVip
     })
   },
@@ -83,11 +112,14 @@ module.exports = {
       })
     }
   },
+  
   onLoad(options) {
     this.agree = agree.bind(this)
     this.login = login.bind(this)
-    this.getUserInfo = getUserInfo.bind(this)
-    this.logout = logout.bind(this)
+    this.getPhoneNumber = getPhoneNumber.bind(this)
+    this.next = next.bind(this)
+    this.logoutTap = logoutTap.bind(this)
+    this.logoutTap2 = logoutTap2.bind(this)
     this.btnCallback = btnCallback.bind(this)
   },
   onReady() {

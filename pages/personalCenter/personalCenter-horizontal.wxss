@@ -65,7 +65,8 @@
 .adminBtnIn {
   margin-top: 4vh;
   font-size: 4.9vh;
-  width: 28.9vh;
+  /* width: 28.9vh; */
+  padding: 0 3vh;
   height: 11.1vh;
   line-height: 11.1vh;
   color: #e8e8e8;
@@ -81,7 +82,7 @@
 }
 .buttomBox {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 .adminBtno {
   margin-top: 4.6vh;
@@ -89,6 +90,7 @@
   width: 28.9vh;
   height: 11.1vh;
   line-height: 11.1vh;
+  margin-left: 11vh;
   color: #e8e8e8;
   background: #282829;
   border-radius: 40px;
