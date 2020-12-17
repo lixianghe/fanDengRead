@@ -62,6 +62,8 @@
             taiLogin: true
           })
           wx.setStorageSync('taiLogin', true)
+          console.log(res.code)
+          console.log('code==================')
           validationAuthorize({
             code: res.code
           }).then(auth => {
@@ -85,7 +87,6 @@
     // wx.showLoading({
     //   title: '请求中',
     // })
-
   }
   export const getPhoneNumber = function (num) {
     console.log('==========电话号码')

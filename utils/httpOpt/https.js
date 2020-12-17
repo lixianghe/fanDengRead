@@ -18,7 +18,7 @@ export function request(url, data = {}, method = 'POST') {
       dataType: 'json',
       header: {
         'Content-Type': 'application/json',
-        'X-DUSHU-APP-VER': '1.0.0',
+        'X-DUSHU-APP-VER': 'v4.0.0',
         'X-DUSHU-APP-PLT': '3',
         'X-DUSHU-APP-CHN': 'TencentCarMini',
         'X-DUSHU-APP-MUID': '00000000-0000-0000-0000-000000000000',

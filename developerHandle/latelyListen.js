@@ -100,7 +100,8 @@ module.exports = {
         obj.title = v.bookTitle ? v.bookTitle : ''
         return obj
       })
-
+      console.log(res)
+      console.log('historyList=====104')
       this.setData({
         req: true,
         info: info
