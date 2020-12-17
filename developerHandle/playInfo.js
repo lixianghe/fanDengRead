@@ -85,6 +85,7 @@ module.exports = {
       trial: !isVip,
       playHistoryType: 1
     }
+    
     saveHistory(opt).then(res => {
       console.log('addHistory' + JSON.stringify(res))
     }).catch((err) =>{

@@ -9,7 +9,7 @@ const albumMediaApi = '/resource-orchestration-system/fragment/v101/content'
 // 最近播放
 const historyApi = '/resource-orchestration-system/play/addPlayHistory'                              
 // 添加播放记录
-const saveHistoryApi = '/resource-orchestration-system/play/duration'             
+const saveHistoryApi = '/resource-orchestration-system/play/addPlayHistory'             
 // 收藏书籍
 const albumFavoriteApi = '/resource-orchestration-system/favorite/v100/folder/detail'                     
 // 添加书籍收藏
