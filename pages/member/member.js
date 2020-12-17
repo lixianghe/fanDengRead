@@ -1,48 +1,39 @@
+//index.js
 const app = getApp()
-import { vipList } from '../../utils/httpOpt/api'
+let drawQrcode = require("../../utils/wepapp-qrcode")
 
 Page({
   data: {
-    vipList: [],
-    showInfo: false,
-    info: null,
-    colorStyle: app.sysInfo.colorStyle,
-    backgroundColor: app.sysInfo.backgroundColor,
-    screen: app.globalData.screen,
+    text:"(๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤",
   },
-  onReady() {},
-  onShow() {
-    this.selectComponent('#miniPlayer').setOnShow()
+  onLoad() {
+    this.ewmChange()
   },
-  onHide() {
-    this.selectComponent('#miniPlayer').setOnHide()
-  },
-  async onLoad(options) {
-    this.getList()
-  },
-  getList() {
-    vipList().then(res => {
-      let list = res.vipPackage
-      this.setData({vipList: list})
+
+  ewmChange(){
+    let size = {}
+    size.w = wx.getSystemInfoSync().windowWidth / 750 * 600
+    size.h = size.w
+    var that = this
+
+    drawQrcode({
+      width: size.w,
+      height: size.h,
+      canvasId: 'myQrcode',
+      // ctx: wx.createCanvasContext('myQrcode'),
+      text: that.data.text,
+      // v1.0.0+版本支持在二维码上绘制图片
     })
   },
-  showInfo(e) {
-    let info = e.currentTarget.dataset.info
+
+  ewmText(e){
     this.setData({
-      showInfo: true,
-      info: info
+      text: e.detail.value
     })
   },
-  close() {
-    this.setData({
-      showInfo: false,
-      info: null
-    })
-  },
-  toPay(e) {
-    let { id } = e.currentTarget.dataset
-    wx.navigateTo({
-      url: '/pages/member/pay?id=' + id
-    })
+
+  searchFn(){
+    this.ewmChange()
   }
+  
 })

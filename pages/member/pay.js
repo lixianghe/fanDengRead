@@ -1,9 +1,12 @@
 // pages/mine/pay.js
 //获取应用实例
 const app = getApp()
-import { signature, getPayQrCode, buyResult } from '../../utils/httpOpt/api'
+import { getPayQrCode } from '../../utils/httpOpt/api'
+import { userInfoUpdate } from '../../utils/login'
 
-var payTimer = null
+let drawQrcode = require("../../utils/wepapp-qrcode")
+
+
 Page({
   data: {
     // 系统配色
@@ -14,8 +17,8 @@ Page({
     totalPrice: '',
     // 支付状态
     payStatus: 'pre',
-    codeUrl: '/images/asset/erweima.png',
-    totalPrice: '35',
+    codeUrl: '',
+    totalPrice: '365',
     colorStyle: app.sysInfo.colorStyle,
     backgroundColor: app.sysInfo.backgroundColor,
     screen: app.globalData.screen,
@@ -25,28 +28,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-
+    this.userInfoUpdate = userInfoUpdate.bind(this)
   },
   onShow: function () {
-    console.log(1111)
     this.createOrder()
   },
   backTap(){
+    this.userInfoUpdate()
     wx.navigateBack()
   },
 
   async createOrder(){
     getPayQrCode().then(res => {
-      let { totalPrice, payUrl } = res
-      console.log('buy')
-      console.log(res)
+      let payUrl = res.data.payUrl
       this.setData({
-        totalPrice,
         codeUrl: payUrl
       })
+      this.ewmChange(payUrl)
     }).catch((error) => {
-      console.log('errorbuy')
       console.log(error)
     })
+  },
+  ewmChange(url){
+    let size = {}
+    let query = wx.createSelectorQuery();
+    query.select('.myQrcode').boundingClientRect(rect=>{
+      let canvasHeight = rect.height - 10;
+      size.w = canvasHeight
+      size.h = size.w
+      drawQrcode({
+        width: size.w,
+        height: size.h,
+        canvasId: 'myQrcode',
+        // ctx: wx.createCanvasContext('myQrcode'),
+        text: url,
+        // v1.0.0+版本支持在二维码上绘制图片
+      })
+    }).exec();
   }
 })

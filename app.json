@@ -1,7 +1,8 @@
 {
   "pages": [
-    
     "pages/index/index", 
+    "pages/member/pay",
+    
     "pages/personalCenter/personalCenter",
     "pages/test/test", 
     "pages/like/like",
@@ -9,7 +10,7 @@
     "pages/playInfo/playInfo",
     "pages/latelyListen/latelyListen",
     "pages/category/category",
-    "pages/member/pay",
+    
     "pages/member/member",
     "pages/myBuy/myBuy",
     "pages/userAgree/userAgree"
