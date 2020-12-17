@@ -84,7 +84,11 @@ module.exports = {
       fragmentId: data.fragmentId,
       duration: data.duration
     }
-    saveHistory(opt)  
+    saveHistory(opt).then(res => {
+      console.log('addHistory' + JSON.stringify(res))
+    }).catch((err) =>{
+      console.log('erraddHistory' + JSON.stringify(err))
+    })  
   },
   // 收藏和取消收藏,playInfo和minibar用到这里
   like(that = this) {
@@ -96,9 +100,10 @@ module.exports = {
       resourceType: 1,
       fragmentId: app.globalData.songInfo.id
     }
-    if (!app.isLogin) {
+    let isLogin = wx.getStorageSync('isLogin')
+    if (!isLogin) {
       wx.showToast({ icon: 'none', title: '请登录后进行操作' })
-      // return;
+      return;
     }
     if (that.data.existed) {
       albumFavoriteCancel(params).then(res => {
