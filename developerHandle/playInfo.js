@@ -72,7 +72,7 @@ module.exports = {
     songInfo.title = data.title                                       // 音频名称
     songInfo.id = data.fragmentId                                     // 音频Id
     songInfo.dt = tool.formatduration(data.duration, 'second')        // 音频时常
-    songInfo.coverImgUrl = data.titleImageUrl + '.jpg'                 // 音频封面
+    songInfo.coverImgUrl = data.titleImageUrl                // 音频封面
     songInfo.existed = data.isFavorite
     app.globalData.songInfo = Object.assign({}, songInfo)
     that.setData({ songInfo: songInfo, existed: data.isFavorite })

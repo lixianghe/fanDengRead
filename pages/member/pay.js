@@ -43,6 +43,9 @@ Page({
         totalPrice,
         codeUrl: payUrl
       })
+    }).catch((error) => {
+      console.log('errorbuy')
+      console.log(error)
     })
   }
 })
