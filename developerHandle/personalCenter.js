@@ -19,7 +19,7 @@
  *  其他入口，配置入口点击事件方法名，入口图标，入口名称；入口数量开发者根据项目需要配置
  */
 const app = getApp()
-import {agree, login, getPhoneNumber, next, logoutTap,logoutTap2, openVip, renewalVip,btnCallback} from '../utils/login'
+import {agree, login, getPhoneNumber, next, logoutTap,logoutTap2, userInfoUpdate,btnCallback} from '../utils/login'
 // import {validationAuthorize} from '../utils/httpOpt/api'
 
 module.exports = {
@@ -99,6 +99,7 @@ module.exports = {
       taiLogin: wx.getStorageSync('taiLogin'),
       isVip: app.globalData.isVip
     })
+    
   },
   confirmHandle(e) {
     
@@ -121,6 +122,11 @@ module.exports = {
     this.logoutTap = logoutTap.bind(this)
     this.logoutTap2 = logoutTap2.bind(this)
     this.btnCallback = btnCallback.bind(this)
+    this.userInfoUpdate = userInfoUpdate.bind(this)
+
+    setTimeout(() => {
+      this.userInfoUpdate()
+    },6000)
   },
   onReady() {
 

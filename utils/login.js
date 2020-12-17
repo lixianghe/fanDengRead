@@ -6,7 +6,8 @@
     validationAuthorize,
     createOrUpdateWeChatUser,
     authLogin,
-    logout
+    logout,
+    userInfo
   } from '../utils/httpOpt/api'
 
 
@@ -245,6 +246,23 @@
     app.globalData.userInfo = obj
   }
 
+  export const userInfoUpdate = function () {
+    userInfo().then(res => {
+      console.log(res)
+      console.log('用户信息获取成功')
+
+      app.globalData.vipState = res.data.is_vip ? isVipEnd(res.data.expire_time.toString(), Date.now().toString()) : 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
+      app.globalData.vipEndTime = timestampToTime(res.data.expire_time.toString().substr(0, 10))
+      app.globalData.isVip = app.globalData.vipState
+      
+      wx.setStorageSync('isVip', app.globalData.vipState)
+      wx.setStorageSync('vipState', app.globalData.vipState)
+      wx.setStorageSync('vipEndTime', app.globalData.vipEndTime)
+    }).catch(err => {
+      console.log(err)
+      console.log('用户信息获取失败')
+    })
+  }
 
   // 开通VIP
   export const openVip = function () {
