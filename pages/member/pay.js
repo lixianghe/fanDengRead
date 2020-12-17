@@ -1,7 +1,7 @@
 // pages/mine/pay.js
 //获取应用实例
 const app = getApp()
-import { signature, buy, buyResult } from '../../utils/httpOpt/api'
+import { signature, getPayQrCode, buyResult } from '../../utils/httpOpt/api'
 
 var payTimer = null
 Page({
@@ -28,6 +28,7 @@ Page({
 
   },
   onShow: function () {
+    console.log(1111)
     this.createOrder()
   },
   backTap(){
@@ -35,7 +36,7 @@ Page({
   },
 
   async createOrder(){
-    buy().then(res => {
+    getPayQrCode().then(res => {
       let { totalPrice, payUrl } = res
       console.log('buy')
       console.log(res)
