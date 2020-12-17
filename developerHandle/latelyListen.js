@@ -91,7 +91,8 @@ module.exports = {
     wx.showLoading({
       title: '加载中',
     })
-    let params = {pageSize: 20}
+    let params = {pageSize: 8}
+    console.log(params)
     history(params).then(res => {
       let info = res.data.playRecords.map(v => {
         let obj = {}
@@ -100,7 +101,7 @@ module.exports = {
         obj.title = v.bookTitle ? v.bookTitle : ''
         return obj
       })
-      console.log(res)
+      console.log(params)
       console.log('historyList=====104')
       this.setData({
         req: true,
