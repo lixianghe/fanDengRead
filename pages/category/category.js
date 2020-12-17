@@ -32,7 +32,8 @@ Page({
     // 频道列表，内容列表数据标志变量
     reqS: true,
     reqL: false,
-    showNonet: false
+    showNonet: false,
+    scrollLeft: 0
   },
   onLoad(options) {
     // 检测网络
@@ -63,7 +64,8 @@ Page({
     
     // 这里可以自定义传值传到_getList中
     this.setData({
-      info: this.data.allData[index]
+      info: this.data.allData[index],
+      scrollLeft: 0
     })
   },
 
@@ -73,33 +75,6 @@ Page({
     })
     layoutGroup({}).then((res) => {
       let labels = [
-        {
-          "name": "近期新书",
-          "id": 'recentNewBooks'
-        }, {
-          "name": "免费体验",
-          "id": 'freeBooks'
-        },{
-          "name": "近期新书",
-          "id": 'recentNewBooks'
-        }, {
-          "name": "免费体验",
-          "id": 'freeBooks'
-        },
-        {
-          "name": "近期新书",
-          "id": 'recentNewBooks'
-        }, {
-          "name": "免费体验",
-          "id": 'freeBooks'
-        },
-        {
-          "name": "近期新书",
-          "id": 'recentNewBooks'
-        }, {
-          "name": "免费体验",
-          "id": 'freeBooks'
-        },
         {
           "name": "近期新书",
           "id": 'recentNewBooks'
@@ -136,6 +111,12 @@ Page({
         info: []
       })
       wx.hideLoading()
+    })
+  },
+  bindscrolltolower(e) {
+    wx.showToast({
+      title: '已经到底了！',
+      icon: 'none'
     })
   },
   // 跳转到播放详情界面

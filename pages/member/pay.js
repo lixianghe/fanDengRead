@@ -1,12 +1,12 @@
 // pages/mine/pay.js
 //获取应用实例
 const app = getApp()
-import { signature, getPayQrCode, buyResult } from '../../utils/httpOpt/api'
+import { getPayQrCode } from '../../utils/httpOpt/api'
+import { userInfoUpdate } from '../../utils/login'
+
 let drawQrcode = require("../../utils/wepapp-qrcode")
 
-console.log(drawQrcode)
 
-var payTimer = null
 Page({
   data: {
     // 系统配色
@@ -18,7 +18,7 @@ Page({
     // 支付状态
     payStatus: 'pre',
     codeUrl: '',
-    totalPrice: '35',
+    totalPrice: '365',
     colorStyle: app.sysInfo.colorStyle,
     backgroundColor: app.sysInfo.backgroundColor,
     screen: app.globalData.screen,
@@ -28,13 +28,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-
+    this.userInfoUpdate = userInfoUpdate.bind(this)
   },
   onShow: function () {
-    console.log(1111)
     this.createOrder()
   },
   backTap(){
+    this.userInfoUpdate()
     wx.navigateBack()
   },
 
@@ -54,7 +54,6 @@ Page({
     let query = wx.createSelectorQuery();
     query.select('.myQrcode').boundingClientRect(rect=>{
       let canvasHeight = rect.height - 10;
-      console.log(canvasHeight)
       size.w = canvasHeight
       size.h = size.w
       drawQrcode({
