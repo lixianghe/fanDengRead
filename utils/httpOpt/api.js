@@ -7,7 +7,7 @@ const layoutApi = '/mini-orch/carLoadMini/v100/suggest'
 // 查询专辑故事
 const albumMediaApi = '/resource-orchestration-system/fragment/v101/content'                                                                               
 // 最近播放
-const historyApi = '/resource-orchestration-system/play/addPlayHistory'                              
+const historyApi = '/resource-behavior-orchestration/play/v100/histories'                              
 // 添加播放记录
 const saveHistoryApi = '/resource-orchestration-system/play/addPlayHistory'             
 // 收藏书籍

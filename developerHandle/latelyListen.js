@@ -94,6 +94,8 @@ module.exports = {
     let params = {pageSize: 8}
     console.log(params)
     history(params).then(res => {
+      console.log('hist')
+      console.log(res)
       let info = res.data.playRecords.map(v => {
         let obj = {}
         obj.id = v.fragmentId ? v.fragmentId : ''
@@ -117,6 +119,7 @@ module.exports = {
       console.log(res)
     }).catch(err => {
       wx.hideLoading()
+      console.log('errhist')
       console.log(err)
     })
 
