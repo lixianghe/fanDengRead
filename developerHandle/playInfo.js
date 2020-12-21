@@ -60,7 +60,7 @@ module.exports = {
     // 拿到歌曲的id: options.id
     let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
     this.getMedia(getInfoParams).then(() => {
-      this.play() 
+      if (app.globalData.songInfo.src) this.play() 
     })
   },
   async getMedia(params, that = this) {  
@@ -96,6 +96,10 @@ module.exports = {
         console.log('errerrerrerrerr')
       })
     } catch (error) {
+      console.log('error', error)
+      app.stopmusic();
+      app.globalData.songInfo.id = that.data.songInfo.id
+      app.globalData.songInfo.src = null
       wx.showToast({ icon: 'none', title: '该书籍无法播放，请换本书籍吧~' })
       wx.hideLoading()
     }

@@ -32,6 +32,10 @@
 }
 .page .playLeft .title .title-name {
   display: block;
+  width: 100vh;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .page .playLeft .title .title-abumInfo {
   display: block;

@@ -69,11 +69,11 @@
       bindload="imgOnLoad"
       style="display:{{showImg ? 'block' : 'none'}};width: {{shape === 'rect' ? '46.9vh' : '18.65vw'}};height: {{shape === 'rect' ? '62.15vh' : '18.65vw'}}"
       src="{{songInfo.coverImgUrl}}" />
-    <view 
+    <!-- <view 
       class="image"
       wx:if="{{!showImg}}"
       style="width: {{shape === 'rect' ? '46.9vh' : '18.65vw'}};height: {{shape === 'rect' ? '62.15vh' : '18.65vw'}}"
-      ></view>
+      ></view> -->
   </view>
 </view>
 <!-- 高于1/2的分辨率 -->
@@ -87,11 +87,11 @@
         style="width: {{shape === 'rect' ? '17.3vh' : '23vh'}};height: {{shape === 'rect' ? '23vh' : '23vh'}}"
         />
 
-      <view
+      <!-- <view
         class="image"
         wx:if="{{!showImg}}"
         style="width: {{shape === 'rect' ? '17.3vh' : '23vh'}};height: {{shape === 'rect' ? '23vh' : '23vh'}}"
-        ></view>
+        ></view> -->
 
 
       <view class="title" wx:if="{{songInfo.title}}">

@@ -110,6 +110,9 @@ App({
   },
   vision: '1.0.0',
   cutplay: async function (that, type, cutFlag) {
+    wx.showLoading({
+      title: '加载中',
+    })
     // 判断循环模式
     let allList = wx.getStorageSync('nativeList')
     // 根据循环模式设置数组
@@ -180,19 +183,11 @@ App({
   playing: function (seek, cb) {
     const songInfo = this.globalData.songInfo
     console.log('songInfo', songInfo)
-    // 如果是车载情况
-    if (this.globalData.useCarPlay) {
-      console.log('车载播放')
-      this.carHandle(seek)
-    } else {
-      console.log('小程序播放')
-      this.wxPlayHandle(songInfo, seek, cb)
-    }
-
+    this.carHandle(songInfo, seek)
   },
   // 车载情况下的播放
-  carHandle(seek) {
-    let media = this.globalData.songInfo || wx.getStorageSync('songInfo')
+  carHandle(songInfo, seek) {
+    let media = songInfo
     this.audioManager.src = media.src
     this.audioManager.title = media.title
     this.audioManager.coverImgUrl = media.coverImgUrl
@@ -203,22 +198,22 @@ App({
     }
   },
   // 非车载情况的播放
-  wxPlayHandle(songInfo, seek, cb) {
-    wx.playBackgroundAudio({
-      dataUrl: songInfo.src,
-      title: songInfo.title,
-      success: function (res) {
-        if (seek != undefined && typeof (seek) === 'number') {
-          wx.seekBackgroundAudio({
-            position: seek
-          })
-        };
-        cb && cb();
-      },
-      fail: function () {
-      }
-    })
-  },
+  // wxPlayHandle(songInfo, seek, cb) {
+  //   wx.playBackgroundAudio({
+  //     dataUrl: songInfo.src,
+  //     title: songInfo.title,
+  //     success: function (res) {
+  //       if (seek != undefined && typeof (seek) === 'number') {
+  //         wx.seekBackgroundAudio({
+  //           position: seek
+  //         })
+  //       };
+  //       cb && cb();
+  //     },
+  //     fail: function () {
+  //     }
+  //   })
+  // },
   // 获取网络信息，给出相应操作
   getNetWork(that) {
     // 监听网络状态
