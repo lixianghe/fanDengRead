@@ -114,25 +114,27 @@ App({
     let allList = wx.getStorageSync('nativeList')
     // 根据循环模式设置数组
     let loopType = wx.getStorageSync('loopType') || 'listLoop'
-    // 如果缓存没有abumInfoName，说明是从首页单曲进入，list为单首
-    let abumInfoName = wx.getStorageSync('abumInfoName')
     // 歌曲列表
-    allList = abumInfoName ? this.setList(loopType, allList, cutFlag) : [this.globalData.songInfo]
+    allList = this.setList(loopType, allList, cutFlag)
     // 当前歌曲的索引
     let no = allList.findIndex(n => Number(n.id) === Number(this.globalData.songInfo.id))
+    
     let index = this.setIndex(type, no, allList)
+    console.log('index', index, allList, this.globalData.songInfo)
     //歌曲切换 停止当前音乐
     let song = allList[index] || allList[0]
+    song.coverImgUrl = song.src
     wx.pauseBackgroundAudio();
     that.setData({
       currentId: Number(song.id),       // 当前播放的歌曲id
-      currentIndex: index
+      currentIndex: index,
+      songInfo: song
     })
     // 获取歌曲的url
     let params = {
-      mediaId: song.id,
-      contentType: 'story'
+      fragmentId: song.id
     }
+    console.log(params)
     await getMedia(params, that)
     loopType === 'singleLoop' ? this.playing(0) : this.playing()
   },

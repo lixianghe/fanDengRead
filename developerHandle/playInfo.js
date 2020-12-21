@@ -55,11 +55,11 @@ module.exports = {
     shape: 'rect'
   },
   onLoad(options) {
+    // 进入详情先赋值部分字段
     const app = getApp()
     // 拿到歌曲的id: options.id
     let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
     this.getMedia(getInfoParams).then(() => {
-      console.log('play')
       this.play() 
     })
   },
@@ -67,13 +67,14 @@ module.exports = {
     const app = getApp()
     // 模拟请求数据  
     try {
+      
       let info = await albumMedia(params)
-      let songInfo = {}
+      let songInfo = Object.assign({}, that.data.songInfo)
       songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
-      songInfo.title = info.data.title                                       // 音频名称
+      // songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
       songInfo.dt = tool.formatduration(info.data.duration, 'second')        // 音频时常
-      songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
+      // songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
       songInfo.existed = info.data.isFavorite
       app.globalData.songInfo = Object.assign({}, songInfo)
       that.setData({ songInfo: songInfo, existed: info.data.isFavorite })
