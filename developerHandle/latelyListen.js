@@ -91,8 +91,9 @@ module.exports = {
     wx.showLoading({
       title: '加载中',
     })
-    let params = {pageSize: 8}
+    let params = {pageSize: 8,resourceType:[1]}
     console.log(params)
+    console.log('historyhistory')
     history(params).then(res => {
       console.log('hist')
       console.log(res)

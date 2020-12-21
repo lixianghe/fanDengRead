@@ -267,7 +267,7 @@
   // 开通VIP
   export const openVip = function () {
     console.log('开通VIP')
-  }
+  } 
   // 立即续费
   export const renewalVip = function () {
     console.log('立即续费')
