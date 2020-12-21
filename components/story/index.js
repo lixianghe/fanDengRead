@@ -73,15 +73,11 @@ Component({
         'item.coverUrl': app.sysInfo.defaultImg
       })
     },
-    watchPlay (id) {
-      console.log(id, this.data.datasource.id)
-      if(id === this.data.datasource) {
-        this.setData({
-          showPlay: true
-        })
-      }
-      
-    }
+    _onshow () {
+      this.setData({
+        showPlay: true
+      })
+  }
   },
   
   attached: function () {
