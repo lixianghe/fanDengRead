@@ -60,6 +60,7 @@
   position: relative;
   height: 1.24vh;
   background: #434343;
+  border-radius: 8px;
 }
 .wx-progress-bar {
   border-radius: 8px;

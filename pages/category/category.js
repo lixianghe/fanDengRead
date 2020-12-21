@@ -45,10 +45,22 @@ Page({
     this.selectComponent('#miniPlayer').setOnShow()
     this.selectComponent('#miniPlayer').watchPlay()
 
-
+    // 卡片组件onshow
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story._onshow()
+    }
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()
+
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
   },
   selectTap(e) {
     const index = e.currentTarget.dataset.index
@@ -97,6 +109,12 @@ Page({
         'labels.data': labels,
         allData: allData,
         info: allData[0]
+      }, () => {
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
       })
       wx.hideLoading()
     }).catch(err =>{

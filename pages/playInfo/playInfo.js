@@ -257,6 +257,7 @@ Page({
   },
   // 拖拽结束
   dragEndHandle(event) {
+    console.log(this.data.currentTime, this.data.percent, this.data.playtime)
     wx.seekBackgroundAudio({
       position: this.data.currentTime
     })

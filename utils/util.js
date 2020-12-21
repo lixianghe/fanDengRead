@@ -10,7 +10,12 @@ function formatduration(duration, type = 'millisecond') {
   } else if (type === 'millisecond' ) {
     duration = new Date(duration);
   }
-  return formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds());
+  console.log(duration.getHours() - 8)
+  let hour = duration.getHours()  - 8
+  let dt = hour
+          ? formatNumber(duration.getHours() - 8) + ":" + formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds())
+          : formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds())
+  return dt
 }
 
 // 时间转秒

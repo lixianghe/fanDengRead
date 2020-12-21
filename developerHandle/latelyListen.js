@@ -85,10 +85,10 @@ module.exports = {
 
     let id = e.currentTarget.dataset.id
     const src = e.currentTarget.dataset.src
-    // const title = e.currentTarget.dataset.title
+    const title = e.currentTarget.dataset.title
     wx.setStorageSync('img', src)
     // const routeType = e.currentTarget.dataset.contentype
-    let url = `../playInfo/playInfo?id=${id}`
+    let url= `../playInfo/playInfo?id=${id}&title=${title}&src=${src}`
 
     wx.navigateTo({
       url: url
