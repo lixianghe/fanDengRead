@@ -78,7 +78,16 @@ Page({
     wx.setStorageSync('abumInfoName', options.abumInfoName)
     const nativeList = wx.getStorageSync('nativeList') || []
     if (!nativeList.length || abumInfoName !== options.abumInfoName) wx.setStorageSync('nativeList', canplay)
-    if (options.noPlay !== 'true') wx.showLoading({ title: '加载中...', mask: true })
+    if (options.noPlay !== 'true') {
+      let song = {
+        title: options.title,
+        coverImgUrl: options.src,
+        id: options.id
+      }
+      this.setData({songInfo: song})
+      wx.showLoading({ title: '加载中...', mask: true })
+    }
+    
   },
   onShow: function () {
     this.queryProcessBarWidth()
@@ -112,15 +121,11 @@ Page({
   },
   // 上一首
   pre() {
-    let loopType = wx.getStorageSync('loopType')
-    if (loopType !== 'singleLoop') this.setData({ showImg: false })
     const that = this
     app.cutplay(that, -1)
   },
   // 下一首
   next() {
-    let loopType = wx.getStorageSync('loopType')
-    if (loopType !== 'singleLoop') this.setData({ showImg: false })
     const that = this
     app.cutplay(that, 1)
   },
@@ -207,8 +212,9 @@ Page({
   async playSong(e) {
     const songInfo = e.currentTarget.dataset.song
     app.globalData.songInfo = songInfo
+    songInfo.coverImgUrl = songInfo.src
     // 获取歌曲详情
-    let params = {mediaId: app.globalData.songInfo.id, contentType: 'story'}
+    let params = {fragmentId: app.globalData.songInfo.id}
     await this.getMedia(params)
     this.setData({
       songInfo: songInfo,

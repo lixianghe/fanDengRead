@@ -8,9 +8,7 @@ const appId = 786474
 export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     data.appId = '60348'
-    data.token = wx.getStorageSync('token') || '20201211OXy6bRzmqrS0Y6WbEkM'
-    console.log(data.token)
-    // data.token = '20201209DDG0nnhhpPjhXkNZTwa'
+    data.token = wx.getStorageSync('token') || ''
     wx.request({
       url: base + url,
       data: data,
@@ -18,7 +16,7 @@ export function request(url, data = {}, method = 'POST') {
       dataType: 'json',
       header: {
         'Content-Type': 'application/json',
-        'X-DUSHU-APP-VER': 'v4.0.0',
+        'X-DUSHU-APP-VER': '4.0.0',
         'X-DUSHU-APP-PLT': '3',
         'X-DUSHU-APP-CHN': 'TencentCarMini',
         'X-DUSHU-APP-MUID': '00000000-0000-0000-0000-000000000000',
@@ -29,17 +27,17 @@ export function request(url, data = {}, method = 'POST') {
         if (res.statusCode === 200) {
           if (res.data.status === '0000' || res.data.status === 1) {
             resolve(res.data)
-          } else { 
+          } else {  
             if (res.data.error === '1111') {
               wx.showToast({
                 title: '登录信息已过期,请重新登录',
                 icon: 'none'
               })
             } else {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'none'
-              })
+              // wx.showToast({
+              //   title: res.data.message,
+              //   icon: 'none'
+              // })
               reject(res.data.message)
             }
           }
