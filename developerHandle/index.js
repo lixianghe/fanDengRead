@@ -123,7 +123,8 @@ module.exports = {
     
     if (this.story) {
       console.log(this.story)
-      this.story = this.selectComponent('#story')
+      let playingId = wx.getStorageSync('songInfo').id
+      this.story = this.selectComponent(`#story${playingId}`)
       this.story._onshow()
     }
   },
@@ -168,9 +169,16 @@ module.exports = {
         info: suggest,
         // info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
         reqL: true
+      }, () => {
+        // setTimeout(() => {
+          let playingId = wx.getStorageSync('songInfo').id
+          this.story = this.selectComponent(`#story${playingId}`)
+          if (this.story) {
+            this.story._onshow()
+          }
+        // },1000)
       })
-      this.story = this.selectComponent('#story')
-      this.story._onshow()
+      
       wx.hideLoading()
     }).catch(err => {
       console.log(err)

@@ -87,7 +87,13 @@ module.exports = {
         playHistoryType: 1
       }
       console.log('opt', opt)
-      saveHistory(opt) 
+      saveHistory(opt).then(res => {
+        console.log(res)
+        console.log('resresresresres')
+      }).catch(err => {
+        console.log(err)
+        console.log('errerrerrerrerr')
+      })
     } catch (error) {
       wx.showToast({ icon: 'none', title: '该书籍无法播放，请换本书籍吧~' })
       wx.hideLoading()

@@ -4,10 +4,10 @@
     
   </view>
   <view class="conut" wx:if="{{datasource.count}}">
-    <image class="countpic" src="{{countpic}}" wx:if="{{showPlay}}"></image>
+    <image class="countpic" src="{{countpic}}" ></image>
     <text class="countxt">{{datasource.count}}</text>
   </view>
-  <!-- <image class="playPic" src="{{playpic}}"></image> -->
+  <image class="playPic" src="{{playpic}}" wx:if="{{showPlay}}"></image>
   <view wx:if="{{src.length > 0}}"
       class="like"
       style="background-image:url({{src}})"

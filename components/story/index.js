@@ -73,16 +73,11 @@ Component({
         'item.coverUrl': app.sysInfo.defaultImg
       })
     },
-    _onshow (id) {
-      let playingId = wx.getStorageSync('songInfo').id
-      console.log(playingId, this.data.datasource.id)
-      // if(id === this.data.datasource) {
-      //   this.setData({
-      //     showPlay: true
-      //   })
-      // }
-      
-    }
+    _onshow () {
+      this.setData({
+        showPlay: true
+      })
+  }
   },
   
   attached: function () {
