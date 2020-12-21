@@ -43,7 +43,6 @@ function playAlrc(that, app) {
       }
       if (res.status == 1) {
         playing = true;
-        wx.hideLoading()
       }
       app.globalData.playing = playing;
       app.globalData.percent = time
@@ -91,7 +90,7 @@ function EventListener(that){
   //播放事件
   that.audioManager.onPlay(() => {
     console.log('-------------------------------onPlay-----------------------------------')
-    // wx.hideLoading()
+    wx.hideLoading()
     that.setData({ playing: true });
     wx.setStorageSync('playing', true)
   })

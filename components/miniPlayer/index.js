@@ -36,7 +36,7 @@ Component({
     miniBtns: [
       {
         name: 'pre',
-        img: '/images/asset/btn_last song_playbar.png',
+        img: '/images/asset/btn_last_song_playbar.png',
       },
       {
         name: 'toggle',
@@ -47,7 +47,7 @@ Component({
       },
       {
         name: 'next',
-        img: '/images/asset/btn_next song_playbar.png'
+        img: '/images/asset/btn_next_song_playbar.png'
       },
       {
         name: 'like',                                         

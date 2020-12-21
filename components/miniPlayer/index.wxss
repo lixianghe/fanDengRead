@@ -96,12 +96,13 @@
 
 
 .playing-status .btns .modal {
-  width: 10vh;
-  height: 10vh;
+  width: 14vh;
+  height: 14vh;
   border-radius: 7.5vh;
   background: #111111;
   opacity: 0.32;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

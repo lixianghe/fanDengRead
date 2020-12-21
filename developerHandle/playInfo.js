@@ -66,32 +66,33 @@ module.exports = {
   async getMedia(params, that = this) {  
     const app = getApp()
     // 模拟请求数据  
-    let data = (await albumMedia(params)).data
-    let songInfo = {}
-    songInfo.src = data.mediaUrls[0]                                  // 音频地址
-    songInfo.title = data.title                                       // 音频名称
-    songInfo.id = data.fragmentId                                     // 音频Id
-    songInfo.dt = tool.formatduration(data.duration, 'second')        // 音频时常
-    songInfo.coverImgUrl = data.titleImageUrl                // 音频封面
-    songInfo.existed = data.isFavorite
-    app.globalData.songInfo = Object.assign({}, songInfo)
-    that.setData({ songInfo: songInfo, existed: data.isFavorite })
-    wx.setStorageSync('songInfo', songInfo)
-    // 添加播放历史
-    let isVip = wx.getStorageSync('isVip')
-    let opt = {
-      bookId: data.id,
-      fragmentId: data.fragmentId,
-      trial: !isVip,
-      playHistoryType: 1
+    try {
+      let info = await albumMedia(params)
+      let songInfo = {}
+      songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
+      songInfo.title = info.data.title                                       // 音频名称
+      songInfo.id = info.data.fragmentId                                     // 音频Id
+      songInfo.dt = tool.formatduration(info.data.duration, 'second')        // 音频时常
+      songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
+      songInfo.existed = info.data.isFavorite
+      app.globalData.songInfo = Object.assign({}, songInfo)
+      that.setData({ songInfo: songInfo, existed: info.data.isFavorite })
+      wx.setStorageSync('songInfo', songInfo)
+      // 添加播放历史
+      let isVip = wx.getStorageSync('isVip')
+      let opt = {
+        bookId: info.data.bookId,
+        fragmentId: info.data.fragmentId,
+        trial: !isVip,
+        playHistoryType: 1
+      }
+      console.log('opt', opt)
+      saveHistory(opt) 
+    } catch (error) {
+      wx.showToast({ icon: 'none', title: '该书籍无法播放，请换本书籍吧~' })
+      wx.hideLoading()
     }
-    console.log('addHistoryParms')
-    console.log(opt)
-    saveHistory(opt).then(res => {
-      console.log('addHistory' + JSON.stringify(res))
-    }).catch((err) =>{
-      console.log('erraddHistory' + JSON.stringify(err))
-    })  
+    
   },
   // 收藏和取消收藏,playInfo和minibar用到这里
   like(that = this) {
