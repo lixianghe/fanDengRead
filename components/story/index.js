@@ -49,7 +49,8 @@ Component({
     flag: 0,
     width: '',
     height: '',
-    showPlay: false
+    showPlay: false,
+    datasourceCount: ''
   },
 
   /**
@@ -84,6 +85,12 @@ Component({
       this.setData({
         showPlay: false
       })
+    },
+    formW (num) {
+      let b = num.toString().split('').reverse()
+      let res = b.slice(4, b.length).reverse().join('')+'万'
+      console.log(res)
+      return res
     }
   },
   
@@ -93,6 +100,11 @@ Component({
         src: this.data.likePic[this.data.flag]
       })
     }
+
+    let that = this
+    this.setData({
+      datasourceCount: (that.data.datasource.count > 10000) ? that.formW(that.data.datasource.count) : that.data.datasource.count
+    })
 
     // 封面形状
     switch (this.data.shape) {
