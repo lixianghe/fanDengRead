@@ -10,8 +10,8 @@
       </view>
       <!-- 页面盒子 -->
       <view class="storyBox">
-        <story wx:if="{{info.length>0 && req}}" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
-          data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}"
+        <story id="story{{item.id}}" wx:if="{{info.length>0 && req}}" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
+          data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" playpic="{{playPic}}"
           data-contentype="{{item.contentType}}" bindtap="linkAbumInfo" datasource="{{item}}" countpic="{{countPic}}"
           className="{{screen}}" shape="{{shape}}"></story>
 

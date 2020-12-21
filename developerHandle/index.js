@@ -119,12 +119,11 @@ module.exports = {
     // 登录组件onshow
     this.loginCard = this.selectComponent('#loginCard')
     this.loginCard._onshow()
+
     // 卡片组件onshow
-    
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
     if (this.story) {
-      console.log(this.story)
-      let playingId = wx.getStorageSync('songInfo').id
-      this.story = this.selectComponent(`#story${playingId}`)
       this.story._onshow()
     }
   },
@@ -135,9 +134,14 @@ module.exports = {
     // 初始化加载数据
     this._getList()
   },
-  onReady() {
-
-  },  
+  onHide() {
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
+  },
   // 处理logincard组件事件响应
   confirmHandle(opt) {
     if(opt.detail.type === 'renewalVip') {
@@ -207,6 +211,13 @@ module.exports = {
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
+
     let id = e.currentTarget.dataset.id
     const src = e.currentTarget.dataset.src
     const title = e.currentTarget.dataset.title
