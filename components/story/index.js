@@ -74,10 +74,17 @@ Component({
       })
     },
     _onshow () {
+      console.log('truetruetruetrue')
       this.setData({
         showPlay: true
       })
-  }
+    },
+    clearPlay () {
+      console.log('falsefalsefalse')
+      this.setData({
+        showPlay: false
+      })
+    }
   },
   
   attached: function () {

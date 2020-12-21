@@ -35,6 +35,8 @@ module.exports = {
     showModal: false,
     req: false,
     countPic: '/images/media_num.png',
+    // 播放图片
+    playPic: '/images/asset/playing.png',
     // 开发者注入模板标签数据
     labels: {
       show: false,
@@ -54,16 +56,33 @@ module.exports = {
     shape: 'rect',
   },
   onShow() {
-
+    // 卡片组件onshow
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story._onshow()
+    }
   },
   onLoad(options) {
     this._getList('专辑')
   },
-  onReady() {
-
+  onHide() {
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
+
     let id = e.currentTarget.dataset.id
     const src = e.currentTarget.dataset.src
     // const title = e.currentTarget.dataset.title
@@ -109,6 +128,13 @@ module.exports = {
       this.setData({
         req: true,
         info: info
+      }, () => {
+        // 卡片组件onshow
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
       })
       if (info.length === 0) {
         this.setData({
