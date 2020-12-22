@@ -42,6 +42,7 @@
   /* flex: 0 0 72vh; */
   overflow: hidden;
   text-align: center;
+  padding: 0 5vh;
 }
 .adminCenter .image {
   width: 18.43vh;
@@ -82,6 +83,7 @@
 }
 .buttomBox {
   display: flex;
+  justify-content: space-around;
   /* justify-content: space-evenly; */
 }
 .adminBtno {
@@ -90,7 +92,7 @@
   width: 28.9vh;
   height: 11.1vh;
   line-height: 11.1vh;
-  margin-left: 11vh;
+  /* margin-left: 11vh; */
   color: #e8e8e8;
   background: #282829;
   border-radius: 40px;

@@ -14,10 +14,14 @@ Page({
     debugLog: '',
     songInfo: {},
     mainColor: btnConfig.colorOptions.mainColor,
-    
+    showNonet: false,
   },
 
-  onLoad(options) {},
+  onLoad(options) {
+    // 检测网络
+    let that = this
+    app.getNetWork(that)
+  },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
   },

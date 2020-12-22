@@ -120,7 +120,7 @@ App({
     // 判断循环模式
     let allList = wx.getStorageSync('nativeList')
     // 根据循环模式设置数组
-    let loopType = wx.getStorageSync('loopType') || 'listLoop'
+    let loopType = 'listLoop'
     // 歌曲列表
     allList = this.setList(loopType, allList, cutFlag)
     // 当前歌曲的索引
@@ -184,6 +184,7 @@ App({
   // 根据歌曲url播放歌曲
   playing: function (seek, that) {
     const songInfo = this.globalData.songInfo
+    // console.log('this.globalData.songInfo-----------------------' + JSON.stringify(this.globalData.songInfo))
     this.carHandle(songInfo, seek)
     tool.initAudioManager(that, songInfo)
   },

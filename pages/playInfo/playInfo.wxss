@@ -19,6 +19,7 @@
   height: 10vh;
   background: rgba(255,255,255, 0.1);
   display: block;
+  margin-bottom: 5vh;
 }
 .page .playLeft .noReady .title-abumInfo {
   width: 70vh;
@@ -29,6 +30,8 @@
 }
 .page .playLeft .title {
   font-size: 6.7vh;
+  position: relative;
+  flex: 1;
 }
 .page .playLeft .title .title-name {
   display: block;
@@ -36,12 +39,22 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-bottom: 5vh;
 }
 .page .playLeft .title .title-abumInfo {
-  display: block;
+  display: flex;
   font-size: 5.2vh;
   color: #afafaf;
   margin-top: 3vh;
+  /* position: absolute; */
+  /* bottom: 0; */
+}
+.page .playLeft .title .title-abumInfo .singer {
+  text-align: left;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .page .playLeft .player {
   margin-top: 14.7vh;
@@ -189,7 +202,9 @@
   margin-right: 7.7vh;
   background: rgba(255,255,255, 0.1);
 }
-
+.page .songDc .songDcTitle .title .title-abumInfo .singer {
+  width: 68vh;
+}
 
 .page .songDc .player {
   margin-top: 14vh;
@@ -320,4 +335,16 @@
   height: 10vh!important;
   margin-top: -5vh!important;
   margin-left: -5vh!important;
+}
+.title-trial {
+  /* position: absolute; */
+  width: 79vh;
+  font-size: 5vh;
+  color: #fff;
+  background-image: linear-gradient(to right , #e97630,#e62a29);
+  padding: 0.5vh 4.5vh;
+  border-radius: 5vh;
+  right: 0;
+  bottom: 0;
+  float: right;
 }

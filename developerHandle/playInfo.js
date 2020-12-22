@@ -77,10 +77,13 @@ module.exports = {
       // songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
       songInfo.existed = info.data.isFavorite
       songInfo.trial = info.data.trial
+      songInfo.singer = info.data.bookAuthorName
       app.globalData.songInfo = Object.assign({}, songInfo)
       that.setData({ songInfo: songInfo, existed: info.data.isFavorite })
       wx.setStorageSync('songInfo', songInfo)
       // 添加播放历史
+      let isLogin = wx.getStorageSync('isLogin')
+      if (!isLogin) return
       let isVip = wx.getStorageSync('isVip')
       let opt = {
         bookId: info.data.bookId,
@@ -88,10 +91,9 @@ module.exports = {
         trial: !isVip,
         playHistoryType: 1
       }
-      console.log('opt', opt)
       saveHistory(opt).then(res => {
-        console.log(res)
-        console.log('resresresresres')
+        // console.log(res)
+        // console.log('resresresresres')
       }).catch(err => {
         console.log(err)
         console.log('errerrerrerrerr')

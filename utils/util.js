@@ -61,8 +61,6 @@ function playAlrc(that, app) {
         key: "playing",
         data: playing
       })
-      // 设置abumInfo页面的播放状态用来控制gif是否展示
-      that.triggerEvent('setPlaying', playing)
     }
   });
 };

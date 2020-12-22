@@ -19,8 +19,11 @@
 <view class="page {{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;" wx:if="{{bigScreen}}">
   <view class="playLeft">
     <view class="title" wx:if="{{songInfo.title}}">
-      <text class="title-name">{{songInfo.title}}{{m1.showSinger(songInfo.singer)}}</text>
-      <text class="title-abumInfo" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+      <text class="title-name">{{songInfo.title}}</text>
+      <view class="title-abumInfo">
+          <text class="singer">{{songInfo.singer}}</text>
+          <text class="title-trial" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+        </view>
     </view>
     <view class="noReady" wx:else>
       <text class="title-name"></text>
@@ -95,8 +98,11 @@
 
 
       <view class="title" wx:if="{{songInfo.title}}">
-        <text class="title-name">{{songInfo.title}}{{m1.showSinger(songInfo.singer)}}</text>
-        <text class="title-abumInfo" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+        <text class="title-name">{{songInfo.title}}</text>
+        <view class="title-abumInfo">
+          <text class="singer">{{songInfo.singer}}</text>
+          <text class="title-trial" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+        </view>
       </view>
 
       
