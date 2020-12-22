@@ -50,13 +50,13 @@ module.exports = {
           icon: '/images/zjst.png',
           title: "最近播放",
           name: 'latelyListen',
-          islogin: false
+          islogin: true
         },
         {
           icon: '/images/icon_collect.png',
           title: "我的收藏",
           name: 'like',
-          islogin: false
+          islogin: true
         }
       ],
     },
@@ -198,16 +198,17 @@ module.exports = {
   // 跳转到快捷入口页面
   tolatelyListen(opt) {
     console.log(opt.detail.islogin)
-    if(opt.detail.islogin) {
+    if(opt.detail.islogin && !wx.getStorageSync('isLogin')) {
       wx.showToast({
         title: '请先登录后在操作',
         icon: 'none'
       })
       return
+    } else if (wx.getStorageSync('isLogin')) {
+      wx.navigateTo({
+        url: `../${opt.detail.page}/${opt.detail.page}`
+      })
     }
-    wx.navigateTo({
-      url: `../${opt.detail.page}/${opt.detail.page}`
-    })
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {

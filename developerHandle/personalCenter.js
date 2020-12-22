@@ -133,17 +133,17 @@ module.exports = {
   },
 
   like() {
-    // if (!app.isLogin) {
-    //   wx.showToast({ icon: 'none', title: '请登录后进行操作' })
-    //   return;
-    // }
+    if (!wx.getStorageSync('isLogin')) {
+      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+      return;
+    }
     wx.navigateTo({ url: '../like/like' })
   },
   latelyListen() {
-    // if (!app.isLogin) {
-    //   wx.showToast({ icon: 'none', title: '请登录后进行操作' })
-    //   return;
-    // }
+    if (!wx.getStorageSync('isLogin')) {
+      wx.showToast({ icon: 'none', title: '请登录后进行操作' })
+      return;
+    }
     wx.navigateTo({ url: '../latelyListen/latelyListen' })
   }
 }

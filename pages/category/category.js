@@ -67,12 +67,24 @@ Page({
     this.setData({
       currentTap: index
     })
-    
+    // 清空上一首播放态
+    let playingId = wx.getStorageSync('songInfo').id
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story.clearPlay()
+    }
     // 这里可以自定义传值传到_getList中
     this.setData({
       info: this.data.allData[index],
       scrollLeft: 0
     })
+
+    
+
+    this.story = this.selectComponent(`#story${playingId}`)
+    if (this.story) {
+      this.story._onshow()
+    }
   },
 
   _getList() {
