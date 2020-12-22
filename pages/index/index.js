@@ -12,6 +12,7 @@ Page({
     currentTap: 0,
     scrollLeft: 0,
     isFixed: false,
+    showNonet: false,
   },
   scrollhandle(e) {
     if (e.detail.scrollLeft > 230) {
@@ -41,6 +42,9 @@ Page({
     // }).catch(err => {
     //   console.log(err)
     // })
+    // 检测网络
+    let that = this
+    app.getNetWork(that)
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()

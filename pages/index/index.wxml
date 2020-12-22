@@ -51,3 +51,5 @@
   <bgConfirm bgconfirm="{{bgConfirm}}" bind:callback="btnCallback" wx:if="{{bgShow}}" ></bgConfirm>
   <mini-player id="miniPlayer" songInfo="{{songInfo}}"></mini-player>
 </view>
+<!-- 网络异常情况加载的盒子 -->
+<no-network wx:if="{{showNonet}}"></no-network>
