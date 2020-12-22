@@ -152,8 +152,7 @@ Page({
     app.globalData.abumInfoId = this.data.optionId
     // this.initAudioManager(this.data.canplay)
     let params = {
-      mediaId: app.globalData.songInfo.id,
-      contentType: 'story'
+      mediaId: app.globalData.songInfo.id
     }
     this.setData({
       currentId: app.globalData.songInfo.id,
@@ -163,10 +162,6 @@ Page({
     if (getMedia) await getMedia(params, that)
     this.getNetWork(msg, app.playing)
     
-    wx.setStorage({
-      key: 'songInfo',
-      data: this.data.canplay[0],
-    })
   },
   setPlaying(e) {
     this.setData({

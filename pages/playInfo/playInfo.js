@@ -214,20 +214,16 @@ Page({
     const songInfo = e.currentTarget.dataset.song
     app.globalData.songInfo = songInfo
     songInfo.coverImgUrl = songInfo.src
-    // 获取歌曲详情
-    let params = {fragmentId: app.globalData.songInfo.id}
-    await this.getMedia(params)
     this.setData({
       songInfo: songInfo,
       currentId: app.globalData.songInfo.id,
       playing: true
-      // noTransform: ''
     })
+    // 获取歌曲详情
+    let params = {fragmentId: app.globalData.songInfo.id}
+    await this.getMedia(params)
+    
     app.playing(null, that)
-    wx.setStorage({
-      key: "songInfo",
-      data: songInfo
-    })
   },
   // 开始拖拽
   dragStartHandle(event) {

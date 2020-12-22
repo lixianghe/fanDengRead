@@ -6,7 +6,9 @@ Component({
   },
   methods: {
     linkHome() {
-      
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
     }
   },
   attached(options) {

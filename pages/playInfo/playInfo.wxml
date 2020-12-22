@@ -20,7 +20,7 @@
   <view class="playLeft">
     <view class="title" wx:if="{{songInfo.title}}">
       <text class="title-name">{{songInfo.title}}{{m1.showSinger(songInfo.singer)}}</text>
-      <text class="title-abumInfo" wx:if="{{abumInfoName}}">专辑：{{abumInfoName}}</text>
+      <text class="title-abumInfo" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
     </view>
     <view class="noReady" wx:else>
       <text class="title-name"></text>
@@ -96,7 +96,7 @@
 
       <view class="title" wx:if="{{songInfo.title}}">
         <text class="title-name">{{songInfo.title}}{{m1.showSinger(songInfo.singer)}}</text>
-        <text class="title-abumInfo" wx:if="{{abumInfoName}}">专辑：{{abumInfoName}}</text>
+        <text class="title-abumInfo" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
       </view>
 
       

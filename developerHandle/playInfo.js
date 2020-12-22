@@ -76,6 +76,7 @@ module.exports = {
       songInfo.dt = tool.formatduration(info.data.trialDuration, 'second')        // 音频时常
       // songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
       songInfo.existed = info.data.isFavorite
+      songInfo.trial = info.data.trial
       app.globalData.songInfo = Object.assign({}, songInfo)
       that.setData({ songInfo: songInfo, existed: info.data.isFavorite })
       wx.setStorageSync('songInfo', songInfo)
@@ -126,6 +127,8 @@ module.exports = {
         that.setData({
           existed: false
         })
+        app.globalData.songInfo.existed = false
+        wx.setStorageSync('songInfo', app.globalData.songInfo)
       })
     } else {
       albumFavoriteAdd(params).then(res => {
@@ -133,7 +136,16 @@ module.exports = {
         that.setData({
           existed: true
         })
+        app.globalData.songInfo.existed = true
+        wx.setStorageSync('songInfo', app.globalData.songInfo)
       })
     }
+  },
+  linkLogin() {
+    console.log('linkLogin')
+    let url = '/pages/personalCenter/personalCenter'
+    wx.switchTab({
+      url: url
+    })
   }
 }
