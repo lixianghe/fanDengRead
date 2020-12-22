@@ -113,6 +113,7 @@ module.exports = {
      }
     albumFavorite(params).then(res => {
       console.log(res)
+      console.log('likelikelike')
       let info = res.data.books.map(v => {
         let obj = {}
         obj.id = v.fragmentId ? v.fragmentId : ''
@@ -138,7 +139,6 @@ module.exports = {
       }
 
       wx.hideLoading()
-      console.log(res)
     }).catch(err => {
       wx.hideLoading()
       console.log(err)

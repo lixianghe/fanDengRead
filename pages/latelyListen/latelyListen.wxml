@@ -32,3 +32,5 @@
 
 <!-- 数据为空情况加载的盒子 -->
 <no-data wx:if="{{showModal}}"></no-data>
+<!-- 网络异常情况加载的盒子 -->
+<no-network wx:if="{{showNonet}}"></no-network>

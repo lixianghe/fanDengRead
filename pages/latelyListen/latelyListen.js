@@ -9,12 +9,15 @@ Page({
     currentTap: 0,
     scrollLeft: 0,
     
-    mainColor: app.globalData.mainColor
+    mainColor: app.globalData.mainColor,
+    showNonet: false
   },
   screen: app.globalData.screen,
  
   onLoad(options) {
-    
+    // 检测网络
+    let that = this
+    app.getNetWork(that)
   },
   scrollRight() {
     wx.showToast({
