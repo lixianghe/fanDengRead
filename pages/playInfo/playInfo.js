@@ -110,10 +110,10 @@ Page({
   play() {
     // 初始化audioManager
     let that = this
-    tool.initAudioManager(that, this.data.canplay)
+    // tool.initAudioManager(that, this.data.canplay)
     // 从统一播放界面切回来，根据playing判断播放状态options.noPlay为true代表从minibar过来的
     const playing = wx.getStorageSync('playing')
-    if (playing || this.data.noPlay !== 'true') app.playing()
+    if (playing || this.data.noPlay !== 'true') app.playing(null, that)
   },
   btnsPlay(e) {
     const type = e.currentTarget.dataset.name
@@ -210,6 +210,7 @@ Page({
   },
   // 在播放列表里面点击播放歌曲
   async playSong(e) {
+    let that = this
     const songInfo = e.currentTarget.dataset.song
     app.globalData.songInfo = songInfo
     songInfo.coverImgUrl = songInfo.src
@@ -222,7 +223,7 @@ Page({
       playing: true
       // noTransform: ''
     })
-    app.playing()
+    app.playing(null, that)
     wx.setStorage({
       key: "songInfo",
       data: songInfo

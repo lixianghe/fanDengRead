@@ -1,5 +1,6 @@
 import btnConfig from './utils/pageOtpions/pageOtpions'
 import { getMedia } from './developerHandle/playInfo'
+import tool from './utils/util'
 
 require('./utils/minixs')
 
@@ -94,18 +95,21 @@ App({
       })
     });
     wx.setStorageSync('playing', false)
-    if (wx.canIUse('getShareData')) {
-      wx.getShareData({
-        name: that.globalData.appName,
-        success: (res) => {
-          let playing = res.data.playStatus
-          wx.setStorageSync('playing', playing)
-        }
-      })
-    }
+    // if (wx.canIUse('getShareData')) {
+    //   wx.getShareData({
+    //     name: that.globalData.appName,
+    //     success: (res) => {
+    //       let playing = res.data.playStatus
+    //       wx.setStorageSync('playing', playing)
+    //     }
+    //   })
+    // }
     // 测试getPlayInfoSync
     if (wx.canIUse('getPlayInfoSync')) {
       let res = wx.getPlayInfoSync()
+      console.log('res-------------' + JSON.stringify(res))
+      let playing = res.playState.status == 1 ? true : false
+      wx.setStorageSync('playing', playing)
     }
   },
   vision: '1.0.0',
@@ -123,7 +127,6 @@ App({
     let no = allList.findIndex(n => Number(n.id) === Number(this.globalData.songInfo.id))
     
     let index = this.setIndex(type, no, allList)
-    console.log('index', index, allList, this.globalData.songInfo)
     //歌曲切换 停止当前音乐
     let song = allList[index] || allList[0]
     song.coverImgUrl = song.src
@@ -137,9 +140,8 @@ App({
     let params = {
       fragmentId: song.id
     }
-    console.log(params)
     await getMedia(params, that)
-    loopType === 'singleLoop' ? this.playing(0) : this.playing()
+    loopType === 'singleLoop' ? this.playing(0, that) : this.playing(null, that)
   },
   // 根据循环模式设置播放列表
   setList(loopType, list, cutFlag = false){
@@ -180,10 +182,10 @@ App({
     wx.pauseBackgroundAudio();
   },
   // 根据歌曲url播放歌曲
-  playing: function (seek, cb) {
+  playing: function (seek, that) {
     const songInfo = this.globalData.songInfo
-    console.log('songInfo', songInfo)
     this.carHandle(songInfo, seek)
+    tool.initAudioManager(that, songInfo)
   },
   // 车载情况下的播放
   carHandle(songInfo, seek) {

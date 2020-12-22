@@ -177,9 +177,9 @@ Component({
       this.listenPlaey()
       // 初始化backgroundManager
       let that = this
-      tool.initAudioManager(that, canplay)
+      // tool.initAudioManager(that, canplay)
       const playing = wx.getStorageSync('playing')
-      if (playing) app.playing()
+      if (playing) app.playing(null, that)
       // 是否被收藏
       let songInfo = wx.getStorageSync('songInfo')
       if (songInfo) {

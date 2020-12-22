@@ -150,7 +150,7 @@ Page({
     app.globalData.canplay = JSON.parse(JSON.stringify(this.data.canplay))
     app.globalData.songInfo = app.globalData.canplay[0]
     app.globalData.abumInfoId = this.data.optionId
-    this.initAudioManager(this.data.canplay)
+    // this.initAudioManager(this.data.canplay)
     let params = {
       mediaId: app.globalData.songInfo.id,
       contentType: 'story'
@@ -195,10 +195,10 @@ Page({
     })
   },
   // 初始化 BackgroundAudioManager
-  initAudioManager(list) {
-    this.audioManager = wx.getBackgroundAudioManager()
-    this.audioManager.playInfo = { playList: list }
-  },
+  // initAudioManager(list) {
+  //   this.audioManager = wx.getBackgroundAudioManager()
+  //   this.audioManager.playInfo = { playList: list }
+  // },
   // 列表滚动事件
   listScroll: tool.debounce(async function (res) {
     let top = res.detail.scrollTop
