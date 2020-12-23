@@ -55,6 +55,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-right: 5vh;
 }
 .page .playLeft .player {
   margin-top: 14.7vh;
