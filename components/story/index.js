@@ -121,7 +121,12 @@ Component({
           height: 48.55
         })
         break;
-    
+      case 'rectBig':
+        this.setData({
+          width: 43.2,
+          height: 56.46
+        })
+        break;
       default:
         break;
     }
