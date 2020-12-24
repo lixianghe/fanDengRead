@@ -40,6 +40,7 @@
       <image src="{{ item.icon }}"></image>
       <view class="cardTit">{{ item.title }}</view>
     </view>
+    <view class="zhanwei" style="height: 61.5vh; flex: 0 0 9vh"></view>
 
     <!-- 测试参数输出页面 -->
     <!-- <view class="testparam">
