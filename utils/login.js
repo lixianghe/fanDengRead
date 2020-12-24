@@ -132,7 +132,10 @@
           let authLogParam = {
             mobile: cauth.data.phoneNumber,
             openId: cauth.data.openId,
-            unionId: cauth.data.unionId ? cauth.data.unionId : ''
+            unionId: cauth.data.unionId ? cauth.data.unionId : '',
+            sessionId: app.globalData.auth.sessionId, // 新加登录加密信息
+            encryptedPhoneData: num.detail.encryptedData, // 新加登录加密信息
+            phoneIv: num.detail.iv  // 新加登录加密信息
           }
 
           console.log(authLogParam)

@@ -16,7 +16,11 @@ Page({
     mainColor: btnConfig.colorOptions.mainColor,
     showNonet: false,
   },
-
+  agreement() {
+    wx.navigateTo({
+      url: '../userAgree/userAgree'
+    })
+  },
   onLoad(options) {
     // 检测网络
     let that = this

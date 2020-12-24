@@ -114,6 +114,11 @@ App({
   },
   vision: '1.0.0',
   cutplay: async function (that, type, cutFlag) {
+    let playingId = wx.getStorageSync('songInfo').id
+    let story = getCurrentPages()[0].selectComponent(`#story${playingId}`)
+    if (story) {
+      story.clearPlay()
+    }
     wx.showLoading({
       title: '加载中',
     })

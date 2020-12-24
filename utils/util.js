@@ -117,6 +117,11 @@ function initAudioManager(that, songInfo) {
 
 // 监听播放，上一首，下一首
 function EventListener(that){
+  let playingId = wx.getStorageSync('songInfo').id
+  let story = getCurrentPages()[0].selectComponent(`#story${playingId}`)
+  if (story) {
+    story._onshow()
+  }
   //播放事件
   that.audioManager.onPlay(() => {
     console.log('-------------------------------onPlay-----------------------------------')

@@ -96,8 +96,8 @@ module.exports = {
       freeBooks: [],
       recentNewBooks: []
     },
-    // 封面图片形状 rect矩形，square，正方形
-    shape: 'rect',
+    // 封面图片形状 rect矩形,rectBig大矩形，square，正方形
+    shape: 'rectBig',
     // 数量图片
     countPic: '/images/asset/erji.png',
     // 播放图片
