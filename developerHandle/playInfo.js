@@ -112,7 +112,6 @@ module.exports = {
   like(that = this) {
     const app = getApp()
     let params = {
-      appId: "2001",
       id: app.globalData.songInfo.id,
       sourceType: 1,
       resourceType: 1,

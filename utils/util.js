@@ -3,6 +3,11 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
+// 进行补0操作
+function addZero(n) {
+  return n < 10 ? '0' + n : n
+}
+
 //转换播放时间
 function formatduration(duration, type = 'millisecond') {
   if (type === 'second') {
@@ -10,11 +15,11 @@ function formatduration(duration, type = 'millisecond') {
   } else if (type === 'millisecond' ) {
     duration = new Date(duration);
   }
-  let hour = Number(duration.getHours()  - 8) > -1 ? duration.getHours()  - 8 : duration.getHours()
-  let dt = hour
-          ? formatNumber(hour) + ":" + formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds())
-          : formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds())
-  return dt
+  let m = Math.floor(duration / 1000 / 60)
+  let s = Math.floor(duration / 1000)
+  m = addZero(m) + ':'
+  s = addZero(s % 60)
+  return m + s
 }
 
 // 时间转秒
@@ -36,6 +41,26 @@ function timestampToTime(timestamp) {
 }
 
 //音乐播放监听
+// function playAlrc(that, app) {
+//   var time = 0, playtime = 0;
+//   app.audioManager.onTimeUpdate((res) => {
+//     time = app.audioManager.currentTime / app.audioManager.duration * 100
+//     playtime = app.audioManager.currentTime
+//     app.globalData.percent = time
+//     app.globalData.currentPosition = app.audioManager.currentTime
+//     if (!that.data.isDrag) {
+//       that.setData({
+//         playtime: playtime ? formatduration(playtime * 1000) : '00:00',
+//         percent: time || 0
+//       })
+//       setTimeout(()=> {
+//         wx.hideLoading()
+//       }, 1000)
+//     }
+//     // 设置abumInfo页面的播放状态用来控制gif是否展示
+//     that.triggerEvent('setPlaying', true)
+//   })
+// };
 function playAlrc(that, app) {
   wx.getBackgroundAudioPlayerState({
     complete: function (res) {

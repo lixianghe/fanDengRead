@@ -85,7 +85,13 @@ Component({
   },
   methods: {
     player(e) {
-      if (!this.data.songInfo || !this.data.songInfo.title) return false
+      if (!this.data.songInfo || !this.data.songInfo.title) {
+        wx.showToast({
+          title: '暂无音频',
+          icon: 'none'
+        })
+        return false
+      }
       const type = e.currentTarget.dataset.name
       if (type) this[type]()
     },
@@ -117,6 +123,9 @@ Component({
     },
     // 进入播放详情
     playInfo() {
+      if (!this.data.songInfo || !this.data.songInfo.title) {
+        return false
+      }
       let abumInfoName = wx.getStorageSync('abumInfoName')
       wx.navigateTo({
         url: `../playInfo/playInfo?noPlay=true&abumInfoName=${abumInfoName}`

@@ -85,7 +85,8 @@ Page({
         id: options.id
       }
       this.setData({songInfo: song})
-      wx.showLoading({ title: '加载中...', mask: true })
+      console.log(app.globalData.songInfo.id, options.id)
+      if (app.globalData.songInfo.id != options.id) wx.showLoading({ title: '加载中...', mask: true })
     }
     
   },
