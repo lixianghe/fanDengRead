@@ -159,8 +159,21 @@ module.exports = {
     //   title: '加载中',
     // })
     layoutGroup({}).then((res) => {
+      // 分类部分
+      let categoryLabels = [
+        {
+          "name": "近期新书",
+          "id": '0'
+        }, {
+          "name": "免费体验",
+          "id": 'freeBooks'
+        }
+      ]
+      for (let n of res.categories) {
+        categoryLabels.push({name: n.name, id: n.id})
+      }
+      wx.setStorageSync('categoryLabels', categoryLabels)
       // 推荐  suggest
-      console.log(res.likedBookGroup.books)
       let suggest = res.likedBookGroup.books.map(v => {
         let obj = {}
         obj.id = v.fragmentId

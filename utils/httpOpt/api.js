@@ -28,6 +28,10 @@ const authLoginApi = '/mini-orch/auth/carLoadMini/v100/authLogin'
 const logoutApi = '/mini-orch/auth/carLoadMini/v100/logout'
 // 支付接口
 const getPayQrCodeApi = '/mini-orch/pay/carLoadMini/v100/getPayQrCode'
+// 分类书籍
+const bookCategoryAPi = '/resource-orchestration-system/books/bookInfoByCategory'
+// 免费书籍
+const freeBookApi = '/resource-orchestration-system/books/freeList'
       
 
 
@@ -58,3 +62,5 @@ export const userInfo = (data) => request(userInfoApi, data)
 
 export const testNew = (data) => request(testNewApi, data)
 export const createOrUpdateWeChatUser = (data) => request(createOrUpdateWeChatUserApi, data)
+export const bookCategory = (data) => request(bookCategoryAPi, data)
+export const freeBook = (data) => request(freeBookApi, data)

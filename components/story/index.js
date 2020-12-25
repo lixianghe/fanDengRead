@@ -75,7 +75,6 @@ Component({
       })
     },
     _onshow () {
-      console.log('truetruetruetrue')
       this.setData({
         showPlay: true
       })
@@ -89,7 +88,6 @@ Component({
     formW (num) {
       let b = num.toString().split('').reverse()
       let res = b.slice(4, b.length).reverse().join('')+'万'
-      console.log(res)
       return res
     }
   },

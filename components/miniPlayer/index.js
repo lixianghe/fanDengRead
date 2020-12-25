@@ -142,9 +142,9 @@ Component({
       }
       // 监听歌曲播放状态，比如进度，时间
       tool.playAlrc(that, app);
-      timer = setInterval(() => {
-        tool.playAlrc(that, app);
-      }, 1000);
+      // timer = setInterval(() => {
+      //   tool.playAlrc(that, app);
+      // }, 1000);
     },
     btnstart(e) {
       const index = e.currentTarget.dataset.index
@@ -188,6 +188,7 @@ Component({
       let that = this
       // tool.initAudioManager(that, canplay)
       const playing = wx.getStorageSync('playing')
+      that.setData({playing: playing})
       if (playing) app.playing(null, that)
       // 是否被收藏
       let songInfo = wx.getStorageSync('songInfo')

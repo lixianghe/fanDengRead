@@ -85,19 +85,21 @@ Page({
         id: options.id
       }
       this.setData({songInfo: song})
-      console.log(app.globalData.songInfo.id, options.id)
       if (app.globalData.songInfo.id != options.id) wx.showLoading({ title: '加载中...', mask: true })
     }
     
   },
   onShow: function () {
-    this.queryProcessBarWidth()
     const that = this;
+    const playing = wx.getStorageSync('playing')
+    that.setData({playing: playing})
+    this.queryProcessBarWidth()
     // 监听歌曲播放状态，比如进度，时间
     tool.playAlrc(that, app);
-    timer = setInterval(function () {
-      tool.playAlrc(that, app);
-    }, 1000);
+    
+    // timer = setInterval(function () {
+    //   tool.playAlrc(that, app);
+    // }, 1000);
   },
   onUnload: function () {
     clearInterval(timer);

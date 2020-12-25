@@ -1,6 +1,6 @@
-import { layout, layoutGroup } from '../../utils/httpOpt/api'
+import { layout, bookCategory, freeBook } from '../../utils/httpOpt/api'
 const app = getApp()
-
+let pageNo = 1
 Page({
   data: {
     colorStyle: app.sysInfo.colorStyle,
@@ -33,13 +33,21 @@ Page({
     reqS: true,
     reqL: false,
     showNonet: false,
-    scrollLeft: 0
+    scrollLeft: 0,
+    lowerThreshold: 500
   },
   onLoad(options) {
+    pageNo = 1
     // 检测网络
     let that = this
     app.getNetWork(that)
-    this._getList()
+    // 默认近期新书
+    let params = {
+      page: 1,
+      pageSize: 10,
+      categoryId: 0
+    }
+    this._getList(params, bookCategory)
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
@@ -63,9 +71,16 @@ Page({
     }
   },
   selectTap(e) {
+    wx.showLoading({
+      title: '加载中',
+    })
+    this.setData({lowerThreshold: 500})
+    pageNo = 1
     const index = e.currentTarget.dataset.index
+    let id = e.currentTarget.dataset.groupid
     this.setData({
-      currentTap: index
+      currentTap: index,
+      id: id
     })
     // 清空上一首播放态
     let playingId = wx.getStorageSync('songInfo').id
@@ -74,54 +89,45 @@ Page({
       this.story.clearPlay()
     }
     // 这里可以自定义传值传到_getList中
+    if (id == "freeBooks") {
+      this._getList({ page: 1, pageSize: 100,}, freeBook)
+    } else {
+      let params = {
+        page: 1,
+        pageSize: 10,
+        categoryId: id
+      }
+      this._getList(params, bookCategory)
+    }
     this.setData({
-      info: this.data.allData[index],
       scrollLeft: 0
     })
-
-    
-
     this.story = this.selectComponent(`#story${playingId}`)
     if (this.story) {
       this.story._onshow()
     }
   },
 
-  _getList() {
-    wx.showLoading({
-      title: '加载中',
+  _getList(params, api, scrollLoad = false) {
+    
+    // 给tab赋值
+    let categoryLabels = wx.getStorageSync('categoryLabels')
+    this.setData({
+      'labels.data': categoryLabels
     })
-    layoutGroup({}).then((res) => {
-      let labels = [
-        {
-          "name": "近期新书",
-          "id": 'recentNewBooks'
-        }, {
-          "name": "免费体验",
-          "id": 'freeBooks'
-        }
-      ]
-      console.log(res)
-      let allData = []
-      res.freeBooks = {categoryBooks: res.freeBooks}
-      let data = [res.recentNewBooks, res.freeBooks, ...res.categories]
-      for (let n of res.categories) {
-        labels.push({name: n.name, id: n.id})
-      }
-      for (let n of data) {
-        n.categoryBooks.map(v => {
-          v.id = v.fragmentId
-          v.src = v.coverImage
-          v.title = v.title,
-          v.count = v.readCount
-        })
-        allData.push(n.categoryBooks)
-      }
+    api(params).then((res) => {
+      let data = res.books
+      data.map(v => {
+        v.id = v.id
+        v.src = v.imageUrl
+        v.title = v.title,
+        v.count = v.readCount
+      })
       this.setData({
-        'labels.data': labels,
-        allData: allData,
-        info: allData[0]
+        info: !scrollLoad ? data : this.data.info.concat(data),
+        totalCount: res.totalCount
       }, () => {
+        if (res.totalCount <= 10) this.setData({lowerThreshold: 50})
         let playingId = wx.getStorageSync('songInfo').id
         this.story = this.selectComponent(`#story${playingId}`)
         if (this.story) {
@@ -131,17 +137,29 @@ Page({
       wx.hideLoading()
     }).catch(err =>{
       this.setData({
-        allData: [],
-        info: []
+        info: [],
+        totalCount: 0
       })
       wx.hideLoading()
     })
   },
   bindscrolltolower(e) {
-    wx.showToast({
-      title: '已经到底了！',
-      icon: 'none'
-    })
+    let maxPageNo = Math.ceil(this.data.totalCount / 10)
+    pageNo++
+    if (pageNo == maxPageNo) this.setData({lowerThreshold: 50})
+    if (pageNo > maxPageNo) {
+      wx.showToast({
+        title: '已经到底了！',
+        icon: 'none'
+      })
+      return
+    } 
+    let params = {
+      page: pageNo,
+      pageSize: 10,
+      categoryId: this.data.id
+    }
+    this._getList(params, bookCategory, true)
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
