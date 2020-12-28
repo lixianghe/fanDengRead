@@ -3,8 +3,6 @@ import tool from '../../utils/util'
 import btnConfig from '../../utils/pageOtpions/pageOtpions'
 import { like } from '../../developerHandle/playInfo'
 
-var timer = null
-
 Component({
   properties: {
     percent: {
@@ -124,6 +122,10 @@ Component({
     // 进入播放详情
     playInfo() {
       if (!this.data.songInfo || !this.data.songInfo.title) {
+        wx.showToast({
+          title: '暂无音频',
+          icon: 'none'
+        })
         return false
       }
       let abumInfoName = wx.getStorageSync('abumInfoName')
@@ -142,9 +144,6 @@ Component({
       }
       // 监听歌曲播放状态，比如进度，时间
       tool.playAlrc(that, app);
-      // timer = setInterval(() => {
-      //   tool.playAlrc(that, app);
-      // }, 1000);
     },
     btnstart(e) {
       const index = e.currentTarget.dataset.index
@@ -178,7 +177,6 @@ Component({
     },
     // 因为1.9.2版本无法触发onshow和onHide所以事件由它父元素触发
     setOnShow() {
-      clearInterval(timer)
       const canplay = wx.getStorageSync('canplay')
       this.setData({
         canplay: canplay
@@ -188,7 +186,11 @@ Component({
       let that = this
       // tool.initAudioManager(that, canplay)
       const playing = wx.getStorageSync('playing')
-      that.setData({playing: playing})
+      console.log('playing------------------------------' + JSON.stringify(playing))
+      that.setData({
+        playing: playing,
+        percent: app.globalData.percent || 0
+      })
       if (playing) app.playing(null, that)
       // 是否被收藏
       let songInfo = wx.getStorageSync('songInfo')
@@ -197,7 +199,6 @@ Component({
       }
     },
     setOnHide() {
-      clearInterval(timer)
     }
   }
 })

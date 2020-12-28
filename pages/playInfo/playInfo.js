@@ -3,8 +3,6 @@ const app = getApp()
 import tool from '../../utils/util'
 import btnConfig from '../../utils/pageOtpions/pageOtpions'
 
-var timer = null
-
 Page({
   mixins: [require('../../developerHandle/playInfo')],
   data: {
@@ -96,27 +94,17 @@ Page({
     this.queryProcessBarWidth()
     // 监听歌曲播放状态，比如进度，时间
     tool.playAlrc(that, app);
-    
-    // timer = setInterval(function () {
-    //   tool.playAlrc(that, app);
-    // }, 1000);
-  },
-  onUnload: function () {
-    clearInterval(timer);
-  },
-  onHide: function () {
-    clearInterval(timer);
   },
   imgOnLoad() {
     this.setData({ showImg: true })
   },
   play() {
-    // 初始化audioManager
     let that = this
-    // tool.initAudioManager(that, this.data.canplay)
-    // 从统一播放界面切回来，根据playing判断播放状态options.noPlay为true代表从minibar过来的
-    const playing = wx.getStorageSync('playing')
-    if (playing || this.data.noPlay !== 'true') app.playing(null, that)
+    that.setData({
+      playtime: app.globalData.playtime || '00:00',
+      percent: app.globalData.percent || 0
+    })
+    app.playing(null, that)
   },
   btnsPlay(e) {
     const type = e.currentTarget.dataset.name

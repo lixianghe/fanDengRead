@@ -100,11 +100,12 @@ module.exports = {
       })
     } catch (error) {
       console.log('error', error)
+      wx.hideLoading()
       app.stopmusic();
       app.globalData.songInfo.id = that.data.songInfo.id
       app.globalData.songInfo.src = null
       wx.showToast({ icon: 'none', title: '该书籍无法播放，请换本书籍吧~' })
-      wx.hideLoading()
+      
     }
     
   },

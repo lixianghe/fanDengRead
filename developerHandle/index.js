@@ -172,6 +172,8 @@ module.exports = {
       for (let n of res.categories) {
         categoryLabels.push({name: n.name, id: n.id})
       }
+      let recentNewBooks = res.recentNewBooks.categoryBooks
+      wx.setStorageSync('recentNewBooks', recentNewBooks)
       wx.setStorageSync('categoryLabels', categoryLabels)
       // 推荐  suggest
       let suggest = res.likedBookGroup.books.map(v => {

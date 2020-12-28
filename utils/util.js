@@ -48,6 +48,7 @@ function playAlrc(that, app) {
     playtime = app.audioManager.currentTime
     app.globalData.percent = time
     app.globalData.currentPosition = app.audioManager.currentTime
+    app.globalData.playtime = playtime ? formatduration(playtime * 1000) : '00:00'
     if (!that.data.isDrag) {
       that.setData({
         playtime: playtime ? formatduration(playtime * 1000) : '00:00',
@@ -101,10 +102,18 @@ function toggleplay(that, app) {
 
 
 // 初始化 BackgroundAudioManager
-function initAudioManager(that, songInfo) {
+function initAudioManager(app, that, songInfo) {
+  let list = wx.getStorageSync('nativeList')
   that.audioManager = wx.getBackgroundAudioManager()
+  console.log('app.globalData.songInfo-----------------------------------' + JSON.stringify(app.globalData.songInfo))
   that.audioManager.playInfo = {
-    playList: [],
+    playList: list,
+    playState: {
+      // curIndex: app.globalData.songIndex,                                      //当前播放列表索引
+      // duration: app.globalData.songInfo.trial ? app.globalData.songInfo.trialDuration : app.globalData.songInfo.duration,                                  //总时长
+      // currentPosition: app.globalData.currentPosition,             //当前播放时间
+      // status: true,                                                   //当前播放状态 0暂停状态 1播放状态 2没有音乐播放
+    },
     context: songInfo
   };
   EventListener(that)

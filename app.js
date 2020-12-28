@@ -132,6 +132,7 @@ App({
     let no = allList.findIndex(n => Number(n.id) === Number(this.globalData.songInfo.id))
     
     let index = this.setIndex(type, no, allList)
+    this.globalData.songIndex = index
     //歌曲切换 停止当前音乐
     let song = allList[index] || allList[0]
     song.coverImgUrl = song.src
@@ -188,10 +189,11 @@ App({
   },
   // 根据歌曲url播放歌曲
   playing: function (seek, that) {
-    const songInfo = this.globalData.songInfo
+    const songInfo = wx.getStorageSync('songInfo')
     // console.log('this.globalData.songInfo-----------------------' + JSON.stringify(this.globalData.songInfo))
     this.carHandle(songInfo, seek)
-    tool.initAudioManager(that, songInfo)
+    let app = this
+    tool.initAudioManager(app, that, songInfo)
   },
   // 车载情况下的播放
   carHandle(songInfo, seek) {

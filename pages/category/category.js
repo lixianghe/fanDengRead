@@ -34,7 +34,8 @@ Page({
     reqL: false,
     showNonet: false,
     scrollLeft: 0,
-    lowerThreshold: 500
+    lowerThreshold: 500,
+    id: 0
   },
   onLoad(options) {
     pageNo = 1
@@ -85,6 +86,7 @@ Page({
     // 清空上一首播放态
     let playingId = wx.getStorageSync('songInfo').id
     this.story = this.selectComponent(`#story${playingId}`)
+    console.log(this.story)
     if (this.story) {
       this.story.clearPlay()
     }
@@ -102,10 +104,6 @@ Page({
     this.setData({
       scrollLeft: 0
     })
-    this.story = this.selectComponent(`#story${playingId}`)
-    if (this.story) {
-      this.story._onshow()
-    }
   },
 
   _getList(params, api, scrollLoad = false) {
@@ -115,13 +113,47 @@ Page({
     this.setData({
       'labels.data': categoryLabels
     })
+    // 如果是近期新书
+    if (params.categoryId == 0) {
+      let data = wx.getStorageSync('recentNewBooks')
+      data.map(v => {
+        // v.id = v.fragmentId
+        v.src = v.coverImage
+        v.title = v.title,
+        v.count = v.readCount
+        for(let n of v.contents) {
+          if (n.type == 2) {
+            v.id = n.fragmentId
+            return
+          }
+        }
+      })
+      this.setData({
+        info: data,
+        totalCount: data.length 
+      }, () => {
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
+      })
+      wx.hideLoading()
+      return
+    }
     api(params).then((res) => {
       let data = res.books
       data.map(v => {
-        v.id = v.id
+        
         v.src = v.imageUrl
         v.title = v.title,
         v.count = v.readCount
+        for(let n of v.contents) {
+          if (n.type == 2) {
+            v.id = n.fragmentId
+            return
+          }
+        }
       })
       this.setData({
         info: !scrollLoad ? data : this.data.info.concat(data),
@@ -159,7 +191,8 @@ Page({
       pageSize: 10,
       categoryId: this.data.id
     }
-    this._getList(params, bookCategory, true)
+    console.log(params)
+    if (params.categoryId != 0) this._getList(params, bookCategory, true)
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
