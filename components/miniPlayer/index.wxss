@@ -82,7 +82,7 @@
   margin-right: 13.84vh;
   align-items: center;
   position: relative;
-  
+  padding: 1vh;
 }
 .playing-status .btns .text {
   color: #fff;

@@ -2,12 +2,12 @@
   <view class='loginVip' style="background: {{background}}">
     <block wx:if="{{!isLogin}}">
       <view class="viptime">会员畅听300+本经典好书 </view>
-      <button class="adminBtnIn" bindtap="login"  wx:if="{{!taiLogin}}">立即登录</button>
-      <button class="adminBtnIn" open-type="getPhoneNumber" bindgetphonenumber='getPhoneNumber' style="width: 42vh;margin-left: 35vh;" wx:if="{{taiLogin}}">授权手机号登录</button>
+      <button class="adminBtnIn" bindtap="login" data-focusindex="2" wx:if="{{!taiLogin}}">立即登录</button>
+      <button class="adminBtnIn" data-focusindex="2" open-type="getPhoneNumber" bindgetphonenumber='getPhoneNumber' style="width: 42vh;margin-left: 35vh;" wx:if="{{taiLogin}}">授权手机号登录</button>
       <view class="agreementText"  wx:if="{{!taiLogin}}">
         <view></view>
-        <image class="selectPic" bindtap="agree" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
-        <view bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
+        <image class="selectPic" bindtap="agree" data-focusindex="2" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
+        <view data-focusindex="2" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
       </view> 
     </block>
     <block wx:if="{{isLogin && !isVip}}">
@@ -18,7 +18,7 @@
           <view class="vipIntroduce">开通VIP畅听300+本经典好书</view>
         </view>
       </view>
-      <view class="adminBtnIn openVip" data-type="openVip" bindtap="confirmHandle">开通VIP</view>
+      <view class="adminBtnIn openVip" data-type="openVip" data-focusindex="2" bindtap="confirmHandle">开通VIP</view>
     </block>
     <block wx:if="{{isLogin && isVip}}">
       <view class="userTop">
@@ -28,10 +28,10 @@
           <view class="vipIntroduce">{{userInfo.vipEndTime}}樊登讲书VIP到期</view>
         </view>
       </view>
-      <view class="adminBtnIn logout" data-type="renewalVip" bindtap="confirmHandle">立即续费</view>
+      <view class="adminBtnIn logout" data-type="renewalVip" data-focusindex="2" bindtap="confirmHandle">立即续费</view>
     </block>
   </view>
   <view class="clatelyLtnbox">
-    <view class="clatelyLtnBtn" wx:for="{{quickEnter.data}}" wx:key="index" data-page="{{item.name}}" data-islogin="{{item.islogin}}" bindtap="link">{{item.title}}</view>
+    <view class="clatelyLtnBtn" wx:for="{{quickEnter.data}}" wx:key="index" data-page="{{item.name}}" data-islogin="{{item.islogin}}" data-focusindex="2" bindtap="link">{{item.title}}</view>
   </view>
 </view>

@@ -89,6 +89,9 @@ Component({
       let b = num.toString().split('').reverse()
       let res = b.slice(4, b.length).reverse().join('')+'万'
       return res
+    },
+    aa() {
+
     }
   },
   
@@ -116,7 +119,7 @@ Component({
       case 'rect':
         this.setData({
           width: 36.77,
-          height: 48.55
+          height: 48
         })
         break;
       case 'rectBig':

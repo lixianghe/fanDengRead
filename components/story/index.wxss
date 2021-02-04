@@ -87,3 +87,17 @@
   border-radius: 5vh;
   padding: 2vh;
 }
+
+.image[focus-select=true]:before {
+  content:"";
+  position:absolute;
+  width: 100%;
+  height: 0;
+  padding-bottom: 131%;
+  border-radius: 2vh;
+  vertical-align: bottom;
+  box-shadow: inset 4px 4px #0c68b4, inset -4px -4px #0c68b4;
+}
+/* .image[focus-bg=true]{
+  box-shadow: inset 0px 0px 0px 4px#0c68b4;
+} */

@@ -26,6 +26,9 @@ Page({
       icon: 'none'
     })
   },
+  aaa() {
+
+  },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
     this.selectComponent('#miniPlayer').watchPlay()

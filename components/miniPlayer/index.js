@@ -186,7 +186,6 @@ Component({
       let that = this
       // tool.initAudioManager(that, canplay)
       const playing = wx.getStorageSync('playing')
-      console.log('playing------------------------------' + JSON.stringify(playing))
       that.setData({
         playing: playing,
         percent: app.globalData.percent || 0

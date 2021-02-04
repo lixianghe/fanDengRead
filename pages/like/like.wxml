@@ -4,7 +4,7 @@
       <view class="label-view" wx:if="{{labels.show}}">
         <view class="title{{index === currentTap ? ' active-tap' : ''}}" wx:for="{{labels.data}}" wx:key="index"
           style="background-color: {{index === currentTap ? mainColor : 'rgba(255,255,255, 0.1)'}}"
-          data-index="{{index}}" data-name="{{item.name}}" bindtap="selectTap">
+          data-index="{{index}}" data-name="{{item.name}}" bindtap="selectTap" data-focusindex="2">
           <text>{{item.name}}</text>
         </view>
       </view>
@@ -13,10 +13,10 @@
         <story id="story{{item.id}}" wx:if="{{info.length>0 && req}}" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
           data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" playpic="{{playPic}}"
           data-contentype="{{item.contentType}}" bindtap="linkAbumInfo" datasource="{{item}}" countpic="{{countPic}}"
-          className="{{screen}}" shape="{{shape}}"></story>
+          className="{{screen}}" shape="{{shape}}" data-disablefocus="true"></story>
 
         <!-- 加载中盒子 -->
-        <view class="albumCard" wx:if="{{!req}}" wx:for="{{5}}" wx:key="index">
+        <view class="albumCard" wx:if="{{!req}}" wx:for="{{5}}" wx:key="index" data-focusindex="3" bindtap="aaa">
           <view class="imgB bone"></view>
           <view class="albumTitB">
             <view class="tb bone"></view>

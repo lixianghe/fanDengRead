@@ -8,7 +8,7 @@
         <view class="label-box" wx:if="{{labels.show}}">
           <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{labels.data.length}}">
             <view wx:for="{{labels.data}}" wx:key="index" class="title {{index === currentTap ? 'activeTitle' : ''}}" 
-              data-index="{{index}}"  data-groupid="{{item.id}}" data-name="{{item.name}}" bindtap="selectTap">
+              data-index="{{index}}"  data-groupid="{{item.id}}" data-name="{{item.name}}" bindtap="selectTap" data-focusindex="2">
               <text>{{item.name}}</text>
             </view>
           </view>
@@ -24,7 +24,7 @@
         <view class="storyBox" wx:if="{{info.length}}">
           <story id="story{{item.id}}" wx:for="{{info}}" wx:key="index" data-no="{{index}}"
           data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" data-contentype="{{item.contentType}}" bindtap="linkAbumInfo"
-          datasource="{{item}}" countpic="{{countPic}}"  playpic="{{playPic}}" className="{{screen}}" shape="{{shape}}"></story>
+          datasource="{{item}}" countpic="{{countPic}}"  playpic="{{playPic}}" className="{{screen}}" shape="{{shape}}" data-disablefocus="true"></story>
         </view>
       </scroll-view>
 

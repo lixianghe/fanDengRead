@@ -242,7 +242,7 @@
   overflow: hidden;
   border-bottom: 1px solid #2d2d2d;
   height: 16.5vh;
-  padding: 5vh 2.42vh 5vh 5vh;
+  padding: 5vh 2.42vh 5vh 3vh;
 }
 .playList .songList .view text:nth-child(1) {
   width: 8vh;
