@@ -23,13 +23,18 @@ Page({
   },
   onLoad(options) {
     // 检测网络
-    let that = this
-    app.getNetWork(that)
+    // let that = this
+    // app.getNetWork(that)
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()
+  },
+  imgError() {
+    this.setData({
+      'userInfo.avatar': 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2719292398,3645159946&fm=26&gp=0.jpg'
+    })
   }
 })

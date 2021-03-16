@@ -46,6 +46,7 @@
   font-size: 5.2vh;
   color: #afafaf;
   margin-top: 3vh;
+  height: 8vh;
   /* position: absolute; */
   /* bottom: 0; */
 }
@@ -340,7 +341,7 @@
 .title-trial {
   /* position: absolute; */
   width: 79vh;
-  font-size: 5vh;
+  font-size: 4.9vh;
   color: #fff;
   background-image: linear-gradient(to right , #e97630,#e62a29);
   padding: 0.5vh 4.5vh;

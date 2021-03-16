@@ -1,3 +1,5 @@
+import { albumMedia } from '../utils/httpOpt/api'
+  
   /**
    * 登录
    */
@@ -23,28 +25,6 @@
       isAgree: app.globalData.isAgree
     })
   }
-
-  // export const login = function () {
-  //   if (!app.globalData.isAgree) {
-  //     wx.showToast({
-  //       title: '请同意服务协议',
-  //       icon: 'none'
-  //     })
-  //     return
-  //   }
-  //  wx.login({
-  //    success: (loginRes) => {
-  //      this.getUserInfo()
-  //    },
-  //    fail: (err) => {
-  //      console.log('扫码失败', JSON.stringify(err))
-  //    },
-  //    complete: (res) => {
-
-  //    }
-  //  })
-  // }
-  // ===============
 
   export const login = function () {
     // 先勾选协议
@@ -126,7 +106,7 @@
         //   test: test,
         //   testJson: JSON.stringify(test)
         // })
-        console.log(params)
+        console.log(JSON.stringify(params) + '创建用户信息----参数')
         createOrUpdateWeChatUser(params).then(cauth => { //4
           console.log(JSON.stringify(cauth) + '创建用户信息验证--成功回调')
           let authLogParam = {
@@ -138,7 +118,7 @@
             phoneIv: num.detail.iv  // 新加登录加密信息
           }
 
-          console.log(authLogParam)
+          console.log('创建用户后的登录接口---------------' + JSON.stringify(authLogParam))
           console.log(555)
           authLogin(authLogParam).then(login => {
             console.log(login)
@@ -168,6 +148,8 @@
             app.globalData.isVip = obj.vipState
             app.globalData.isLogin = true
             app.globalData.userInfo = obj
+            // 重新设置收藏状态
+            isFavorited()
           }).catch(err => console.log(JSON.stringify(err) + '登录--错误回调'))
 
 
@@ -213,6 +195,8 @@
         app.globalData.isVip = false
         app.globalData.isLogin = false
         app.globalData.userInfo = obj
+        // 重新设置收藏状态
+        isFavorited()
       }
     }).catch(err => {
       wx.showToast({
@@ -221,7 +205,7 @@
       })
       console.log(JSON.stringify(err) + '退出登录--错误回调')
     })
-  }
+  }              
 
   export const logoutTap2 = function () {
     let obj = {
@@ -247,6 +231,8 @@
     app.globalData.isVip = false
     app.globalData.isLogin = false
     app.globalData.userInfo = obj
+    // 重新设置收藏状态
+    isFavorited()
   }
 
   export const userInfoUpdate = function () {
@@ -261,6 +247,8 @@
       wx.setStorageSync('isVip', app.globalData.vipState)
       wx.setStorageSync('vipState', app.globalData.vipState)
       wx.setStorageSync('vipEndTime', app.globalData.vipEndTime)
+      // 重新设置收藏状态
+      isFavorited()
     }).catch(err => {
       console.log(err)
       console.log('用户信息获取失败')
@@ -304,4 +292,16 @@
       })
       app.globalData.bgShow = false
     }
+  }
+
+  // 登录和退出登录都调这里，用来判断歌曲的收藏状态
+  async function isFavorited() {
+    
+    let params = {fragmentId: app.globalData.songInfo.id}
+    let info = await albumMedia(params)
+    app.globalData.songInfo.existed = info.data.isFavorite
+    wx.setStorageSync('songInfo', app.globalData.songInfo)
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    miniPlayer.setData({ songInfo: app.globalData.songInfo })
   }

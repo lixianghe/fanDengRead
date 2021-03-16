@@ -43,8 +43,8 @@ Page({
     //   console.log(err)
     // })
     // 检测网络
-    let that = this
-    app.getNetWork(that)
+    // let that = this
+    // app.getNetWork(that)
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()

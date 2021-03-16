@@ -17,8 +17,8 @@ Page({
  
   onLoad(options) {
     // 检测网络
-    let that = this
-    app.getNetWork(that)
+    // let that = this
+    // app.getNetWork(that)
   },
   scrollRight() {
     wx.showToast({

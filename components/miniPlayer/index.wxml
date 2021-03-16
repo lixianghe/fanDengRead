@@ -10,7 +10,7 @@
     <view bindtouchstart="btnstart" bindtouchend="btend" data-index="{{index}}" class="view" wx:key="index" wx:for="{{miniBtns.length ? miniBtns : defaultBtns}}">
       <view wx:if="{{hoverflag && current === index}}" class="modal"></view>
       <image class="image" data-focusindex="4" bindtap="player" data-name="{{item.name}}" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
-      <image class="image" data-focusindex="4" bindtap="player" data-name="{{item.name}}" wx:elif="{{item.name === 'like'}}" src="{{existed ? item.img.liked : item.img.noLike}}" />
+      <image class="image" data-focusindex="4" bindtap="player" data-name="{{item.name}}" wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
       <image class="image" data-focusindex="4" bindtap="player" data-name="{{item.name}}" wx:else src="{{item.img}}" />
     </view>
     <view class="view" data-focusindex="4" catchtap="playInfo">                                                                           

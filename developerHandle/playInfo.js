@@ -59,6 +59,11 @@ module.exports = {
     const app = getApp()
     // 拿到歌曲的id: options.id
     let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
+    // console.log(options.id, app.globalData.songInfo.id)
+    if (!options.id || options.id == app.globalData.songInfo.id) {
+      this.noplay()
+      return
+    }
     this.getMedia(getInfoParams).then(() => {
       if (app.globalData.songInfo.src) this.play() 
     })
@@ -79,7 +84,7 @@ module.exports = {
       songInfo.trial = info.data.trial
       songInfo.singer = info.data.bookAuthorName
       app.globalData.songInfo = Object.assign({}, songInfo)
-      that.setData({ songInfo: songInfo, existed: info.data.isFavorite })
+      that.setData({ songInfo: songInfo })
       wx.setStorageSync('songInfo', songInfo)
       // 添加播放历史
       let isLogin = wx.getStorageSync('isLogin')
@@ -101,7 +106,7 @@ module.exports = {
     } catch (error) {
       console.log('error', error)
       wx.hideLoading()
-      app.stopmusic();
+      app.audioManager.pause()
       app.globalData.songInfo.id = that.data.songInfo.id
       app.globalData.songInfo.src = null
       wx.showToast({ icon: 'none', title: '该书籍无法播放，请换本书籍吧~' })
@@ -123,11 +128,11 @@ module.exports = {
       wx.showToast({ icon: 'none', title: '请登录后进行操作' })
       return;
     }
-    if (that.data.existed) {
+    if (that.data.songInfo.existed) {
       albumFavoriteCancel(params).then(res => {
         wx.showToast({ icon: 'none', title: '取消收藏成功' })
         that.setData({
-          existed: false
+          'songInfo.existed': false
         })
         app.globalData.songInfo.existed = false
         wx.setStorageSync('songInfo', app.globalData.songInfo)
@@ -136,7 +141,7 @@ module.exports = {
       albumFavoriteAdd(params).then(res => {
         wx.showToast({ icon: 'none', title: '收藏成功' })
         that.setData({
-          existed: true
+          'songInfo.existed': true
         })
         app.globalData.songInfo.existed = true
         wx.setStorageSync('songInfo', app.globalData.songInfo)

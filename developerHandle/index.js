@@ -37,6 +37,7 @@
 
 import { layoutGroup } from '../utils/httpOpt/api'
 import { btnCallback, openVip, renewalVip } from '../utils/login'
+import tool from '../utils/util'
 const app = getApp()
 
 module.exports = {
@@ -227,6 +228,11 @@ module.exports = {
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
+    // 如果没有网
+    tool.noNet(this.linkDo, e)
+    
+  },
+  linkDo(e) {
     // 清空上一首播放态
     let playingId = wx.getStorageSync('songInfo').id
     this.story = this.selectComponent(`#story${playingId}`)

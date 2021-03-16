@@ -4,18 +4,18 @@
     <!-- 未登录部分 -->
       <view class="adminCenter" wx:if="{{!isLogin}}">
         <image class="image" src="{{userInfo.avatar}}"></image>
-        <view class="adminCenterName">{{userInfo.nickname}}</view>
+        <!-- <view class="adminCenterName">{{userInfo.nickname}}</view> -->
         <view class="viptime">登录收听更多经典书籍讲解 ></view>
         <button class="adminBtnIn" bindtap="login" data-focusindex="2" style="margin-top: 2vh" wx:if="{{!taiLogin}}">立即登录</button>
         <button class="adminBtnIn" data-focusindex="2" open-type="getPhoneNumber" bindgetphonenumber='getPhoneNumber' style="width: 42vh;margin-top:2vh" wx:if="{{taiLogin}}">授权手机号登录</button>
         <view class="agreementText"  wx:if="{{!taiLogin}}">
           <image class="selectPic" bindtap="agree" data-focusindex="2" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
-          <view data-focusindex="2" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>
+          <view data-focusindex="2" class="xyread" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>
         </view>
       </view>
       <!-- 登录非会员部分 -->
       <view class="adminCenter" wx:if="{{isLogin && !isVip}}">
-        <image class="image" src="{{userInfo.avatar}}"></image>
+        <image class="image" binderror="imgError" src="{{userInfo.avatar}}"></image>
         <view class="adminCenterName">{{userInfo.nickname}}</view>
         <view class="viptime" style="color: #FF4C4C">会员畅听300+经典好书 ></view>
         <view class="buttomBox">
@@ -25,7 +25,7 @@
       </view>
       <!-- 登录是会员部分 -->
       <view class="adminCenter" wx:if="{{isLogin && isVip}}">
-        <image class="image" src="{{userInfo.avatar}}"></image>
+        <image class="image" binderror="imgError" src="{{userInfo.avatar}}"></image>
         <view class="adminCenterName">{{userInfo.nickname}}</view>
         <view class="viptime">{{userInfo.vipEndTime}}樊登讲书VIP到期 ></view>
         <view class="buttomBox">

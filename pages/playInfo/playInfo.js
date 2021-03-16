@@ -65,6 +65,7 @@ Page({
     const canplay = wx.getStorageSync('allList')
     let abumInfoName = wx.getStorageSync('abumInfoName')
     const songInfo = app.globalData.songInfo
+    console.log('songInfoexisted', songInfo.existed)
     this.setData({
       songInfo: songInfo,
       canplay: canplay,
@@ -82,6 +83,7 @@ Page({
         coverImgUrl: options.src,
         id: options.id
       }
+      song = Object.assign({}, app.globalData.songInfo, song)
       this.setData({songInfo: song})
       if (app.globalData.songInfo.id != options.id) wx.showLoading({ title: '加载中...', mask: true })
     }
@@ -104,7 +106,14 @@ Page({
       playtime: app.globalData.playtime || '00:00',
       percent: app.globalData.percent || 0
     })
-    app.playing(null, that)
+    // console.log('app.globalData.playtime', app.globalData.playtime, app.globalData.percent)
+    app.playing(app.audioManager.currentTime, that)
+  },
+  noplay() {
+    this.setData({
+      playtime: app.globalData.playtime || '00:00',
+      percent: app.globalData.percent || 0
+    })
   },
   btnsPlay(e) {
     const type = e.currentTarget.dataset.name
@@ -182,16 +191,16 @@ Page({
     this.setData({
       animation: this.animation.export()
     })
-    setTimeout(() => {
-      this.setData({
-        noTransform: 'noTransform'
-      })
-    }, 300)
+    // setTimeout(() => {
+    //   this.setData({
+    //     noTransform: 'noTransform'
+    //   })
+    // }, 300)
   },
   closeList() {
     this.setData({
       showList: false,
-      noTransform: ''
+      // noTransform: ''
     })
     // 显示的过度动画
     this.animation.translate('-180vh', 0).step()
@@ -201,6 +210,10 @@ Page({
   },
   // 在播放列表里面点击播放歌曲
   async playSong(e) {
+    // 如果没有网
+    tool.noNet(this.playSongDo, e)
+  },
+  async playSongDo(e) {
     let that = this
     const songInfo = e.currentTarget.dataset.song
     app.globalData.songInfo = songInfo

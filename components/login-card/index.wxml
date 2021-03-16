@@ -7,7 +7,7 @@
       <view class="agreementText"  wx:if="{{!taiLogin}}">
         <view></view>
         <image class="selectPic" bindtap="agree" data-focusindex="2" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
-        <view data-focusindex="2" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
+        <view data-focusindex="2" class="xyread" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
       </view> 
     </block>
     <block wx:if="{{isLogin && !isVip}}">

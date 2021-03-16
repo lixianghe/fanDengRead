@@ -108,14 +108,17 @@ App({
     if (wx.canIUse('getPlayInfoSync')) {
       let res = wx.getPlayInfoSync()
       console.log('res-------------' + JSON.stringify(res))
-      let playing = res.playState.status == 1 ? true : false
-      wx.setStorageSync('playing', playing)
+      if (res.playState) {
+        let playing = res.playState.status == 1 ? true : false
+        wx.setStorageSync('playing', playing)
+      }
+      
     }
   },
   vision: '1.0.0',
   cutplay: async function (that, type, cutFlag) {
     let playingId = wx.getStorageSync('songInfo').id
-    let story = getCurrentPages()[0].selectComponent(`#story${playingId}`)
+    let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
     if (story) {
       story.clearPlay()
     }
@@ -190,10 +193,11 @@ App({
   // 根据歌曲url播放歌曲
   playing: function (seek, that) {
     const songInfo = wx.getStorageSync('songInfo')
-    // console.log('this.globalData.songInfo-----------------------' + JSON.stringify(this.globalData.songInfo))
-    this.carHandle(songInfo, seek)
+    // console.log('seek', seek)
     let app = this
     tool.initAudioManager(app, that, songInfo)
+    this.carHandle(songInfo, seek)
+    
   },
   // 车载情况下的播放
   carHandle(songInfo, seek) {
@@ -202,13 +206,16 @@ App({
     this.audioManager.title = media.title
     this.audioManager.coverImgUrl = media.coverImgUrl
     if (seek != undefined && typeof (seek) === 'number') {
-      wx.seekBackgroundAudio({
-        position: seek
-      })
+      console.log('inseek', seek)
+      // wx.seekBackgroundAudio({
+      //   position: seek
+      // })
+      this.audioManager.seek(seek)
     }
   },
   // 非车载情况的播放
-  // wxPlayHandle(songInfo, seek, cb) {
+  // wxPlayHandle(songInfo, seek) {
+  //   const songInfo = wx.getStorageSync('songInfo')
   //   wx.playBackgroundAudio({
   //     dataUrl: songInfo.src,
   //     title: songInfo.title,
@@ -218,7 +225,6 @@ App({
   //           position: seek
   //         })
   //       };
-  //       cb && cb();
   //     },
   //     fail: function () {
   //     }

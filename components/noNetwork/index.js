@@ -21,6 +21,7 @@ Component({
             })
           } else {
             currentPage.onLoad(currentPage.options)
+            currentPage.setData({showNonet: false})
           }
         },
       })

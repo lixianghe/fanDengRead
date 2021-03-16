@@ -43,6 +43,7 @@
   overflow: hidden;
   text-align: center;
   padding: 0 5vh;
+  height: 100%;
 }
 .adminCenter .image {
   width: 18.43vh;
@@ -78,7 +79,7 @@
 }
 .viptime {
   color: #1f1f1f;
-  font-size: 4.2vh;
+  font-size: 4.75vh;
   margin-top: 2vh;
 }
 .buttomBox {
@@ -109,6 +110,7 @@
   display: flex;
   margin-left: 4.61vh;
   margin-top: 1.5vh;
+  align-items: center;
 }
 .selectPic {
   width: 4vh;
@@ -118,4 +120,7 @@
 .agreement,
 .hide {
   text-decoration: underline;
+}
+.xyread {
+  padding: 1vh;
 }

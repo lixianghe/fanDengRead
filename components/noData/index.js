@@ -9,6 +9,9 @@ Component({
       wx.switchTab({
         url: '/pages/index/index'
       })
+      wx.setNavigationBarTitle({
+        title: '推荐' 
+      })
     }
   },
   attached(options) {

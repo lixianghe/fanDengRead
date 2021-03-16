@@ -9,6 +9,7 @@ export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     data.appId = '60348'
     data.token = wx.getStorageSync('token') || ''
+    console.log('token----=====----======----=', data.token)
     wx.request({
       url: base + url,
       data: data,
@@ -34,10 +35,6 @@ export function request(url, data = {}, method = 'POST') {
                 icon: 'none'
               })
             } else {
-              // wx.showToast({
-              //   title: res.data.message,
-              //   icon: 'none'
-              // })
               reject(res.data.message)
             }
           }
@@ -47,6 +44,8 @@ export function request(url, data = {}, method = 'POST') {
       },
       fail: function (err) {
         reject(err)
+        let page = getCurrentPages()[getCurrentPages().length - 1]
+        page.setData({showNonet: true})
       }
     })
   })

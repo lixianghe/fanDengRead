@@ -80,7 +80,7 @@ Component({
       })
     },
     clearPlay () {
-      console.log('falsefalsefalse')
+      // console.log('falsefalsefalse')
       this.setData({
         showPlay: false
       })

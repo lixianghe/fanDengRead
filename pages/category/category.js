@@ -1,4 +1,5 @@
 import { layout, bookCategory, freeBook } from '../../utils/httpOpt/api'
+import tool from '../../utils/util'
 const app = getApp()
 let pageNo = 1
 Page({
@@ -40,8 +41,8 @@ Page({
   onLoad(options) {
     pageNo = 1
     // 检测网络
-    let that = this
-    app.getNetWork(that)
+    // let that = this
+    // app.getNetWork(that)
     // 默认近期新书
     let params = {
       page: 1,
@@ -196,6 +197,10 @@ Page({
   },
   // 跳转到播放详情界面
   linkAbumInfo(e) {
+    // 如果没有网
+    tool.noNet(this.linkDo, e)
+  },
+  linkDo(e) {
     let id = e.currentTarget.dataset.id
     const src = e.currentTarget.dataset.src
     const title = e.currentTarget.dataset.title

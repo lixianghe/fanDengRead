@@ -89,14 +89,17 @@ function playAlrc(that, app) {
 
 function toggleplay(that, app) {
   if (that.data.playing) {
-    console.log("暂停播放");
-    app.stopmusic();
+    console.log("暂停播放")
+    that.setData({ 
+      playing: false 
+    })
+    app.audioManager.pause()
   } else {
     console.log("继续播放")
-    app.playing(null, that)
-    wx.seekBackgroundAudio({
-      position: app.globalData.currentPosition
+    that.setData({ 
+      playing: true 
     })
+    app.audioManager.play()
   }
 }
 
@@ -104,65 +107,71 @@ function toggleplay(that, app) {
 // 初始化 BackgroundAudioManager
 function initAudioManager(app, that, songInfo) {
   let list = wx.getStorageSync('nativeList')
-  that.audioManager = wx.getBackgroundAudioManager()
-  console.log('app.globalData.songInfo-----------------------------------' + JSON.stringify(app.globalData.songInfo))
-  that.audioManager.playInfo = {
+  app.audioManager.playInfo = {
     playList: list,
-    playState: {
-      // curIndex: app.globalData.songIndex,                                      //当前播放列表索引
-      // duration: app.globalData.songInfo.trial ? app.globalData.songInfo.trialDuration : app.globalData.songInfo.duration,                                  //总时长
-      // currentPosition: app.globalData.currentPosition,             //当前播放时间
-      // status: true,                                                   //当前播放状态 0暂停状态 1播放状态 2没有音乐播放
-    },
     context: songInfo
   };
-  EventListener(that)
+  EventListener(app,that)
 }
 
 // 监听播放，上一首，下一首
-function EventListener(that){
+function EventListener(app, that){
   let playingId = wx.getStorageSync('songInfo').id
-  let story = getCurrentPages()[0].selectComponent(`#story${playingId}`)
+  let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
   if (story) {
     story._onshow()
   }
   //播放事件
-  that.audioManager.onPlay(() => {
-    console.log('-------------------------------onPlay-----------------------------------')
+  app.audioManager.onPlay(() => {
+    console.log('-------------------------------onPlay-----------------------------------', that)
     wx.hideLoading()
     that.setData({ playing: true });
     wx.setStorageSync('playing', true)
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) miniPlayer.setData({ playing: true })
   })
   //暂停事件
-  that.audioManager.onPause(() => {
+  app.audioManager.onPause(() => {
     console.log('触发播放暂停事件');
     that.setData({ playing: false });
     wx.setStorageSync('playing', false)
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) miniPlayer.setData({ playing: false })
   })
   //上一首事件
-  that.audioManager.onPrev(() => {
+  app.audioManager.onPrev(() => {
     console.log('触发上一首事件');
     that.pre()
   })
   //下一首事件
-  that.audioManager.onNext(() => {
+  app.audioManager.onNext(() => {
     console.log('触发onNext事件');
     that.next();
   })
   //停止事件
-  that.audioManager.onStop(() => {
+  app.audioManager.onStop(() => {
     console.log('触发停止事件');
     that.setData({ playing: false });
+    // 控制minibar
     wx.setStorageSync('playing', false)
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) miniPlayer.setData({ playing: false })
   })
   //播放错误事件
-  that.audioManager.onError(() => {
+  app.audioManager.onError(() => {
     console.log('触发播放错误事件');
     that.setData({ playing: false });
+    // 控制minibar
     wx.setStorageSync('playing', false)
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) miniPlayer.setData({ playing: false })
   })
   //播放完成事件
-  that.audioManager.onEnded(() => {
+  app.audioManager.onEnded(() => {
     console.log('触发播放完成事件');
   })
 }
@@ -210,6 +219,24 @@ function isVipEnd (curr, now) {
     return 0
   }
 }
+
+// 如果没有网络
+function noNet(cb, e) {
+  wx.getNetworkType({
+    async success(res) {
+      const networkType = res.networkType
+      if (networkType === 'none') {
+        wx.showToast({
+          title: '网络异常，请检查网络',
+          icon: 'none'
+        })
+      } else {
+        cb && cb(e)
+      }
+    },
+  })
+}
+
 module.exports = {
   formatToSend: formatToSend,
   formatduration: formatduration,
@@ -220,5 +247,6 @@ module.exports = {
   throttle: throttle,
   debounce: debounce,
   timestampToTime: timestampToTime,
-  isVipEnd: isVipEnd
+  isVipEnd: isVipEnd,
+  noNet: noNet
 }

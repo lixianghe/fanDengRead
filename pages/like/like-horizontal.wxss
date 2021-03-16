@@ -37,8 +37,9 @@
   width: 41.81vh;
   display: inline-block;
   margin-right: 7.6vh;
-  height: 68.6vh;
+  height: 58vh;
   overflow: hidden;
+  border-radius: 2vh;
 }
 .h .imgB {
   width: 41.8vh;
