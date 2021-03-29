@@ -2,6 +2,7 @@
 const app = getApp()
 import tool from '../../utils/util'
 import btnConfig from '../../utils/pageOtpions/pageOtpions'
+import { songsUrl } from '../../utils/httpOpt/api'
 
 Page({
   mixins: [require('../../developerHandle/playInfo')],
@@ -76,7 +77,24 @@ Page({
     // 把abumInfoName存在缓存中，切歌的时候如果不是专辑就播放同一首
     wx.setStorageSync('abumInfoName', options.abumInfoName)
     const nativeList = wx.getStorageSync('nativeList') || []
-    if (!nativeList.length || abumInfoName !== options.abumInfoName) wx.setStorageSync('nativeList', canplay)
+    if (!nativeList.length || abumInfoName !== options.abumInfoName) {
+      wx.setStorageSync('nativeList', canplay)
+
+      let [ids, urls] = [[], []]
+      canplay.forEach(n => {
+        ids.push(n.id2)
+      })
+      songsUrl({bookIds: ids}).then(res => {
+        urls = res.data.map(n => {
+          let obj = {}
+          obj.title = n.bookName
+          obj.coverImgUrl = n.coverImage
+          obj.dataUrl = n.mediaUrl
+          return obj
+        })
+        wx.setStorageSync('urls', urls)
+      })
+    }
     if (options.noPlay !== 'true') {
       let song = {
         title: options.title,

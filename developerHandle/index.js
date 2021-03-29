@@ -159,7 +159,7 @@ module.exports = {
     // wx.showLoading({
     //   title: '加载中',
     // })
-    layoutGroup({}).then((res) => {
+    layoutGroup({}).then((result) => {
       // 分类部分
       let categoryLabels = [
         {
@@ -170,6 +170,7 @@ module.exports = {
           "id": 'freeBooks'
         }
       ]
+      let res = result
       for (let n of res.categories) {
         categoryLabels.push({name: n.name, id: n.id})
       }
@@ -183,6 +184,7 @@ module.exports = {
         obj.src = v.coverImage
         obj.title = v.title,
         obj.count = v.readCount
+        obj.id2 = v.id
         return obj
       })
       this.setData({

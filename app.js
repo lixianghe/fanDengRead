@@ -202,6 +202,7 @@ App({
   // 车载情况下的播放
   carHandle(songInfo, seek) {
     let media = songInfo
+    console.log('carHandlesong', songInfo)
     this.audioManager.src = media.src
     this.audioManager.title = media.title
     this.audioManager.coverImgUrl = media.coverImgUrl

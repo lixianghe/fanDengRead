@@ -33,13 +33,17 @@ html{
 }
 view[focus-select=true]{
 
-  box-shadow: inset 0px 0px 0px 4px#0c68b4;
+  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
+}
+text[focus-select=true]{
+
+  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
 }
 
 image[focus-select=true]{
-  box-shadow: inset 0px 0px 0px 4px#0c68b4;
+  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
 }
 
 button[focus-select=true]{
-  box-shadow: inset 0px 0px 0px 4px#0c68b4;
+  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
 }

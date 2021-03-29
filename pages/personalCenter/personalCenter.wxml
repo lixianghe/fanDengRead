@@ -1,6 +1,6 @@
 <view class="{{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;">
   <view class="personalCenter">
-    <view class="mine" style="background: url('/images/asset/bg_mecard.png');">
+    <view class="mine" style="background: url('/images/asset/bg_mecard.png') no-repeat 0 0 / 100% 100%">
     <!-- 未登录部分 -->
       <view class="adminCenter" wx:if="{{!isLogin}}">
         <image class="image" src="{{userInfo.avatar}}"></image>
@@ -10,7 +10,7 @@
         <button class="adminBtnIn" data-focusindex="2" open-type="getPhoneNumber" bindgetphonenumber='getPhoneNumber' style="width: 42vh;margin-top:2vh" wx:if="{{taiLogin}}">授权手机号登录</button>
         <view class="agreementText"  wx:if="{{!taiLogin}}">
           <image class="selectPic" bindtap="agree" data-focusindex="2" src="{{isAgree? '/images/asset/select.png': '/images/asset/select_no.png'}}"></image>
-          <view data-focusindex="2" class="xyread" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide" bindtap="hide">隐私政策</text></view>
+          <view data-focusindex="2" class="xyread" bindtap="agreement">请同意并您仔细阅读完整版<text class="agreement">服务协议</text>和<text class="hide">隐私政策</text></view>
         </view>
       </view>
       <!-- 登录非会员部分 -->

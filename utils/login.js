@@ -109,6 +109,7 @@ import { albumMedia } from '../utils/httpOpt/api'
         console.log(JSON.stringify(params) + '创建用户信息----参数')
         createOrUpdateWeChatUser(params).then(cauth => { //4
           console.log(JSON.stringify(cauth) + '创建用户信息验证--成功回调')
+          console.log(cauth, '创建用户信息验证--成功回调22222222222')
           let authLogParam = {
             mobile: cauth.data.phoneNumber,
             openId: cauth.data.openId,
@@ -117,7 +118,7 @@ import { albumMedia } from '../utils/httpOpt/api'
             encryptedPhoneData: num.detail.encryptedData, // 新加登录加密信息
             phoneIv: num.detail.iv  // 新加登录加密信息
           }
-
+          let avatarUrl = cauth.data.avatarUrl
           console.log('创建用户后的登录接口---------------' + JSON.stringify(authLogParam))
           console.log(555)
           authLogin(authLogParam).then(login => {
@@ -126,7 +127,7 @@ import { albumMedia } from '../utils/httpOpt/api'
             // 本地存储登录凭证
             wx.setStorageSync('token', login.data.token)
             let obj = {
-              avatar: login.data.avatarUrl,
+              avatar: avatarUrl,
               nickname: login.data.userName,
               vipState: login.data.isVip ? isVipEnd(login.data.vipEndTime.toString(), Date.now().toString()) : 0, // 0 非会员， 1 会员快过期（不到一个月）， 2 会员有效
               vipEndTime: timestampToTime(login.data.vipEndTime.toString().substr(0, 10))

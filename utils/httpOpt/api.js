@@ -39,7 +39,10 @@ const freeBookApi = '/resource-orchestration-system/books/freeList'
 // 测试登录用
 const testNewApi = '/mini-orch/auth/carLoadMini/v100/testValidateSign'                               
 // 测试登录用
-const createOrUpdateWeChatUserApi = '/mini-orch/auth/carLoadMini/v100/createOrUpdateWeChatUser'                               
+const createOrUpdateWeChatUserApi = '/mini-orch/auth/carLoadMini/v100/createOrUpdateWeChatUser'      
+
+// 批量获取音频src
+const songsUrlApI = '/mini-orch/carLoadMini/v100/getBooksInfoByIds'
                                                                   
 
 export const layoutGroup = (data) => request(layoutGroupApi, data)
@@ -64,3 +67,4 @@ export const testNew = (data) => request(testNewApi, data)
 export const createOrUpdateWeChatUser = (data) => request(createOrUpdateWeChatUserApi, data)
 export const bookCategory = (data) => request(bookCategoryAPi, data)
 export const freeBook = (data) => request(freeBookApi, data)
+export const songsUrl = (data) => request(songsUrlApI, data)

@@ -174,6 +174,11 @@ Component({
       this.setData({
         songInfo: app.globalData.songInfo 
       })
+      setTimeout(() => {
+        this.setData({
+          songInfo: app.globalData.songInfo 
+        })
+      }, 1000)
     },
     // 因为1.9.2版本无法触发onshow和onHide所以事件由它父元素触发
     setOnShow() {
@@ -185,6 +190,15 @@ Component({
       // 初始化backgroundManager
       let that = this
       // tool.initAudioManager(that, canplay)
+
+      if (wx.canIUse('getPlayInfoSync')) {
+        let res = wx.getPlayInfoSync()
+        console.log('getPlayInfoSync---------------------------'+JSON.stringify(res))
+        let playing = res.playState && res.playState.status == 1 ? true : false
+        wx.setStorageSync('playing', playing)
+      }
+
+      
       const playing = wx.getStorageSync('playing')
       that.setData({
         playing: playing,

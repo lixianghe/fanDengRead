@@ -145,7 +145,7 @@ Page({
     api(params).then((res) => {
       let data = res.books
       data.map(v => {
-        
+        v.id2 = v.id
         v.src = v.imageUrl
         v.title = v.title,
         v.count = v.readCount

@@ -57,9 +57,10 @@ module.exports = {
     if (this.story) {
       this.story._onshow()
     }
+    this._getList('专辑')
   },
   onLoad(options) {
-    this._getList('专辑')
+    
   },
   onHide() {
     // 清空上一首播放态

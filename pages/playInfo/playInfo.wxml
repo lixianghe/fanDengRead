@@ -58,7 +58,7 @@
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh"
           >
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
+          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" data-defaultfocus="true" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
           <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />
@@ -138,7 +138,7 @@
           data-index="{{index}}"
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh">
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
+          <image data-name="{{item.name}}" bindtap="btnsPlay" data-defaultfocus="true" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
           <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
           <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />

@@ -99,14 +99,21 @@ function toggleplay(that, app) {
     that.setData({ 
       playing: true 
     })
-    app.audioManager.play()
+    console.log(app.audioManager.src)
+    
+    if (app.audioManager.src) {
+      app.audioManager.play()
+    } else {
+      app.playing(app.globalData.currentPosition, that)
+    }
   }
 }
 
 
 // 初始化 BackgroundAudioManager
 function initAudioManager(app, that, songInfo) {
-  let list = wx.getStorageSync('nativeList')
+  let list = wx.getStorageSync('urls')
+  console.log('list', list)
   app.audioManager.playInfo = {
     playList: list,
     context: songInfo
@@ -143,12 +150,29 @@ function EventListener(app, that){
   //上一首事件
   app.audioManager.onPrev(() => {
     console.log('触发上一首事件');
-    that.pre()
+    
+
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) {
+      miniPlayer.pre()
+    } else {
+      that.pre()
+    }
+
+
   })
   //下一首事件
   app.audioManager.onNext(() => {
     console.log('触发onNext事件');
-    that.next();
+
+    const pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) {
+      miniPlayer.next()
+    } else {
+      that.next()
+    }
   })
   //停止事件
   app.audioManager.onStop(() => {

@@ -21,7 +21,8 @@
     "navigationBarBackgroundColor": "#202020",
     "navigationBarTitleText": "小程序模板",
     "navigationBarTextStyle": "white",
-    "mossPkgName": "60348"
+    "mossPkgName": "60348",
+    "pageOrientation": "auto"
   },
   "permission": {
     "scope.userLocation": {

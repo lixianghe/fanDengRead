@@ -4,7 +4,7 @@
   display: inline-block;
   margin-right: 6.58vh;
   /* margin-top: 15.7vh; */
-  height: 68.6vh;
+  /* height: 68.6vh; */
   overflow: hidden;
   position: relative;
 }
@@ -96,7 +96,7 @@
   padding-bottom: 131%;
   border-radius: 2vh;
   vertical-align: bottom;
-  box-shadow: inset 4px 4px #0c68b4, inset -4px -4px #0c68b4;
+  box-shadow: inset 8px 8px #4e6ef2, inset -8px -8px #4e6ef2;
 }
 /* .image[focus-bg=true]{
   box-shadow: inset 0px 0px 0px 4px#0c68b4;
