@@ -94,6 +94,8 @@ Page({
         })
         wx.setStorageSync('urls', urls)
       })
+      let that = this
+      tool.initAudioManager(app, that)
     }
     if (options.noPlay !== 'true') {
       let song = {
@@ -122,16 +124,20 @@ Page({
     let that = this
     that.setData({
       playtime: app.globalData.playtime || '00:00',
-      percent: app.globalData.percent || 0
+      percent: app.globalData.percent || 0,
+
     })
     // console.log('app.globalData.playtime', app.globalData.playtime, app.globalData.percent)
     app.playing(app.audioManager.currentTime, that)
   },
   noplay() {
+    console.log('进入noplay')
     this.setData({
       playtime: app.globalData.playtime || '00:00',
       percent: app.globalData.percent || 0
     })
+    // const playing = wx.getStorageSync('playing')
+    // if (playing) app.playing(app.audioManager.currentTime, this)
   },
   btnsPlay(e) {
     const type = e.currentTarget.dataset.name
@@ -295,6 +301,33 @@ Page({
         })
       } catch (err) {
       }
+    })
+  },
+
+  // 用slider拖拽
+  sliderchange(e) {
+    // console.log(e.detail.value)
+    const percent = e.detail.value / 100
+    const currentTime = percent * tool.formatToSend(app.globalData.songInfo.dt)
+    wx.seekBackgroundAudio({
+      position: currentTime
+    })
+    setTimeout(() => {
+      this.setData({
+        isDrag: ''
+      })
+    }, 500)
+  },
+  sliderchanging(e) {
+    console.log(e.detail.value)
+    const percent = e.detail.value / 100
+    const currentTime = percent * tool.formatToSend(app.globalData.songInfo.dt)
+    const playtime = currentTime ? tool.formatduration(currentTime * 1000) : '00:00'
+    this.setData({
+      playtime
+    })
+    this.setData({
+      isDrag: 'is-drag'
     })
   },
   // ******按钮点击态处理********/

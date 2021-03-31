@@ -7,14 +7,17 @@
   /* height: 68.6vh; */
   overflow: hidden;
   position: relative;
+  
 }
 .halbumCard .image {
   width: 41.81vh;
   border-radius: 2vh;
   vertical-align: bottom;
+  padding: 1.5vh;
+  
 }
 .halbumCard .albumTit {
-  margin-top: 4.8vh;
+  margin-top: 3.3vh;
   color: #ffffff;
   font-size: 5.2vh;
   box-sizing: content-box;
@@ -45,7 +48,7 @@
 .halbumCard .conut {
   position: absolute;
   top: 2vh;
-  right: 0;
+  right: 1.5vh;
   height: 7.66vh;
   overflow: hidden;
   line-height: 7.66vh;
@@ -56,9 +59,9 @@
 }
 .halbumCard .linerbg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 1.5vh;
+  left: 1.5vh;
+  width: calc(100% - 3vh);
   height: 9.81vh;
   border-radius: 2vh;
   background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0));
@@ -91,12 +94,15 @@
 .image[focus-select=true]:before {
   content:"";
   position:absolute;
-  width: 100%;
+  width: calc(100% + 3vh);
   height: 0;
   padding-bottom: 131%;
   border-radius: 2vh;
   vertical-align: bottom;
-  box-shadow: inset 8px 8px #4e6ef2, inset -8px -8px #4e6ef2;
+  box-shadow: inset 1.2vh 1.2vh #4e6ef2, inset -1.2vh -1.2vh #4e6ef2;
+  transform: translate(-1.7vh, -1.7vh);
+  left: 0;
+  top: 0;
 }
 /* .image[focus-bg=true]{
   box-shadow: inset 0px 0px 0px 4px#0c68b4;

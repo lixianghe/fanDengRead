@@ -52,12 +52,23 @@ module.exports = {
       }
     ],
     // 封面图片形状 rect矩形，square，正方形
-    shape: 'rect'
+    shape: 'rect',
+    outPush: false
   },
   onLoad(options) {
     // 进入详情先赋值部分字段
     const app = getApp()
     // 拿到歌曲的id: options.id
+    if (options.fragmentId) {
+      this.data.playInfoBtns.splice(this.data.playInfoBtns.length - 1, 1)
+      this.setData({
+        playInfoBtns: this.data.playInfoBtns,
+        outPush: true
+      })
+      options.id = options.fragmentId
+      app.globalData.songInfo = {}
+    }
+    console.log(options)
     let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
     // console.log(options.id, app.globalData.songInfo.id)
     if (!options.id || options.id == app.globalData.songInfo.id) {
@@ -76,10 +87,10 @@ module.exports = {
       let info = await albumMedia(params)
       let songInfo = Object.assign({}, that.data.songInfo)
       songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
-      // songInfo.title = info.data.title                                       // 音频名称
+      songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
       songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
-      // songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
+      if (this.data && this.data.outPush) songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
       songInfo.existed = info.data.isFavorite
       songInfo.trial = info.data.trial
       songInfo.singer = info.data.bookAuthorName

@@ -139,7 +139,7 @@ App({
     //歌曲切换 停止当前音乐
     let song = allList[index] || allList[0]
     song.coverImgUrl = song.src
-    wx.pauseBackgroundAudio();
+    // wx.pauseBackgroundAudio();
     that.setData({
       currentId: Number(song.id),       // 当前播放的歌曲id
       currentIndex: index,
@@ -194,8 +194,8 @@ App({
   playing: function (seek, that) {
     const songInfo = wx.getStorageSync('songInfo')
     // console.log('seek', seek)
-    let app = this
-    tool.initAudioManager(app, that, songInfo)
+    // let app = this
+    // tool.initAudioManager(app, that)
     this.carHandle(songInfo, seek)
     
   },

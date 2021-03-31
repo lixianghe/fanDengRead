@@ -76,7 +76,8 @@ Component({
   },
   audioManager: null,
   attached: function () {
-    
+    let that = this
+    tool.initAudioManager(app, that)
   },
   detached: function () {
 

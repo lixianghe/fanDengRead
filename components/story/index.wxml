@@ -1,12 +1,14 @@
 <view class="{{className}}albumCard" style="width: {{width}}vh">
-  <image class="image" bindtap="aa" src="{{datasource.src}}" data-focusindex="3" style="width: {{width}}vh; height: {{height}}vh"></image>
-  <view class="linerbg">
+  <image class="image" bindtap="aa" src="{{datasource.src}}" data-focusindex="3" style="width: {{width}}vh; height: {{height}}vh;position:relative">
+    <view class="linerbg">
     
-  </view>
-  <view class="conut" wx:if="{{datasourceCount}}">
-    <image class="countpic" src="{{countpic}}" ></image>
-    <text class="countxt">{{datasourceCount}}</text>
-  </view>
+    </view>
+    <view class="conut" wx:if="{{datasourceCount}}">
+      <image class="countpic" src="{{countpic}}" ></image>
+      <text class="countxt">{{datasourceCount}}</text>
+    </view>
+  </image>
+  
   <image class="playPic" src="{{playpic}}" wx:if="{{showPlay}}" style="top: {{shape === 'rectBig' ? '44vh': '36vh'}}"></image>
   <view wx:if="{{src.length > 0}}"
       class="like"

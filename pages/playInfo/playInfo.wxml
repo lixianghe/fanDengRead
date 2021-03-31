@@ -55,14 +55,15 @@
           bindtouchstart="btnstart"
           bindtouchend="btend"
           data-index="{{index}}"
+          data-name="{{item.name}}" bindtap="btnsPlay"
+          data-defaultfocus="{{item.name === 'toggle' ? 'true' : 'false'}}"
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh"
           >
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:if="{{item.name === 'toggle'}}" data-defaultfocus="true" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
-          <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:else src="{{item.img}}" />
+          <image wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
+          <image wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
+          <image wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />
+          <image wx:else src="{{item.img}}" />
         </view>
     </view>
     </view>
@@ -70,6 +71,7 @@
   <view class="playRight">
     <image class="rightImg"
       bindload="imgOnLoad"
+      mode="aspectFill"
       style="display:{{showImg ? 'block' : 'none'}};width: {{shape === 'rect' ? '46.9vh' : '18.65vw'}};height: {{shape === 'rect' ? '62.15vh' : '18.65vw'}}"
       src="{{songInfo.coverImgUrl}}" />
     <!-- <view 
@@ -87,6 +89,7 @@
         bindload="imgOnLoad"
         style="display:{{showImg ? 'block' : 'none'}}"
         src="{{songInfo.coverImgUrl}}"
+        mode="aspectFill"
         style="width: {{shape === 'rect' ? '17.3vh' : '23vh'}};height: {{shape === 'rect' ? '23vh' : '23vh'}}"
         />
 
@@ -128,6 +131,10 @@
         <view id="dpstate" style="width:{{percent}}%;background: {{mainColor}}"></view>
       </view>
 
+      <!-- <view class="slider-view">
+        <slider bindchange="sliderchange" value="{{percent}}" bindchanging="sliderchanging"/>
+      </view> -->
+
       <text class="duration" wx:if="{{percentBar}}">{{songInfo.dt}}</text>
       <view class="btns">
         <view
@@ -136,13 +143,14 @@
           bindtouchstart="btnstart"
           bindtouchend="btend"
           data-index="{{index}}"
+          data-defaultfocus="{{item.name === 'toggle' ? 'true' : 'false'}}"
+          data-name="{{item.name}}" bindtap="btnsPlay"
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh">
           <view wx:if="{{btnCurrent === index}}" class="modal"></view>
-          <image data-name="{{item.name}}" bindtap="btnsPlay" data-defaultfocus="true" wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
-          <!-- <image data-name="{{item.name}}" class="nextBtn" bindtap="btnsPlay" wx:elif="{{item.name === 'next' && playInfoBtns.length > 3}}" src="{{item.img}}" /> -->
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />
-          <image data-name="{{item.name}}" bindtap="btnsPlay" wx:else src="{{item.img}}" />
+          <image wx:if="{{item.name === 'toggle'}}" src="{{playing ? item.img.stopUrl : item.img.playUrl}}" />
+          <image wx:elif="{{item.name === 'like'}}" src="{{songInfo.existed ? item.img.liked : item.img.noLike}}" />
+          <image wx:elif="{{item.name === 'loopType'}}" src="{{item.img[loopType]}}" />
+          <image wx:else src="{{item.img}}" />
         </view>
     </view>
     </view>
@@ -167,8 +175,8 @@
       bindscrolltolower="listBehind"
     >
   <view class="songList">
-      <view class="view" style="color: {{item.id === currentId ? mainColor : '#fff'}}"  wx:key="index" wx:for="{{canplay}}">
-        <view  bindtap="playSong" data-no='{{index}}' data-song="{{item}}" style="width: 100%;height: 6.6vh;line-height: 6.6vh;padding-left: 2vh">
+      <view class="view" style="color: {{item.id === currentId ? mainColor : '#fff'}}"  wx:key="index" wx:for="{{canplay}}" bindtap="playSong" data-no='{{index}}' data-song="{{item}}">
+        <view  style="width: 100%;height: 6.6vh;line-height: 6.6vh;padding-left: 2vh">
           <image class="playGif" wx:if="{{item.id === currentId && playing}}" src="/images/playing.gif" />
           <text wx:else>{{index + 1}}</text>
           <text>{{item.title}}</text>

@@ -1,13 +1,15 @@
 {
   "pages": [
     "pages/index/index", 
+    "pages/playInfo/playInfo",
+    
     "pages/member/pay",
     
     "pages/personalCenter/personalCenter",
     "pages/test/test", 
     "pages/like/like",
     "pages/abumInfo/abumInfo",
-    "pages/playInfo/playInfo",
+    
     "pages/latelyListen/latelyListen",
     "pages/category/category",
     

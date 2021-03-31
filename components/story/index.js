@@ -112,19 +112,19 @@ Component({
       case 'square':
         
         this.setData({
-          width: 41.8,
+          width: 44.8,
           height: 41.8 
         })
         break;
       case 'rect':
         this.setData({
-          width: 36.77,
+          width: 39.77,
           height: 48
         })
         break;
       case 'rectBig':
         this.setData({
-          width: 43.2,
+          width: 46.2,
           height: 56.46
         })
         break;
