@@ -43,7 +43,8 @@ App({
       unionId: '',
       sessionId: ''
     },
-    playingId: '' // 正在播放歌曲id
+    playingId: '' ,// 正在播放歌曲id
+    isRecharge:false // 跳转个人中心判断是否弹出充值窗口
   },
   
   // 小程序颜色主题
