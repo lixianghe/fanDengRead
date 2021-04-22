@@ -1,2 +1,2 @@
 <!--pages/userAgree/userAgree.wxml-->
-<web-view src="https://card.dushu.io/app/eula/index.html"></web-view>
+<web-view src="https://card.dushu365.com/app/eula/index.html?tab=1&largeFont=true"></web-view>

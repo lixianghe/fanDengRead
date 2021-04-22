@@ -124,29 +124,35 @@ function initAudioManager(app, that) {
 
 // 监听播放，上一首，下一首
 function EventListener(app, that){
-  let playingId = wx.getStorageSync('songInfo').id
-  let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
-  if (story) {
-    story._onshow()
-  }
+  
   //播放事件
   app.audioManager.onPlay(() => {
     console.log('-------------------------------onPlay-----------------------------------', that)
     wx.hideLoading()
-    that.setData({ playing: true });
+    // that.setData({ playing: true });
     wx.setStorageSync('playing', true)
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) miniPlayer.setData({ playing: true })
+    pages[pages.length - 1].setData({ playing: true })
+
+
+    let playingId = wx.getStorageSync('songInfo').id
+    let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
+    console.log('story', story)
+    if (story) {
+      story._onshow()
+    }
   })
   //暂停事件
   app.audioManager.onPause(() => {
     console.log('触发播放暂停事件');
-    that.setData({ playing: false });
+    // that.setData({ playing: false });
     wx.setStorageSync('playing', false)
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) miniPlayer.setData({ playing: false })
+    pages[pages.length - 1].setData({ playing: false })
   })
   //上一首事件
   app.audioManager.onPrev(() => {

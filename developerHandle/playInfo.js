@@ -59,6 +59,7 @@ module.exports = {
     // 进入详情先赋值部分字段
     const app = getApp()
     // 拿到歌曲的id: options.id
+    // options.fragmentId = 3245
     if (options.fragmentId) {
       this.data.playInfoBtns.splice(this.data.playInfoBtns.length - 1, 1)
       this.setData({
@@ -90,7 +91,10 @@ module.exports = {
       songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
       songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
-      if (this.data && this.data.outPush) songInfo.coverImgUrl = info.data.titleImageUrl                          // 音频封面
+      if (this.data && this.data.outPush) {
+        songInfo.coverImgUrl = info.data.titleImageUrl
+        that.setData({ playing: true })
+      }                          // 音频封面
       songInfo.existed = info.data.isFavorite
       songInfo.trial = info.data.trial
       songInfo.singer = info.data.bookAuthorName

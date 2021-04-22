@@ -53,11 +53,12 @@
 }
 .page .playLeft .title .title-abumInfo .singer {
   text-align: left;
-  flex: 1;
+  /* flex: 1; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 5vh;
+  width: calc(100% - 79vh)!important;
 }
 .page .playLeft .player {
   margin-top: 14.7vh;
@@ -196,6 +197,7 @@
   height: 23vh;
   border-radius: 2vh;
   margin-right: 7.7vh;
+  flex-shrink: 0;
 }
 
 .page .songDc .songDcTitle .image {

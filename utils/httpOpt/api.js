@@ -1,25 +1,27 @@
 import { request } from './https'
 
+// 首页推荐
+const feedApi = '/mini-orch/carLoadMini/v100/getRecommendBookInfos'
 // 分类
-const layoutGroupApi = '/resource-orchestration-system/bookPortal/v102/forApp'                         
+const layoutGroupApi = '/mini-orch/carLoadMini/bookPortal/v102/forApp'                         
 // 推荐
 const layoutApi = '/mini-orch/carLoadMini/v100/suggest'   
 // 查询专辑故事
-const albumMediaApi = '/resource-orchestration-system/fragment/v101/content'                                                                               
+const albumMediaApi = '/mini-orch/carLoadMini/fragment/v101/content'                                                                               
 // 最近播放
-const historyApi = '/resource-behavior-orchestration/play/v100/histories'                              
+const historyApi = '/mini-orch/carLoadMini/play/v100/histories'                              
 // 添加播放记录
-const saveHistoryApi = '/resource-orchestration-system/play/addPlayHistory'             
+const saveHistoryApi = '/mini-orch/carLoadMini/play/addPlayHistory'             
 // 收藏书籍
-const albumFavoriteApi = '/resource-orchestration-system/favorite/v100/folder/detail'                     
+const albumFavoriteApi = '/mini-orch/carLoadMini/favorite/v100/folder/detail'                     
 // 添加书籍收藏
-const albumFavoriteAddApi = '/resource-orchestration-system/fragment/v101/favorite'                    
+const albumFavoriteAddApi = '/mini-orch/carLoadMini/fragment/v101/favorite'                    
 // 取消书籍收藏
-const albumFavoriteCancelApi = '/resource-orchestration-system/fragment/v101/unfavorite'               
+const albumFavoriteCancelApi = '/mini-orch/carLoadMini/fragment/v101/unfavorite'               
 // 书籍是否收藏
 const isAlbumFavoriteApi = '/info-system/freeReadInfo/v100/getFreeReadBookList'               
 // 获取个人信息
-const userInfoApi = '/user-orchestration/user/api/v101/userInfo' 
+const userInfoApi = '/mini-orch/carLoadMini/user/api/v101/userInfo' 
 // 微信授权
 const validationAuthorizeApi = '/mini-orch/auth/carLoadMini/v100/validationAuthorize'
 // 通过手机号登录
@@ -29,9 +31,9 @@ const logoutApi = '/mini-orch/auth/carLoadMini/v100/logout'
 // 支付接口
 const getPayQrCodeApi = '/mini-orch/pay/carLoadMini/v100/getPayQrCode'
 // 分类书籍
-const bookCategoryAPi = '/resource-orchestration-system/books/bookInfoByCategory'
+const bookCategoryAPi = '/mini-orch/carLoadMini/books/bookInfoByCategory'
 // 免费书籍
-const freeBookApi = '/resource-orchestration-system/books/freeList'
+const freeBookApi = '/mini-orch/carLoadMini/books/freeList'
       
 
 
@@ -44,7 +46,7 @@ const createOrUpdateWeChatUserApi = '/mini-orch/auth/carLoadMini/v100/createOrUp
 // 批量获取音频src
 const songsUrlApI = '/mini-orch/carLoadMini/v100/getBooksInfoByIds'
                                                                   
-
+export const feed = (data) => request(feedApi, data)
 export const layoutGroup = (data) => request(layoutGroupApi, data)
 export const layout = (data) => request(layoutApi, data)
 export const history = (data) => request(historyApi, data)

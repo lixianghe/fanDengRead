@@ -100,7 +100,7 @@
         ></view> -->
 
 
-      <view class="title" wx:if="{{songInfo.title}}">
+      <view class="title" wx:if="{{songInfo.title}}" style="width: calc(100% - 25vh)">
         <text class="title-name">{{songInfo.title}}</text>
         <view class="title-abumInfo">
           <text class="singer">{{songInfo.singer}}</text>

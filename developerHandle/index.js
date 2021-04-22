@@ -35,7 +35,7 @@
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
 
-import { layoutGroup } from '../utils/httpOpt/api'
+import { layoutGroup, feed } from '../utils/httpOpt/api'
 import { btnCallback, openVip, renewalVip } from '../utils/login'
 import tool from '../utils/util'
 const app = getApp()
@@ -178,7 +178,24 @@ module.exports = {
       wx.setStorageSync('recentNewBooks', recentNewBooks)
       wx.setStorageSync('categoryLabels', categoryLabels)
       // 推荐  suggest
-      let suggest = res.likedBookGroup.books.map(v => {
+      this.getFeed()
+      
+    }).catch(err => {
+      console.log(err)
+      this.setData({
+        // info: suggest,
+        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
+        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
+        reqL: true
+      })
+      wx.hideLoading()
+    })
+  },
+  // 获取首页的书籍
+  getFeed() {
+    feed().then(res => {
+      console.log('res', res)
+      let suggest = res.data.map(v => {
         let obj = {}
         obj.id = v.fragmentId
         obj.src = v.coverImage
@@ -201,15 +218,6 @@ module.exports = {
         // },1000)
       })
       
-      wx.hideLoading()
-    }).catch(err => {
-      console.log(err)
-      this.setData({
-        // info: suggest,
-        info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
-        {id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'}],
-        reqL: true
-      })
       wx.hideLoading()
     })
   },

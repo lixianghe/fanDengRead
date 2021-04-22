@@ -8,7 +8,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  background: #282829;
+  background: transparent;
 }
 .noData .img {
   width: 36.9vh;
