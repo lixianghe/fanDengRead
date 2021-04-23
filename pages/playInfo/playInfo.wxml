@@ -22,7 +22,7 @@
       <text class="title-name">{{songInfo.title}}</text>
       <view class="title-abumInfo">
           <text class="singer">{{songInfo.singer}}</text>
-          <text class="title-trial" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+          <text class="title-trial" bindtap="linkLogin" data-focusindex="1" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
         </view>
     </view>
     <view class="noReady" wx:else>
@@ -55,6 +55,7 @@
           bindtouchstart="btnstart"
           bindtouchend="btend"
           data-index="{{index}}"
+          data-focusindex="2"
           data-name="{{item.name}}" bindtap="btnsPlay"
           data-defaultfocus="{{item.name === 'toggle' ? 'true' : 'false'}}"
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh"
@@ -104,7 +105,7 @@
         <text class="title-name">{{songInfo.title}}</text>
         <view class="title-abumInfo">
           <text class="singer">{{songInfo.singer}}</text>
-          <text class="title-trial" bindtap="linkLogin" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
+          <text class="title-trial" bindtap="linkLogin" data-focusindex="1" wx:if="{{songInfo.trial}}">试听中，开通VIP收听完整内容</text>
         </view>
       </view>
 
@@ -143,6 +144,7 @@
           bindtouchstart="btnstart"
           bindtouchend="btend"
           data-index="{{index}}"
+          data-focusindex="2"
           data-defaultfocus="{{item.name === 'toggle' ? 'true' : 'false'}}"
           data-name="{{item.name}}" bindtap="btnsPlay"
           style="width: {{pictureWidth / 6.5}}vh;height: {{pictureHeight / 6.5}}vh">
