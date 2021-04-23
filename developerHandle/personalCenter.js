@@ -91,7 +91,7 @@ module.exports = {
         }
       })
     }
-
+    this.isRecharge()
     this.setData({
       isAgree: app.globalData.isAgree,
       userInfo: app.globalData.userInfo,
@@ -145,5 +145,15 @@ module.exports = {
       return;
     }
     wx.navigateTo({ url: '../latelyListen/latelyListen' })
+  },
+  // 判断是否弹出充值提示
+  isRecharge(){
+    const {isLogin,isVip,isRecharge} = app.globalData
+    if(isLogin && !isVip && isRecharge){
+      app.globalData.isRecharge = false
+      this.btnCallback({
+        detail: {type: 'open', text: '开通会员', btnTxt: '开通'}
+      })
+    }
   }
 }
