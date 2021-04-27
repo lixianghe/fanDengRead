@@ -109,15 +109,15 @@ function toggleplay(that, app) {
   }
 }
 
-
 // 初始化 BackgroundAudioManager
 function initAudioManager(app, that) {
-  let list = wx.getStorageSync('urls')
-  console.log('list', list)
+  let list = wx.getStorageSync('urls') || []
   if (list.length) {
+    const playing = wx.getStorageSync('playing')
     app.audioManager.playInfo = {
       playList: list
     };
+    if (playing) app.playing(null, that)
   }
   EventListener(app,that)
 }

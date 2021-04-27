@@ -196,7 +196,9 @@ Component({
         let res = wx.getPlayInfoSync()
         console.log('getPlayInfoSync---------------------------'+JSON.stringify(res))
         let playing = res.playState && res.playState.status == 1 ? true : false
-        wx.setStorageSync('playing', playing)
+        if(res.playState && res.playState.status != null){
+          wx.setStorageSync('playing', playing)
+        }
       }
 
       

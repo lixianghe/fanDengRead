@@ -77,25 +77,38 @@ Page({
     // 把abumInfoName存在缓存中，切歌的时候如果不是专辑就播放同一首
     wx.setStorageSync('abumInfoName', options.abumInfoName)
     const nativeList = wx.getStorageSync('nativeList') || []
+    let that = this, getPlayObj = {};
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
       wx.setStorageSync('nativeList', canplay)
-
       let [ids, urls] = [[], []]
       canplay.forEach(n => {
         ids.push(n.id2)
       })
+      if (wx.canIUse('getPlayInfoSync')) {
+        let res = wx.getPlayInfoSync()
+        if (res.playList && res.playList.length) {
+            res.playList.forEach(item=>{
+              if(item.title == this.data.songInfo.title){
+                getPlayObj = item
+              }
+            })
+        }
+      }
       songsUrl({bookIds: ids}).then(res => {
         urls = res.data.map(n => {
           let obj = {}
-          obj.title = n.bookName
-          obj.coverImgUrl = n.coverImage
-          obj.dataUrl = n.mediaUrl
+          if(Object.keys(getPlayObj) && getPlayObj.title == n.bookName){
+            obj = getPlayObj
+          }else{
+            obj.title = n.bookName
+            obj.coverImgUrl = n.coverImage
+            obj.dataUrl = n.mediaUrl
+          }
           return obj
         })
         wx.setStorageSync('urls', urls)
+        tool.initAudioManager(app, that)
       })
-      let that = this
-      tool.initAudioManager(app, that)
     }
     if (options.noPlay !== 'true') {
       let song = {
@@ -119,6 +132,10 @@ Page({
   },
   imgOnLoad() {
     this.setData({ showImg: true })
+  },
+  clack(){
+    let that = this
+    tool.initAudioManagers(app, that)
   },
   play() {
     let that = this
