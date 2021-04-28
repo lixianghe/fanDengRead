@@ -47,6 +47,19 @@ Component({
     },
     _onshow() {
       let that = this
+      if(wx.canIUse('checkSession')){
+        wx.checkSession({
+          success: (res) => {
+          },
+          fail: (err) => {
+            that.logoutTap2()
+            wx.setStorageSync('taiLogin', false)
+            that.setData({
+              taiLogin: false
+            })
+          },
+        });
+      }
       if(wx.canIUse('onTaiAccountStatusChange')){
         wx.onTaiAccountStatusChange((res)=>{
           if(!res.isLoginUser){

@@ -321,5 +321,35 @@ App({
       })
     }
   },
-  
+  // 记录日志
+  log(...text) {
+    // 全局log开关
+    if (this.openLog === 1) {
+      console.log("aiquting => " + text);
+    }
+    for (let e of text) {
+      if (typeof e == "object") {
+        try {
+          if (e === null) {
+            this.logText += "null";
+          } else if (e.stack) {
+            this.logText += e.stack;
+          } else {
+            this.logText += JSON.stringify(e);
+          }
+        } catch (err) {
+          this.logText += err.stack;
+        }
+      } else {
+        this.logText += e;
+      }
+      this.logText += "\n";
+    }
+    this.logText += "#############\n";
+  },
+  version:'1.2.9',
+  // log - 日志文本
+  logText: "",
+  // log - 日志开关，1 => 开启，0 => 关闭
+  openLog: 0,
 })

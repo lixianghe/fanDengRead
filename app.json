@@ -65,7 +65,8 @@
     "bgConfirm": "/components/bgConfirm/index",
     "no-data": "/components/noData/index",
     "no-network": "/components/noNetwork/index",
-    "login-card": "/components/login-card/index"
+    "login-card": "/components/login-card/index",
+    "log": "/components/log/index"
   },
   "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap.json"
