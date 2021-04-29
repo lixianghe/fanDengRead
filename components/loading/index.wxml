@@ -1,0 +1,7 @@
+<view class="loading">
+  <view class="inbox">
+
+     <view class="loadimg"> </view>
+    <text>加载中</text>
+  </view>
+</view>

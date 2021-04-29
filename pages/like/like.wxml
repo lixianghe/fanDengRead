@@ -14,15 +14,17 @@
           data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" playpic="{{playPic}}"
           data-contentype="{{item.contentType}}" bindtap="linkAbumInfo" datasource="{{item}}" countpic="{{countPic}}"
           className="{{screen}}" shape="{{shape}}" data-disablefocus="true"></story>
-
+        <!-- loading -->
+        <loading wx:if="{{!req}}"></loading>
         <!-- 加载中盒子 -->
-        <view class="albumCard" wx:if="{{!req}}" wx:for="{{5}}" wx:key="index" data-focusindex="3" bindtap="aaa">
+        <!--<view class="albumCard" wx:if="{{!req}}" wx:for="{{5}}" wx:key="index" data-focusindex="3" bindtap="aaa">
           <view class="imgB bone"></view>
           <view class="albumTitB">
             <view class="tb bone"></view>
             <view class="tb bone"></view>
           </view>
-        </view>
+        </view>-->
+
       </view>
     </view>
 

@@ -104,9 +104,9 @@ module.exports = {
     this._getList(name)
   },
   _getList(name) {
-    wx.showLoading({
-      title: '加载中',
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     let params = {
       "appId": "2001",
       "id": 0,

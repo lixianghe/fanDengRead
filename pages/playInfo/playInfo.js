@@ -80,7 +80,7 @@ Page({
     let that = this, getPlayObj = {};
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
       wx.setStorageSync('nativeList', canplay)
-      let [ids, urls] = [[], []]
+      let [ids, urls] = [[], []],bookIdList = []
       canplay.forEach(n => {
         ids.push(n.id2)
       })
@@ -96,6 +96,7 @@ Page({
       }
       songsUrl({bookIds: ids}).then(res => {
         urls = res.data.map(n => {
+          console.log(n);
           let obj = {}
           if(Object.keys(getPlayObj) && getPlayObj.title == n.bookName){
             obj = getPlayObj
@@ -104,8 +105,10 @@ Page({
             obj.coverImgUrl = n.coverImage
             obj.dataUrl = n.mediaUrl
           }
+          bookIdList.push(n.bookId)
           return obj
         })
+        wx.setStorageSync('bookIdList', bookIdList)
         wx.setStorageSync('urls', urls)
         tool.initAudioManager(app, that)
       })

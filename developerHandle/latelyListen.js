@@ -108,9 +108,9 @@ module.exports = {
     this._getList(name)
   },
   _getList(name) {
-    wx.showLoading({
-      title: '加载中',
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     let params = {pageSize: 8,resourceType:[1]}
     console.log(params)
     console.log('historyhistory')

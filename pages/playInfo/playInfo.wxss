@@ -349,9 +349,13 @@
   background-image: linear-gradient(to right , #e97630,#e62a29);
   padding: 0.5vh 4.5vh;
   border-radius: 5vh;
-  right: 0;
+  /* right: 0;
   bottom: 0;
   float: right;
+  display: flex; */
+  text-align: center;
+  flex-direction: row;  
+  justify-content: center; 
 }
 .slider-view {
   transform: translateY(-1.5vh);

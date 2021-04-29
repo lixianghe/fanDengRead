@@ -37,6 +37,7 @@ App({
       vipEndTime: '',
       phoneNumber: ''
     },
+    bookIdList:[],
     // 权限信息
     auth: { 
       openid: '',
@@ -347,7 +348,7 @@ App({
     }
     this.logText += "#############\n";
   },
-  version:'1.2.9',
+  version:'1.3.0',
   // log - 日志文本
   logText: "",
   // log - 日志开关，1 => 开启，0 => 关闭
