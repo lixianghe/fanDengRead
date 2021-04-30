@@ -64,6 +64,10 @@ module.exports = {
   },
   onHide() {
     // 清空上一首播放态
+    this.setData({
+      showModal:false,
+      req:false
+    })
     let playingId = wx.getStorageSync('songInfo').id
     this.story = this.selectComponent(`#story${playingId}`)
     if (this.story) {
