@@ -114,8 +114,6 @@ function initAudioManager(app, that) {
   let list = wx.getStorageSync('urls') || []
   let bookIdList = wx.getStorageSync('bookIdList') || []
   if (list.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
-    app.log(JSON.stringify(app.globalData.bookIdList))
-    app.log(JSON.stringify(bookIdList))
     app.globalData.bookIdList = bookIdList
     const playing = wx.getStorageSync('playing')
     app.audioManager.playInfo = {

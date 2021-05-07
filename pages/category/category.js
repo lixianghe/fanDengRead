@@ -36,7 +36,8 @@ Page({
     showNonet: false,
     scrollLeft: 0,
     lowerThreshold: 500,
-    id: 0
+    id: 0,
+    scrollState:true
   },
   onLoad(options) {
     pageNo = 1
@@ -82,7 +83,8 @@ Page({
     let id = e.currentTarget.dataset.groupid
     this.setData({
       currentTap: index,
-      id: id
+      id: id,
+      scrollState:true
     })
     // 清空上一首播放态
     let playingId = wx.getStorageSync('songInfo').id
@@ -169,22 +171,27 @@ Page({
       })
       wx.hideLoading()
     }).catch(err =>{
-      this.setData({
-        info: [],
-        totalCount: 0
-      })
+      // this.setData({
+      //   info: [],
+      //   totalCount: 0
+      // })
       wx.hideLoading()
     })
   },
   bindscrolltolower(e) {
+    let { scrollState } = this.data
     let maxPageNo = Math.ceil(this.data.totalCount / 10)
     pageNo++
     if (pageNo == maxPageNo) this.setData({lowerThreshold: 50})
-    if (pageNo > maxPageNo) {
-      wx.showToast({
-        title: '已经到底了！',
-        icon: 'none'
-      })
+    if (pageNo > maxPageNo && scrollState) {
+        this.setData({
+          scrollState:false
+        },()=>{
+          wx.showToast({
+            title: '已经到底了',
+            icon: 'none'
+          })
+        })
       return
     } 
     let params = {

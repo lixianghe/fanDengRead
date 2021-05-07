@@ -13,6 +13,7 @@ Page({
     scrollLeft: 0,
     isFixed: false,
     showNonet: false,
+    scrollState:true
   },
   scrollhandle(e) {
     if (e.detail.scrollLeft > 230) {
@@ -27,10 +28,17 @@ Page({
     
   },
   scrollRight() {
-    wx.showToast({
-      title: '已经到底了',
-      icon: 'none'
-    })
+    let { scrollState } = this.data
+    if(scrollState){
+      this.setData({
+        scrollState:false
+      },()=>{
+        wx.showToast({
+          title: '已经到底了',
+          icon: 'none'
+        })
+      })
+    }
   },
   onLoad(options) {
     // let param = {
