@@ -1,5 +1,5 @@
 <view class="bgConfirm">
-  <view class="bgContent" style="display: block" style="background: {{data.background}}; color: {{data.color}}">
+  <view class="bgContent" style="display: block" style="background: {{data.background}} no-repeat center center; color: {{data.color}}">
     <view class="bgTitle">{{ data.title }}</view>
     <view class="outTit">{{ data.content }}</view>
     <view class="bottomBtn">
