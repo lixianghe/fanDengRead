@@ -31,7 +31,7 @@
   </scroll-view>
   <mini-player id="miniPlayer" songInfo="{{songInfo}}"></mini-player>
 </view>
-
+<bgConfirm bgconfirm="{{bgConfirm}}" bind:callback="logOutCallback" wx:if="{{bgShow}}" ></bgConfirm>
 <!-- 数据为空情况加载的盒子 -->
 <no-data wx:if="{{showModal}}"></no-data>
 <!-- 网络异常情况加载的盒子 -->

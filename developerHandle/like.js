@@ -27,137 +27,150 @@
  * 4、likePic: ['/images/info_like.png', '/images/info_like_no.png'],
  * 收藏和取消收藏图片
  */
-const app = getApp()
-import { albumFavorite } from '../utils/httpOpt/api'
+const app = getApp();
+import { albumFavorite } from "../utils/httpOpt/api";
+import { logOutCallback } from "../utils/login";
 module.exports = {
   data: {
     info: [],
     showModal: false,
     req: false,
-    likePic: ['/images/info_like.png', '/images/info_like_no.png'],
+    likePic: ["/images/info_like.png", "/images/info_like_no.png"],
     // 播放图片
-    playPic: '/images/asset/playing.png',
+    playPic: "/images/asset/playing.png",
     labels: {
       show: false,
-      data: [{
-        name: '专辑',
-        value: 'album'
-      },
-      {
-        name: '故事',
-        value: 'media'
-      }],
+      data: [
+        {
+          name: "专辑",
+          value: "album",
+        },
+        {
+          name: "故事",
+          value: "media",
+        },
+      ],
     },
-    shape: 'rect'
+    shape: "rect",
+    // 登录过期模态框组件
+    bgConfirm: {
+      title: "-",
+      content: "您的登录信息已过期，请先重新登录。",
+      background: 'url("/images/asset/bg_popup.png")',
+      color: "#fff",
+      button: [
+        {
+          bgColor: app.globalData.mainColor,
+          color: "#1f1f1f",
+          btnName: "确定",
+          btnType: "confirm",
+        },
+      ],
+    },
   },
   onShow() {
     // 卡片组件onshow
-    let playingId = wx.getStorageSync('songInfo').id
-    this.story = this.selectComponent(`#story${playingId}`)
+    let playingId = wx.getStorageSync("songInfo").id;
+    this.story = this.selectComponent(`#story${playingId}`);
     if (this.story) {
-      this.story._onshow()
+      this.story._onshow();
     }
-    this._getList('专辑')
+    this._getList("专辑");
   },
   onLoad(options) {
-    
+    this.logOutCallback = logOutCallback.bind(this);
   },
   onHide() {
     // 清空上一首播放态
     this.setData({
-      showModal:false,
-      req:false
-    })
-    let playingId = wx.getStorageSync('songInfo').id
-    this.story = this.selectComponent(`#story${playingId}`)
+      showModal: false,
+      req: false,
+    });
+    let playingId = wx.getStorageSync("songInfo").id;
+    this.story = this.selectComponent(`#story${playingId}`);
     if (this.story) {
-      this.story.clearPlay()
+      this.story.clearPlay();
     }
   },
   // 跳转到播放详情界面
-  linkAbumInfo (e) {
+  linkAbumInfo(e) {
     // 清空上一首播放态
-    let playingId = wx.getStorageSync('songInfo').id
-    this.story = this.selectComponent(`#story${playingId}`)
+    let playingId = wx.getStorageSync("songInfo").id;
+    this.story = this.selectComponent(`#story${playingId}`);
     if (this.story) {
-      this.story.clearPlay()
+      this.story.clearPlay();
     }
 
-    let id = e.currentTarget.dataset.id
-    const src = e.currentTarget.dataset.src
-    const title = e.currentTarget.dataset.title
-    wx.setStorageSync('img', src)
+    let id = e.currentTarget.dataset.id;
+    const src = e.currentTarget.dataset.src;
+    const title = e.currentTarget.dataset.title;
+    wx.setStorageSync("img", src);
 
-    wx.setStorageSync('allList', this.data.info)
-    let url= `../playInfo/playInfo?id=${id}&title=${title}&src=${src}`
-    
+    wx.setStorageSync("allList", this.data.info);
+    let url = `../playInfo/playInfo?id=${id}&title=${title}&src=${src}`;
+
     wx.navigateTo({
-      url: url
-    })
+      url: url,
+    });
   },
   selectTap(e) {
-    const index = e.currentTarget.dataset.index
-    const name = e.currentTarget.dataset.name
+    const index = e.currentTarget.dataset.index;
+    const name = e.currentTarget.dataset.name;
     this.setData({
       currentTap: index,
-      retcode: 0
-    })
+      retcode: 0,
+    });
     wx.showLoading({
-      title: '加载中',
-    })
-    this._getList(name)
+      title: "加载中",
+    });
+    this._getList(name);
   },
   _getList(name) {
-    // wx.showLoading({
-    //   title: '加载中',
-    // })
-    let params = {
-      "appId": "2001",
-      "id": 0,
-      "token": "20201209DDG0nnhhpPjhXkNZTwa"
-     }
-    albumFavorite(params).then(res => {
-      console.log(res)
-      console.log('likelikelike')
-      let info = res.data.books.map(v => {
-        let obj = {}
-        obj.id = v.fragmentId ? v.fragmentId : ''
-        obj.src = v.coverUrl ? v.coverUrl : ''
-        obj.title = v.bookName ? v.bookName : ''
-        return obj
-      })
-
-      this.setData({
-        req: true,
-        info: info
-      }, () => {
-        let playingId = wx.getStorageSync('songInfo').id
-        this.story = this.selectComponent(`#story${playingId}`)
-        if (this.story) {
-          this.story._onshow()
+    albumFavorite({ appId: "2001", id: 0 })
+      .then((res) => {
+        let info = res.data.books.map((v) => {
+          return {
+            id: v.fragmentId ? v.fragmentId : "",
+            src: v.coverUrl ? v.coverUrl : "",
+            title: v.bookName ? v.bookName : "",
+          };
+        });
+        if (info.length === 0) {
+          this.setData({
+            showModal: true,
+          });
         }
+        this.setData(
+          {
+            req: true,
+            info: info,
+          },
+          () => {
+            let playingId = wx.getStorageSync("songInfo").id;
+            this.story = this.selectComponent(`#story${playingId}`);
+            if (this.story) {
+              this.story._onshow();
+            }
+          }
+        );
+        wx.hideLoading();
       })
-      if (info.length === 0) {
-        this.setData({
-          showModal: true
-        })
-      }
-
-      wx.hideLoading()
-    }).catch(err => {
-      wx.hideLoading()
-      console.log(err)
-    })
-
+      .catch((err) => {
+        wx.hideLoading();
+        this.setData({ req: true }, () => {
+          this.logOutCallback({
+            detail: { type: "open", text: "登录过期", btnTxt: "确定" },
+          });
+        });
+      });
   },
   // 添加/取消收藏函数
-  like (e) {
-    console.log(e.detail.contentType)     //类型
-    console.log(e.detail.flag)    		// 状态（添加/取消）
-    console.log(e.detail.typeid)    		// 内容id
+  like(e) {
+    console.log(e.detail.contentType); //类型
+    console.log(e.detail.flag); // 状态（添加/取消）
+    console.log(e.detail.typeid); // 内容id
   },
   close() {
-    this.setData({showModal: false})
+    this.setData({ showModal: false });
   },
-
-}
+};

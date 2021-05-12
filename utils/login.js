@@ -294,7 +294,25 @@ import { albumMedia } from '../utils/httpOpt/api'
       app.globalData.bgShow = false
     }
   }
-
+  export const logOutCallback = function (opt) {
+    if (opt.detail.type === 'open') {
+      let item = 'bgConfirm.title'
+      let btnname = 'bgConfirm.button[' + 0 + '].btnName'
+      this.setData({
+        [item]: opt.detail.text,
+        [btnname]: opt.detail.btnTxt,
+        bgShow: true
+      })
+    } else if (opt.detail.type === 'confirm') { 
+      this.setData({
+        bgShow: false
+      })
+      app.globalData.logout = true
+      wx.reLaunch({
+        url: '/pages/personalCenter/personalCenter'
+      })
+    }
+  }
   // 登录和退出登录都调这里，用来判断歌曲的收藏状态
   async function isFavorited() {
     

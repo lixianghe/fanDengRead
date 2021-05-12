@@ -32,7 +32,6 @@ Component({
   },
   attached(options) {
     if(this.data.bgconfirm) {
-      console.log(this.data.bgconfirm)
       this.setData({
         data: this.data.bgconfirm
       })

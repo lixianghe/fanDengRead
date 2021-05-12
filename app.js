@@ -45,7 +45,8 @@ App({
       sessionId: ''
     },
     playingId: '' ,// 正在播放歌曲id
-    isRecharge:false // 跳转个人中心判断是否弹出充值窗口
+    isRecharge:false, // 跳转个人中心判断是否弹出充值窗口
+    logout:false,
   },
   
   // 小程序颜色主题
@@ -352,5 +353,5 @@ App({
   // log - 日志文本
   logText: "",
   // log - 日志开关，1 => 开启，0 => 关闭
-  openLog: 0,
+  openLog: 1,
 })
