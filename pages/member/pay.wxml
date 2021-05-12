@@ -1,32 +1,33 @@
 <!--pages/mine/pay.wxml-->
-<view class="container {{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;" style="background-color:{{backgroundColor}}">
+<view class="container {{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;"
+  style="background-color:{{backgroundColor}}">
   <view class="content-container">
-    <view class="pay-panel" wx:if="{{payStatus == 'pre'}}">
-      <!-- <image class="ercode" src="{{codeUrl}}"></image> -->
-      <canvas style="width: 42vh; height: 42vh;" canvas-id="myQrcode" class="myQrcode"></canvas>
-      <view class="text">
-        
-        <view class="price">
-          <text>待付款</text>
-          <text class="price-val">￥{{totalPrice}}</text>
+      <view class="pay-panel" wx:if="{{payStatus == 'pre'}}">
+        <!-- <image class="ercode" src="{{codeUrl}}"></image> -->
+      <vehicle-speed>
+        <canvas style="width: 42vh; height: 42vh;" canvas-id="myQrcode" class="myQrcode"></canvas>
+      </vehicle-speed>
+        <view class="text">
+          <view class="price">
+            <text>待付款</text>
+            <text class="price-val">￥{{totalPrice}}</text>
+          </view>
+          <view class="price-tip">打开微信扫一扫支付</view>
         </view>
-        <view class="price-tip">打开微信扫一扫支付</view>
-
       </view>
-      
-    </view>
-    <button bindtap="backTap">支付完成</button>
-    <view class="success-panel" wx:if="{{payStatus == 'success'}}">
-      <image class="pay-icon" src="/images/pic_succeed.png"></image>
-      <view class="pay-status">支付成功</view>
-      <view class="pay-back" bindtap="backTap">返回</view>
-    </view>
-    <view class="fail-panel" wx:if="{{payStatus == 'fail'}}">
-      <image class="pay-icon" src="/images/pic_failure.png"></image>
-      <view class="pay-status">支付失败</view>
-      <view class="pay-fail-hint">请再次重试</view>
-      <view class="pay-back pay-back-fail" bindtap="backTap">返回</view>
-    </view>
+      <button bindtap="backTap">支付完成</button>
+      <view class="success-panel" wx:if="{{payStatus == 'success'}}">
+        <image class="pay-icon" src="/images/pic_succeed.png"></image>
+        <view class="pay-status">支付成功</view>
+        <view class="pay-back" bindtap="backTap">返回</view>
+      </view>
+      <view class="fail-panel" wx:if="{{payStatus == 'fail'}}">
+        <image class="pay-icon" src="/images/pic_failure.png"></image>
+        <view class="pay-status">支付失败</view>
+        <view class="pay-fail-hint">请再次重试</view>
+        <view class="pay-back pay-back-fail" bindtap="backTap">返回</view>
+      </view>
+
   </view>
 </view>
 <log></log>
