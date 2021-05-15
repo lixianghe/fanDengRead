@@ -9,7 +9,6 @@ export function request(url, data = {}, method = 'POST') {
   return new Promise(function (resolve, reject) {
     data.appId = '60348'
     data.token = wx.getStorageSync('token') || ''
-    console.log('token----=====----======----=', data.token)
     wx.request({
       url: base + url,
       data: data,

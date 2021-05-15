@@ -1,11 +1,12 @@
 <view class="bgConfirm">
-  <view class="bgContent" style="display: block" style="background: {{data.background}} no-repeat center center; color: {{data.color}}">
+  <view class="bgContent" style="display: block" style="background: {{data.background}} no-repeat center center; color: {{data.color}};background-size: 100%;">
     <view class="bgTitle">{{ data.title }}</view>
     <view class="outTit">{{ data.content }}</view>
     <view class="bottomBtn">
       <button class="button" 
         wx:for="{{ data.button }}" 
         wx:key="index" 
+        data-closepopup
         style="background-color:{{ item.bgColor }}; color: {{item.color}}" 
         data-type="{{item.btnType}}"
         bindtap="handle">{{ item.btnName }}</button>

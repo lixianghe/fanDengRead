@@ -12,8 +12,7 @@ Page({
     currentTap: 0,
     scrollLeft: 0,
     isFixed: false,
-    showNonet: false,
-    scrollState:true
+    showNonet: false
   },
   scrollhandle(e) {
     if (e.detail.scrollLeft > 230) {
@@ -28,17 +27,12 @@ Page({
     
   },
   scrollRight() {
-    let { scrollState } = this.data
-    if(scrollState){
-      this.setData({
-        scrollState:false
-      },()=>{
-        wx.showToast({
-          title: '已经到底了',
-          icon: 'none'
-        })
-      })
-    }
+    wx.showToast({
+      title: '已经到底了',
+      icon: 'none',
+      duration: 1500,
+      mask: false,
+    })
   },
   onLoad(options) {
     // let param = {
@@ -56,7 +50,7 @@ Page({
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
-    this.selectComponent('#miniPlayer').watchPlay()
+    // this.selectComponent('#miniPlayer').watchPlay()
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()

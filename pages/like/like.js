@@ -11,8 +11,7 @@ Page({
     currentTap: 0,
     scrollLeft: 0,
     mainColor: app.globalData.mainColor,
-    showNonet: false,
-    scrollState:true
+    showNonet: false
   },
   screen: app.globalData.screen,
  
@@ -22,17 +21,10 @@ Page({
     // app.getNetWork(that)
   },
   scrollRight() {
-    let { scrollState } = this.data
-    if(scrollState){
-      this.setData({
-        scrollState:false
-      },()=>{
-        wx.showToast({
-          title: '已经到底了',
-          icon: 'none'
-        })
-      })
-    }
+    wx.showToast({
+      title: '已经到底了',
+      icon: 'none'
+    })
   },
   aaa() {
 

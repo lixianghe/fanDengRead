@@ -66,7 +66,6 @@ Page({
     const canplay = wx.getStorageSync('allList')
     let abumInfoName = wx.getStorageSync('abumInfoName')
     const songInfo = app.globalData.songInfo
-    console.log('songInfoexisted', songInfo.existed)
     this.setData({
       songInfo: songInfo,
       canplay: canplay,
@@ -84,27 +83,12 @@ Page({
       canplay.forEach(n => {
         ids.push(n.id2)
       })
-      if (wx.canIUse('getPlayInfoSync')) {
-        let res = wx.getPlayInfoSync()
-        if (res.playList && res.playList.length) {
-            res.playList.forEach(item=>{
-              if(item.title == this.data.songInfo.title){
-                getPlayObj = item
-              }
-            })
-        }
-      }
       songsUrl({bookIds: ids}).then(res => {
         urls = res.data.map(n => {
-          console.log(n);
           let obj = {}
-          if(Object.keys(getPlayObj) && getPlayObj.title == n.bookName){
-            obj = getPlayObj
-          }else{
-            obj.title = n.bookName
-            obj.coverImgUrl = n.coverImage
-            obj.dataUrl = n.mediaUrl
-          }
+          obj.title = n.bookName
+          obj.coverImgUrl = n.coverImage
+          obj.dataUrl = n.mediaUrl
           bookIdList.push(n.bookId)
           return obj
         })
@@ -147,11 +131,9 @@ Page({
       percent: app.globalData.percent || 0,
 
     })
-    // console.log('app.globalData.playtime', app.globalData.playtime, app.globalData.percent)
     app.playing(app.audioManager.currentTime, that)
   },
   noplay() {
-    console.log('进入noplay')
     this.setData({
       playtime: app.globalData.playtime || '00:00',
       percent: app.globalData.percent || 0
@@ -275,7 +257,6 @@ Page({
   },
   // 开始拖拽
   dragStartHandle(event) {
-    console.log('isDrag', this.data.isDrag)
     this.setData({
       isDrag: 'is-drag',
       _offsetLeft: event.changedTouches[0].pageX,
@@ -302,7 +283,6 @@ Page({
   },
   // 拖拽结束
   dragEndHandle(event) {
-    console.log(this.data.currentTime, this.data.percent, this.data.playtime)
     wx.seekBackgroundAudio({
       position: this.data.currentTime
     })
@@ -326,7 +306,6 @@ Page({
 
   // 用slider拖拽
   sliderchange(e) {
-    // console.log(e.detail.value)
     const percent = e.detail.value / 100
     const currentTime = percent * tool.formatToSend(app.globalData.songInfo.dt)
     wx.seekBackgroundAudio({
@@ -339,7 +318,6 @@ Page({
     }, 500)
   },
   sliderchanging(e) {
-    console.log(e.detail.value)
     const percent = e.detail.value / 100
     const currentTime = percent * tool.formatToSend(app.globalData.songInfo.dt)
     const playtime = currentTime ? tool.formatduration(currentTime * 1000) : '00:00'

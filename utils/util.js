@@ -89,18 +89,16 @@ function playAlrc(that, app) {
 
 function toggleplay(that, app) {
   if (that.data.playing) {
-    console.log("暂停播放")
+    // 暂停播放
     that.setData({ 
       playing: false 
     })
     app.audioManager.pause()
   } else {
-    console.log("继续播放")
+    // 继续播放
     that.setData({ 
       playing: true 
     })
-    console.log(app.audioManager.src)
-    
     if (app.audioManager.src) {
       app.audioManager.play()
     } else {
@@ -110,16 +108,19 @@ function toggleplay(that, app) {
 }
 
 // 初始化 BackgroundAudioManager
-function initAudioManager(app, that) {
+function initAudioManager(app, that,seek=null) {
+  const nativeList = wx.getStorageSync('nativeList') || []
   let list = wx.getStorageSync('urls') || []
   let bookIdList = wx.getStorageSync('bookIdList') || []
   if (list.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
     app.globalData.bookIdList = bookIdList
     const playing = wx.getStorageSync('playing')
     app.audioManager.playInfo = {
-      playList: list
+      playList: list,
+      context:JSON.stringify(nativeList),
+      // playDetailPagePath:'pages/playInfo/playInfo?isCard=1',
     };
-    if (playing) app.playing(null, that)
+    if (playing) app.playing(seek, that)
   }
   EventListener(app,that)
 }
@@ -129,7 +130,6 @@ function EventListener(app, that){
   
   //播放事件
   app.audioManager.onPlay(() => {
-    console.log('-------------------------------onPlay-----------------------------------', that)
     wx.hideLoading()
     // that.setData({ playing: true });
     wx.setStorageSync('playing', true)
@@ -141,7 +141,6 @@ function EventListener(app, that){
 
     let playingId = wx.getStorageSync('songInfo').id
     let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
-    console.log('story', story)
     if (story) {
       story._onshow()
     }

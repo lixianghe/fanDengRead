@@ -56,8 +56,9 @@ module.exports = {
     outPush: false
   },
   onLoad(options) {
-    // 进入详情先赋值部分字段
     const app = getApp()
+    // if(options.isCard){}
+    // 进入详情先赋值部分字段
     // 拿到歌曲的id: options.id
     // options.fragmentId = 3245
     if (options.fragmentId) {
@@ -69,9 +70,7 @@ module.exports = {
       options.id = options.fragmentId
       app.globalData.songInfo = {}
     }
-    console.log(options)
     let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
-    // console.log(options.id, app.globalData.songInfo.id)
     if (!options.id || options.id == app.globalData.songInfo.id) {
       this.noplay()
       return
@@ -84,10 +83,16 @@ module.exports = {
     const app = getApp()
     // 模拟请求数据  
     try {
-      
       let info = await albumMedia(params)
+      let findUrl = ()=>{
+       return app.globalData.cardList.findIndex(item=>item.title == info.data.title) !=-1
+      }
       let songInfo = Object.assign({}, that.data.songInfo)
-      songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
+      if(app.globalData.cardList.length && findUrl()){
+        songInfo.src = app.globalData.cardList.find(item=>item.title == info.data.title).dataUrl
+      }else{
+        songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
+      }
       songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
       songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
@@ -112,14 +117,9 @@ module.exports = {
         playHistoryType: 1
       }
       saveHistory(opt).then(res => {
-        // console.log(res)
-        // console.log('resresresresres')
       }).catch(err => {
-        console.log(err)
-        console.log('errerrerrerrerr')
       })
     } catch (error) {
-      console.log('error', error)
       wx.hideLoading()
       app.audioManager.pause()
       app.globalData.songInfo.id = that.data.songInfo.id

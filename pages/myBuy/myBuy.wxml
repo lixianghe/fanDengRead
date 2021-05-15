@@ -1,5 +1,5 @@
 <view class="{{screen}} {{colorStyle}}" style="background-color: {{backgroundColor}}; height: 100%;">
-  <scroll-view class="latelyListen" scroll-x="true" scroll-left="{{scrollLeft}}" lower-threshold="1920"
+  <scroll-view class="latelyListen" scroll-x="true" lower-threshold="50" scroll-left="{{scrollLeft}}"
     bindscrolltolower="getLayoutData">
     <view class="mianContent">
       <view class="label-view" wx:if="{{labels.show}}">

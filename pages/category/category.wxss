@@ -113,7 +113,8 @@
   position: absolute;
 }
 .label-box {
-  height: 9.81vh;
+  /* height: 9.81vh; */
   margin-bottom: 3.9vh;
   margin-top: 4.6vh;
+  display: inline-block;
 }

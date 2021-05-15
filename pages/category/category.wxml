@@ -6,7 +6,7 @@
       
       <scroll-view style="padding-left: 9.2vh;box-sizing: border-box;" scroll-x="true">
         <view class="label-box" wx:if="{{labels.show}}">
-          <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{labels.data.length}}">
+          <view class="label-view {{ isFixed ? 'fixeds' : '' }}" wx:if="{{labels.data.length}}">
             <view wx:for="{{labels.data}}" wx:key="index" class="title {{index === currentTap ? 'activeTitle' : ''}}" 
               data-index="{{index}}"  data-groupid="{{item.id}}" data-name="{{item.name}}" bindtap="selectTap" data-focusindex="2">
               <text>{{item.name}}</text>

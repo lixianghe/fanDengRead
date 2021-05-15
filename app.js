@@ -47,6 +47,8 @@ App({
     playingId: '' ,// 正在播放歌曲id
     isRecharge:false, // 跳转个人中心判断是否弹出充值窗口
     logout:false,
+    songInfo:{},
+    cardList:[]
   },
   
   // 小程序颜色主题
@@ -110,7 +112,6 @@ App({
     // 测试getPlayInfoSync
     if (wx.canIUse('getPlayInfoSync')) {
       let res = wx.getPlayInfoSync()
-      console.log('res-------------' + JSON.stringify(res))
       if (res.playState) {
         let playing = res.playState.status == 1 ? true : false
         wx.setStorageSync('playing', playing)
@@ -205,12 +206,10 @@ App({
   // 车载情况下的播放
   carHandle(songInfo, seek) {
     let media = songInfo
-    console.log('carHandlesong', songInfo)
     this.audioManager.src = media.src
     this.audioManager.title = media.title
     this.audioManager.coverImgUrl = media.coverImgUrl
     if (seek != undefined && typeof (seek) === 'number') {
-      console.log('inseek', seek)
       // wx.seekBackgroundAudio({
       //   position: seek
       // })
@@ -326,9 +325,6 @@ App({
   // 记录日志
   log(...text) {
     // 全局log开关
-    if (this.openLog === 1) {
-      console.log("aiquting => " + text);
-    }
     for (let e of text) {
       if (typeof e == "object") {
         try {
@@ -353,5 +349,5 @@ App({
   // log - 日志文本
   logText: "",
   // log - 日志开关，1 => 开启，0 => 关闭
-  openLog: 1,
+  openLog: 0,
 })

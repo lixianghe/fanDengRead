@@ -315,12 +315,13 @@ import { albumMedia } from '../utils/httpOpt/api'
   }
   // 登录和退出登录都调这里，用来判断歌曲的收藏状态
   async function isFavorited() {
-    
-    let params = {fragmentId: app.globalData.songInfo.id}
-    let info = await albumMedia(params)
-    app.globalData.songInfo.existed = info.data.isFavorite
-    wx.setStorageSync('songInfo', app.globalData.songInfo)
-    const pages = getCurrentPages()
-    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
-    miniPlayer.setData({ songInfo: app.globalData.songInfo })
+    if(app.globalData.songInfo && app.globalData.songInfo.id){
+      let params = {fragmentId: app.globalData.songInfo.id}
+      let info = await albumMedia(params)
+      app.globalData.songInfo.existed = info.data.isFavorite
+      wx.setStorageSync('songInfo', app.globalData.songInfo)
+      const pages = getCurrentPages()
+      let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+      miniPlayer.setData({ songInfo: app.globalData.songInfo })
+    }
   }
