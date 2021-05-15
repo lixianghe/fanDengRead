@@ -166,15 +166,15 @@ Component({
       this.setData({showImg: true})
     },
     watchPlay() {
-      app.globalData.songInfo = wx.getStorageSync('songInfo')
-      this.setData({
-        songInfo: app.globalData.songInfo 
-      })
-      setTimeout(() => {
-        this.setData({
-          songInfo: app.globalData.songInfo 
-        })
-      }, 1000)
+      // app.globalData.songInfo = wx.getStorageSync('songInfo')
+      // this.setData({
+      //   songInfo: app.globalData.songInfo 
+      // })
+      // setTimeout(() => {
+      //   this.setData({
+      //     songInfo: app.globalData.songInfo 
+      //   })
+      // }, 1000)
     },
     // 因为1.9.2版本无法触发onshow和onHide所以事件由它父元素触发
     async setOnShow() {

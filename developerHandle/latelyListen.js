@@ -129,6 +129,7 @@ module.exports = {
         console.log(res);
         let info = res.data.playRecords.map((v) => {
           let obj = {};
+          obj.id2 = v.bookId
           obj.id = v.fragmentId ? v.fragmentId : "";
           obj.src = v.iconUrl ? v.iconUrl : "";
           obj.title = v.bookTitle ? v.bookTitle : "";

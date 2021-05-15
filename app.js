@@ -210,9 +210,6 @@ App({
     this.audioManager.title = media.title
     this.audioManager.coverImgUrl = media.coverImgUrl
     if (seek != undefined && typeof (seek) === 'number') {
-      // wx.seekBackgroundAudio({
-      //   position: seek
-      // })
       this.audioManager.seek(seek)
     }
   },
@@ -349,5 +346,5 @@ App({
   // log - 日志文本
   logText: "",
   // log - 日志开关，1 => 开启，0 => 关闭
-  openLog: 0,
+  openLog: 1,
 })
