@@ -85,11 +85,11 @@ module.exports = {
     try {
       let info = await albumMedia(params)
       let findUrl = ()=>{
-       return app.globalData.cardList.findIndex(item=>item.title == info.data.title) !=-1
+       return app.globalData.cardList.findIndex(item=>item.title == info.data.bookName) !=-1
       }
       let songInfo = Object.assign({}, that.data.songInfo)
       if(app.globalData.cardList.length && findUrl()){
-        songInfo.src = app.globalData.cardList.find(item=>item.title == info.data.title).dataUrl
+        songInfo.src = app.globalData.cardList.find(item=>item.title == info.data.bookName).dataUrl
       }else{
         songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
       }
