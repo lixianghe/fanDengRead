@@ -6,6 +6,9 @@
       <button class="button" 
         wx:for="{{ data.button }}" 
         wx:key="index" 
+        data-setfocus="true"
+        data-focusindex="1"
+        data-defaultfocus="{{index === '0' ? 'true' : 'false'}}"
         data-closepopup
         style="background-color:{{ item.bgColor }}; color: {{item.color}}" 
         data-type="{{item.btnType}}"
