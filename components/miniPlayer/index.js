@@ -190,8 +190,7 @@ Component({
         let res = wx.getPlayInfoSync()
         let playing = res.playState && res.playState.status == 1 ? true : false
         const contextList = JSON.parse(res.context)
-        //JSON.stringify(playList.map(item=>item.id2)) != JSON.stringify(app.globalData.bookIdList)
-        if(res.playState && res.context && res.playState.status != null ){
+        if(res.playState && res.context && res.playState.status != null && app.globalData.syncStart){
           try {
             app.globalData.bookIdList = contextList.map(item=>item.id2)
             app.globalData.cardList = res.playList

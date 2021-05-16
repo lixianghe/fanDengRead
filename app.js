@@ -48,7 +48,8 @@ App({
     isRecharge:false, // 跳转个人中心判断是否弹出充值窗口
     logout:false,
     songInfo:{},
-    cardList:[]
+    cardList:[],
+    syncStart:true
   },
   
   // 小程序颜色主题
@@ -212,6 +213,16 @@ App({
     if (seek != undefined && typeof (seek) === 'number') {
       this.audioManager.seek(seek)
     }
+    let song = wx.getStorageSync('songInfo')
+    let pages = getCurrentPages()
+    let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
+    if (miniPlayer) miniPlayer.setData({ 
+      songInfo: song,
+      playing:true
+    })
+    setTimeout(() => {
+      this.globalData.syncStart = true
+    }, 200);
   },
   // 非车载情况的播放
   // wxPlayHandle(songInfo, seek) {

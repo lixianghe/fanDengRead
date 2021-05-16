@@ -126,6 +126,7 @@ Page({
   },
   toInfo() {
     app.globalData.abumInfoId = this.data.optionId
+    app.globalData.syncStart = false
     wx.navigateTo({ url: `../playInfo/playInfo?id=${app.globalData.songInfo.id}&abumInfoName=${this.data.abumInfoName}` })
   },
   // 改变current

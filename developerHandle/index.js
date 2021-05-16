@@ -258,6 +258,7 @@ module.exports = {
     if (!app.globalData.latelyListenId.includes(id)) {
       app.globalData.latelyListenId.push(id)
     }
+    app.globalData.syncStart = false
     wx.setStorageSync('allList', this.data.info)
     let url = `../playInfo/playInfo?id=${id}&title=${title}&src=${src}`
     wx.navigateTo({
