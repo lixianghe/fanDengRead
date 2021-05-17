@@ -24,10 +24,7 @@ Page({
       icon: 'none'
     })
   },
-  onShow() {
-    this.selectComponent('#miniPlayer').setOnShow()
-    this.selectComponent('#miniPlayer').watchPlay()
-  },
+  onShow() {},
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()
   }

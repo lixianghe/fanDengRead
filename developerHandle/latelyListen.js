@@ -144,6 +144,8 @@ module.exports = {
           },
           () => {
             // 卡片组件onshow
+            this.selectComponent('#miniPlayer').setOnShow()
+            this.selectComponent('#miniPlayer').watchPlay()
             let playingId = wx.getStorageSync("songInfo").id;
             this.story = this.selectComponent(`#story${playingId}`);
             if (this.story) {
