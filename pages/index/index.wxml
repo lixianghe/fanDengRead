@@ -16,8 +16,6 @@
     <block wx:if="{{lalyLtn.show && lalyLtn.containLogin}}">
       <login-card id="loginCard" quickEnter="{{lalyLtn}}" bind:callback="tolatelyListen" bind:confirm="confirmHandle"></login-card>
     </block>
-    
-
     <view class="mianContent">
       <view class="label-box" wx:if="{{labels.show}}">
         <view class="label-view {{ isFixed ? 'fixeds' : 'absolutes' }}" wx:if="{{reqS}}">
@@ -37,7 +35,6 @@
         data-id="{{item.id}}" data-title="{{item.title}}" data-src="{{item.src}}" data-contentype="{{item.contentType}}" bindtap="linkAbumInfo"
         datasource="{{item}}" countpic="{{countPic}}" playpic="{{playPic}}" className="{{screen}}" shape="{{shape}}" data-disablefocus="true"></story>
       </view>
-      
     </view>
     <!-- 加载中盒子 -->
     <view class="albumCard" wx:if="{{!reqL}}" wx:for="{{3}}" wx:key="index">

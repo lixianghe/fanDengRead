@@ -94,7 +94,7 @@ module.exports = {
         };
         if (app.globalData.songInfo.src) this.play() 
       })
-    }, 200);
+    }, 0);
   },
   async getMedia(params, that = this) {  
     const app = getApp()
