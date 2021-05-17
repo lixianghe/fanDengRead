@@ -27,12 +27,13 @@ Page({
     
   },
   scrollRight() {
-    wx.showToast({
-      title: '已经到底了',
-      icon: 'none',
-      duration: 1500,
-      mask: false,
-    })
+    // 提示导致ZBE卡顿暂时去掉
+    // wx.showToast({
+    //   title: '已经到底了',
+    //   icon: 'none',
+    //   duration: 1500,
+    //   mask: false,
+    // })
   },
   onLoad(options) {
     // let param = {
