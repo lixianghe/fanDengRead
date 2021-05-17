@@ -75,9 +75,26 @@ module.exports = {
       this.noplay()
       return
     }
-    this.getMedia(getInfoParams).then(() => {
-      if (app.globalData.songInfo.src) this.play() 
-    })
+    setTimeout(() => {
+      this.getMedia(getInfoParams).then(() => {
+      let bookIdList = wx.getStorageSync('bookIdList') || []
+      let urls=  wx.getStorageSync('urls') || []
+      if (urls.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
+          let song = wx.getStorageSync('songInfo')
+          if(urls && urls.length){
+            urls.forEach(item=>{
+              if(item.title==song.title){
+                song.src = item.dataUrl
+              }
+            })
+          }
+          app.globalData.songInfo = Object.assign({}, song)
+          this.setData({ songInfo: song })
+          wx.setStorageSync('songInfo', song)
+        };
+        if (app.globalData.songInfo.src) this.play() 
+      })
+    }, 200);
   },
   async getMedia(params, that = this) {  
     const app = getApp()
