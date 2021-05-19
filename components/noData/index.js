@@ -6,12 +6,7 @@ Component({
   },
   methods: {
     linkHome() {
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
-      wx.setNavigationBarTitle({
-        title: '推荐' 
-      })
+      wx.navigateBack()
     }
   },
   attached(options) {
