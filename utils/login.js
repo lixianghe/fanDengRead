@@ -35,7 +35,6 @@ import { albumMedia } from '../utils/httpOpt/api'
       })
       return
     } else {
-      console.log(99999999999999999999999)
       let that = this
       wx.login({ // 1
         success(res) {
@@ -43,8 +42,6 @@ import { albumMedia } from '../utils/httpOpt/api'
             taiLogin: true
           })
           wx.setStorageSync('taiLogin', true)
-          console.log(res.code)
-          console.log('code==================')
           validationAuthorize({
             code: res.code
           }).then(auth => {
@@ -65,25 +62,14 @@ import { albumMedia } from '../utils/httpOpt/api'
         }
       })
     }
-    // wx.showLoading({
-    //   title: '请求中',
-    // })
   }
   export const getPhoneNumber = function (num) {
     console.log('==========电话号码')
     console.log(wx.getStorageSync('auth'))
     this.next(num)
-    // wx.getSetting({ 
-    //   success(res1) {
-    //     if (res1.authSetting['scope.userInfo']) {
-
-    // }
-    // }
-    // })
   }
   export const next = function (num) {
     let that = this
-    console.log('==========next')
     app.globalData.auth = wx.getStorageSync('auth')
     wx.getUserInfo({ // 3
       success(user) {
@@ -155,8 +141,12 @@ import { albumMedia } from '../utils/httpOpt/api'
 
 
         }).catch(err => {
-          console.log(JSON.stringify(err) + '创建用户信息验证--错误回调')
-          // wx.hideLoading()
+          wx.showToast({
+            title: '登录失败,请重新登录',
+            icon: 'none',
+            duration:1000
+          })
+          expireTaiLogin()
         })
       },
       fail(fail) {
@@ -310,6 +300,29 @@ import { albumMedia } from '../utils/httpOpt/api'
       app.globalData.logout = true
       wx.reLaunch({
         url: '/pages/personalCenter/personalCenter'
+      })
+    }
+  }
+  export const expireTaiLogin = ()=>{
+    let taiLogin = wx.getStorageSync('taiLogin')
+    if(taiLogin && !app.globalData.isLogin){
+      wx.login({
+        success(res) {
+          validationAuthorize({
+            code: res.code
+          }).then(auth => {
+            let newAuth = {
+              openId: auth.data.openId,
+              unionId: auth.data.unionId,
+              sessionId: auth.data.sessionId
+            }
+            app.globalData.auth = newAuth
+            wx.setStorageSync('auth', newAuth)
+          }).catch(err => {})
+        },
+        fail(err) {
+          console.log(err)
+        }
       })
     }
   }

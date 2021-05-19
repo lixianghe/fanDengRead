@@ -1,6 +1,6 @@
 import { onShow } from '../../developerHandle/search'
 // components/loginCard/loginCard.js
-import {agree, login, getPhoneNumber, next, logoutTap2,  openVip, renewalVip,btnCallback} from '../../utils/login'
+import {agree, login, getPhoneNumber, next, logoutTap2,  openVip, renewalVip,btnCallback,expireTaiLogin} from '../../utils/login'
 const app = getApp()
 
 Component({
@@ -72,7 +72,7 @@ Component({
           }
         })
       }
-
+      expireTaiLogin()
       this.setData({
         isAgree: app.globalData.isAgree,
         userInfo: app.globalData.userInfo,

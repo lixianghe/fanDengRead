@@ -28,6 +28,7 @@ import {
   logoutTap2,
   userInfoUpdate,
   btnCallback,
+  expireTaiLogin
 } from "../utils/login";
 module.exports = {
   data: {
@@ -98,6 +99,7 @@ module.exports = {
         }
       });
     }
+    expireTaiLogin()
     this.isRecharge();
     this.setData({
       isAgree: app.globalData.isAgree,
