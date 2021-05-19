@@ -182,10 +182,10 @@ Page({
     pageNo++
     if (pageNo == maxPageNo) this.setData({lowerThreshold: 50})
     if (pageNo > maxPageNo) {
-      wx.showToast({
-        title: '已经到底了',
-        icon: 'none'
-      })
+      // wx.showToast({
+      //   title: '已经到底了',
+      //   icon: 'none'
+      // })
       return
     } 
     let params = {

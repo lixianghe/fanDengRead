@@ -21,10 +21,10 @@ Page({
     // app.getNetWork(that)
   },
   scrollRight() {
-    wx.showToast({
-      title: '已经到底了',
-      icon: 'none'
-    })
+    // wx.showToast({
+    //   title: '已经到底了',
+    //   icon: 'none'
+    // })
   },
   aaa() {
 
