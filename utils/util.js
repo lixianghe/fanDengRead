@@ -88,11 +88,16 @@ function playAlrc(that, app) {
 
 
 function toggleplay(that, app) {
+  let playingId = wx.getStorageSync('songInfo').id
+  let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
   if (that.data.playing) {
     // 暂停播放
     that.setData({ 
       playing: false 
     })
+    if (story) {
+      story.clearPlay()
+    }
     app.audioManager.pause()
   } else {
     // 继续播放

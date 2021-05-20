@@ -76,6 +76,11 @@ module.exports = {
     if (this.story) {
       this.story._onshow();
     }
+    let miniPlayer = this.selectComponent('#miniPlayer')
+    if(miniPlayer){
+      miniPlayer.setOnShow()
+      miniPlayer.watchPlay()
+    }
   },
   onLoad(options) {
     this.logOutCallback = logOutCallback.bind(this);
