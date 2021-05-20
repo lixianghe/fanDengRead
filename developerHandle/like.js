@@ -105,10 +105,8 @@ module.exports = {
     const src = e.currentTarget.dataset.src;
     const title = e.currentTarget.dataset.title;
     wx.setStorageSync("img", src);
-
     wx.setStorageSync("allList", this.data.info);
     let url = `../playInfo/playInfo?id=${id}&title=${title}&src=${src}`;
-
     wx.navigateTo({
       url: url,
     });
@@ -130,6 +128,7 @@ module.exports = {
       .then((res) => {
         let info = res.data.books.map((v) => {
           return {
+            id2 : v.bookId,
             id: v.fragmentId ? v.fragmentId : "",
             src: v.coverUrl ? v.coverUrl : "",
             title: v.bookName ? v.bookName : "",
