@@ -177,49 +177,58 @@ Component({
       // }, 1000)
     },
     // 因为1.9.2版本无法触发onshow和onHide所以事件由它父元素触发
+    async getPlayInfo(){
+      let that = this
+      if (wx.canIUse('getPlayInfoSync')) {
+        let res = wx.getPlayInfoSync()
+        let playing = res.playState && res.playState.status == 1 ? true : false
+        if(res.playList && res.playList.length && res.context){
+          try {
+            let contextList = JSON.parse(res.context)
+            let {currentPosition,duration} = res.playState
+            app.globalData.bookIdList = contextList.map(item=>item.id2)
+            app.globalData.cardList = res.playList
+            let {src,id} = contextList[res.playState.curIndex]
+            await getMedia({fragmentId:id}, that)
+            app.globalData.percent = tool.floatMul(tool.floatDiv(currentPosition,duration).toFixed(4), 100);
+            app.globalData.currentPosition = currentPosition
+            tool.initAudioManager(app, that,currentPosition)
+            let song= wx.getStorageSync('songInfo')
+            let songInfo = Object.assign(song,{coverImgUrl:src})
+            that.setData({
+              songInfo,
+              playing: playing,
+              percent: app.globalData.percent || 0
+            })
+            wx.setStorageSync('songInfo',songInfo)
+            wx.setStorageSync('playing', playing)
+          } catch (error) {
+            wx.showToast({ icon: 'none', title: '接口请求错误请稍后重试' })
+          }
+        }else{
+          wx.setStorageSync('songInfo', {})
+        }
+      }
+    },
     async setOnShow() {
       const canplay = wx.getStorageSync('canplay')
       this.setData({
         canplay: canplay
       })
-      this.listenPlaey()
       // 初始化backgroundManager
-      let that = this
-      let seek = null
-      if (wx.canIUse('getPlayInfoSync')) {
-        let res = wx.getPlayInfoSync()
-        let playing = res.playState && res.playState.status == 1 ? true : false
-        const contextList = JSON.parse(res.context)
-        if(res.playState && res.context && res.playState.status != null && app.globalData.syncStart){
-          try {
-            app.globalData.bookIdList = contextList.map(item=>item.id2)
-            app.globalData.cardList = res.playList
-            let {src,id} = contextList[res.playState.curIndex]
-            await getMedia({fragmentId:id}, that)
-            let song= wx.getStorageSync('songInfo')
-            let songInfo = Object.assign(song,{coverImgUrl:src})
-            wx.setStorageSync('songInfo',songInfo)
-            seek = res.playState.currentPosition
-            that.setData({songInfo})
-            wx.setStorageSync('playing', playing)
-          } catch (error) {
-            wx.showToast({ icon: 'none', title: '接口请求错误请稍后重试' })
-          }
-        }
-      }
+      this.listenPlaey()
       const playing = wx.getStorageSync('playing')
       let songInfo = wx.getStorageSync('songInfo')
-      that.setData({
+      this.setData({
         playing: playing,
         percent: app.globalData.percent || 0
       })
       // 是否被收藏
       if (songInfo) {
-        that.setData({
+        this.setData({
           existed: songInfo.existed
         })
       }
-      tool.initAudioManager(app, that,seek)
     },
     setOnHide() {
     }

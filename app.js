@@ -155,6 +155,7 @@ App({
       fragmentId: song.id
     }
     await getMedia(params, that)
+    wx.hideLoading()
     loopType === 'singleLoop' ? this.playing(0, that) : this.playing(null, that)
   },
   // 根据循环模式设置播放列表

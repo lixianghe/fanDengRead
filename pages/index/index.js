@@ -36,22 +36,10 @@ Page({
     // })
   },
   onLoad(options) {
-    // let param = {
-    //   "appid": '2001',
-    //   "token": "20201209DDG0nnhhpPjhXkNZTwa"
-    // }
-    // albumFavoriteAdd(param).then(res => {
-    //   console.log(res)
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-    // 检测网络
-    // let that = this
-    // app.getNetWork(that)
+    this.selectComponent('#miniPlayer').getPlayInfo()
   },
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
-    // this.selectComponent('#miniPlayer').watchPlay()
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()
