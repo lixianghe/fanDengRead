@@ -183,11 +183,9 @@ module.exports = {
   linkLogin() {
     const app = getApp()
     let url = '/pages/personalCenter/personalCenter'
+    app.globalData.isRecharge = true
     wx.switchTab({
       url: url,
-      success:()=>{
-        app.globalData.isRecharge = true
-      }
     })
   }
 }

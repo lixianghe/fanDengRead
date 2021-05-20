@@ -76,7 +76,7 @@ Page({
     // 把abumInfoName存在缓存中，切歌的时候如果不是专辑就播放同一首
     wx.setStorageSync('abumInfoName', options.abumInfoName)
     const nativeList = wx.getStorageSync('nativeList') || []
-    let that = this, getPlayObj = {};
+    let that = this;
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
       wx.setStorageSync('nativeList', canplay)
       let [ids, urls] = [[], []],bookIdList = []
@@ -119,10 +119,6 @@ Page({
   },
   imgOnLoad() {
     this.setData({ showImg: true })
-  },
-  clack(){
-    let that = this
-    tool.initAudioManagers(app, that)
   },
   play() {
     let that = this
