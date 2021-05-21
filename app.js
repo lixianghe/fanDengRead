@@ -145,11 +145,17 @@ App({
     let song = allList[index] || allList[0]
     song.coverImgUrl = song.src
     // wx.pauseBackgroundAudio();
-    that.setData({
+    const pages = getCurrentPages()
+    pages[pages.length - 1].setData({
       currentId: Number(song.id),       // 当前播放的歌曲id
       currentIndex: index,
       songInfo: song
     })
+    // that.setData({
+    //   currentId: Number(song.id),       // 当前播放的歌曲id
+    //   currentIndex: index,
+    //   songInfo: song
+    // })
     // 获取歌曲的url
     let params = {
       fragmentId: song.id
