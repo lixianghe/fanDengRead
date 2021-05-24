@@ -47,19 +47,20 @@ Component({
     },
     _onshow() {
       let that = this
-      if(wx.canIUse('checkSession')){
-        wx.checkSession({
-          success: (res) => {
-          },
-          fail: (err) => {
-            that.logoutTap2()
-            wx.setStorageSync('taiLogin', false)
-            that.setData({
-              taiLogin: false
-            })
-          },
-        });
-      }
+      // if(wx.canIUse('checkSession')){
+      //   wx.checkSession({
+      //     success: (res) => {
+      //     },
+      //     fail: (err) => {
+      //       app.log("11111111111111111111")
+      //       that.logoutTap2()
+      //       wx.setStorageSync('taiLogin', false)
+      //       that.setData({
+      //         taiLogin: false
+      //       })
+      //     },
+      //   });
+      // }
       if(wx.canIUse('onTaiAccountStatusChange')){
         wx.onTaiAccountStatusChange((res)=>{
           if(!res.isLoginUser){
@@ -72,7 +73,7 @@ Component({
           }
         })
       }
-      expireTaiLogin()
+      // expireTaiLogin()
       this.setData({
         isAgree: app.globalData.isAgree,
         userInfo: app.globalData.userInfo,

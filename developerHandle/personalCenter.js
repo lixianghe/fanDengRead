@@ -99,7 +99,7 @@ module.exports = {
         }
       });
     }
-    expireTaiLogin()
+    // expireTaiLogin()
     this.isRecharge();
     this.setData({
       isAgree: app.globalData.isAgree,

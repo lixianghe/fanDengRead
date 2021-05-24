@@ -78,24 +78,56 @@ Page({
     const nativeList = wx.getStorageSync('nativeList') || []
     let that = this;
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
-      wx.setStorageSync('nativeList', canplay)
-      let [ids, urls] = [[], []],bookIdList = []
-      canplay.forEach(n => {
-        ids.push(n.id2)
-      })
-      songsUrl({bookIds: ids}).then(res => {
-        urls = res.data.map(n => {
-          let obj = {}
-          obj.title = n.bookName
-          obj.coverImgUrl = n.coverImage
-          obj.dataUrl = n.mediaUrl
-          bookIdList.push(n.bookId)
-          return obj
+      wx.setStorageSync("nativeList", canplay);
+      let [ids, urls] = [[], []],
+        bookIdList = [];
+      canplay.forEach((n) => {
+        ids.push(n.id2);
+      });
+      const ArrayIndex = [
+        ...Array.from({
+          length: Math.ceil(tool.floatDiv(ids.length, 10)),
+        }).keys(),
+      ];
+      let funArray = ArrayIndex.map((n, i) =>
+        songsUrl({
+          bookIds: ids.slice(tool.floatMul(i, 10), tool.floatMul(i + 1, 10)),
         })
-        wx.setStorageSync('bookIdList', bookIdList)
-        wx.setStorageSync('urls', urls)
-        tool.initAudioManager(app, that)
-      })
+      );
+      Promise.all(funArray)
+        .then((res) => {
+          res.map((items) => {
+            if (items.status == "0000" && items.data.length) {
+              items.data.forEach((item) => {
+                urls.push({
+                  title: item.bookName,
+                  coverImgUrl: item.coverImage,
+                  dataUrl: item.mediaUrl,
+                });
+                bookIdList.push(item.bookId);
+              });
+            } else {
+              wx.showToast({
+                title: "获取播放列表失败，请稍后重试",
+                icon: "none",
+                duration: 1500,
+                mask: false,
+              });
+            }
+          });
+          wx.setStorageSync("bookIdList", bookIdList);
+          wx.setStorageSync("urls", urls);
+          tool.initAudioManager(app, that);
+        })
+        .catch((err) => {
+          wx.showToast({
+            title: "接口请求错误，请稍后重试",
+            icon: "none",
+            duration: 1500,
+            mask: false,
+          });
+          tool.initAudioManager(app, that);
+        });
     }
     if (options.noPlay !== 'true') {
       let song = {
