@@ -112,8 +112,7 @@ module.exports = {
       }
       songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
-      // songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
-      songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.trialDuration, 'second')        // 音频时常
+      songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
       if (this.data && this.data.outPush) {
         songInfo.coverImgUrl = info.data.titleImageUrl
         that.setData({ playing: true })
