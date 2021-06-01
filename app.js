@@ -364,5 +364,5 @@ App({
   // log - 日志文本
   logText: "",
   // log - 日志开关，1 => 开启，0 => 关闭
-  openLog: 1,
+  openLog: 0,
 })

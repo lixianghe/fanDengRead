@@ -124,10 +124,15 @@ Component({
         })
         return false
       }
-      let abumInfoName = wx.getStorageSync('abumInfoName')
+      let allList = wx.getStorageSync('allList')
+      let abumData =  allList.find(item => item.id == app.globalData.songInfo.id);
       wx.navigateTo({
-        url: `../playInfo/playInfo?noPlay=true&abumInfoName=${abumInfoName}`
+        url:`../playInfo/playInfo?id=${abumData.id}&title=${abumData.title}&src=${abumData.src}`
       })
+      // let abumInfoName = wx.getStorageSync('abumInfoName')
+      // wx.navigateTo({
+      //   url: `../playInfo/playInfo?noPlay=true&abumInfoName=${abumInfoName}`
+      // })
     },
     // 监听音乐播放的状态
     listenPlaey() {

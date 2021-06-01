@@ -4,8 +4,8 @@
   <view class="content-container">
       <view class="pay-panel" wx:if="{{payStatus == 'pre'}}">
         <!-- <image class="ercode" src="{{codeUrl}}"></image> -->
-      <vehicle-speed>
-        <canvas style="width: 42vh; height: 42vh;" canvas-id="myQrcode" class="myQrcode"></canvas>
+      <vehicle-speed isWhole="true">
+          <canvas style="width: 42vh; height: 42vh;" canvas-id="myQrcode" class="myQrcode"></canvas>
       </vehicle-speed>
         <view class="text">
           <view class="price">

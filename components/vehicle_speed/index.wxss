@@ -77,3 +77,20 @@
   border-radius: 1.603vh;
   margin-top: 7.372vh;
 }
+.zbe-border[focus-select="true"][focus-line="true"] {
+  border: 4px solid #4e6ef2 !important;
+  background: #414141;
+}
+.zbe-border[focus-select="true"][focus-line="true"].mark {
+  position: relative;
+}
+.zbe-border[focus-select="true"][focus-line="true"].mark::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}

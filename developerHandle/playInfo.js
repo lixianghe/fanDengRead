@@ -107,6 +107,7 @@ module.exports = {
       let songInfo = Object.assign({}, that.data.songInfo)
       if(app.globalData.cardList.length && findUrl()){
         songInfo.src = app.globalData.cardList.find(item=>item.title == info.data.bookName).dataUrl
+        info.data.titleImageUrl = app.globalData.cardList.find(item=>item.title == info.data.bookName).coverImgUrl
       }else{
         songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
       }
