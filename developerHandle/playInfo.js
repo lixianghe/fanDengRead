@@ -65,52 +65,27 @@ module.exports = {
       this.data.playInfoBtns.splice(this.data.playInfoBtns.length - 1, 1)
       this.setData({
         playInfoBtns: this.data.playInfoBtns,
-        outPush: true
+        outPush: true,
+        playing:true
       })
       options.id = options.fragmentId
       app.globalData.songInfo = {}
     }
-    let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
-    if (!options.id || options.id == app.globalData.songInfo.id) {
-      this.noplay()
-      return
-    }
-    setTimeout(() => {
-      this.getMedia(getInfoParams).then(() => {
-      let bookIdList = wx.getStorageSync('bookIdList') || []
-      let urls=  wx.getStorageSync('urls') || []
-      if (urls.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
-          let song = wx.getStorageSync('songInfo')
-          if(urls && urls.length){
-            urls.forEach(item=>{
-              if(item.title==song.title){
-                song.src = item.dataUrl
-              }
-            })
-          }
-          app.globalData.songInfo = Object.assign({}, song)
-          this.setData({ songInfo: song })
-          wx.setStorageSync('songInfo', song)
-        };
-        if (app.globalData.songInfo.src) this.play() 
-      })
-    }, 0);
   },
   async getMedia(params, that = this) {  
     const app = getApp()
     // 模拟请求数据  
     try {
       let info = await albumMedia(params)
-      let findUrl = ()=>{
-       return app.globalData.cardList.findIndex(item=>item.title == info.data.bookName) !=-1
-      }
+      let findUrl = app.globalData.cardList.findIndex(item=>item.bookId == info.data.bookId) !=-1
       let songInfo = Object.assign({}, that.data.songInfo)
-      if(app.globalData.cardList.length && findUrl()){
-        songInfo.src = app.globalData.cardList.find(item=>item.title == info.data.bookName).dataUrl
-        info.data.titleImageUrl = app.globalData.cardList.find(item=>item.title == info.data.bookName).coverImgUrl
+      if(app.globalData.cardList.length && findUrl){
+        songInfo.src = app.globalData.cardList.find(item=>item.bookId == info.data.bookId).dataUrl
+        info.data.titleImageUrl = app.globalData.cardList.find(item=>item.bookId == info.data.bookId).coverImgUrl
       }else{
         songInfo.src = info.data.mediaUrls[0]                                  // 音频地址
       }
+      songInfo.bookId =  info.data.bookId
       songInfo.title = info.data.title                                       // 音频名称
       songInfo.id = info.data.fragmentId                                     // 音频Id
       songInfo.dt = info.data.trial ? tool.formatduration(info.data.trialDuration, 'second') : tool.formatduration(info.data.duration, 'second')        // 音频时常
@@ -169,6 +144,8 @@ module.exports = {
         })
         app.globalData.songInfo.existed = false
         wx.setStorageSync('songInfo', app.globalData.songInfo)
+      }).catch(err=>{
+        wx.showToast({ icon: 'none', title: '取消收藏失败，请稍后重试' })
       })
     } else {
       albumFavoriteAdd(params).then(res => {
@@ -178,6 +155,8 @@ module.exports = {
         })
         app.globalData.songInfo.existed = true
         wx.setStorageSync('songInfo', app.globalData.songInfo)
+      }).catch(err=>{
+        wx.showToast({ icon: 'none', title: '收藏失败，请稍后重试' })
       })
     }
   },

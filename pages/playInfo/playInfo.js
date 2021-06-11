@@ -15,6 +15,7 @@ Page({
     playtime: '00:00',
     showList: false,
     currentId: null,
+    showNonet:false,
     // 开发者不传默认的按钮
     defaultBtns: [
       {
@@ -79,11 +80,8 @@ Page({
     let that = this;
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
       wx.setStorageSync("nativeList", canplay);
-      let [ids, urls] = [[], []],
-        bookIdList = [];
-      canplay.forEach((n) => {
-        ids.push(n.id2);
-      });
+      let [ids, urls] = [[], []],bookIdList = [];
+      if(canplay && canplay.length)canplay.forEach((n) => {ids.push(n.id2)});
       const ArrayIndex = [
         ...Array.from({
           length: Math.ceil(tool.floatDiv(ids.length, 10)),
@@ -94,15 +92,33 @@ Page({
           bookIds: ids.slice(tool.floatMul(i, 10), tool.floatMul(i + 1, 10)),
         })
       );
+      if (options.fragmentId) {
+        this.data.playInfoBtns.splice(this.data.playInfoBtns.length - 1, 1)
+        this.setData({
+          playInfoBtns: this.data.playInfoBtns,
+          outPush: true,
+          playing:true
+        })
+        options.id = options.fragmentId
+        app.globalData.songInfo = {}
+      }
+      if (!options.id || options.id == app.globalData.songInfo.id) {
+        this.noplay()
+        return
+      }
       Promise.all(funArray)
         .then((res) => {
           res.map((items) => {
+            this.setData({
+              showNonet:false
+            })
             if (items.status == "0000" && items.data.length) {
               items.data.forEach((item) => {
                 urls.push({
                   title: item.bookName,
                   coverImgUrl: item.coverImage,
                   dataUrl: item.mediaUrl,
+                  bookId:item.bookId,
                 });
                 bookIdList.push(item.bookId);
               });
@@ -118,15 +134,72 @@ Page({
           wx.setStorageSync("bookIdList", bookIdList);
           wx.setStorageSync("urls", urls);
           tool.initAudioManager(app, that);
+          let getInfoParams = {fragmentId: options.id || app.globalData.songInfo.id}
+            this.getMedia(getInfoParams).then(() => {
+              if(options.fragmentId){
+                let cardSingle = wx.getStorageSync('songInfo') || []
+                wx.setStorageSync('allList',[cardSingle])
+                wx.setStorageSync('urls',[
+                  {
+                    bookId:cardSingle.bookId,
+                    coverImgUrl: cardSingle.coverImgUrl,
+                    dataUrl: cardSingle.src,
+                    title:cardSingle.title,
+                  }
+                ])
+                wx.setStorageSync('nativeList',[
+                  {
+                    id: cardSingle.id,
+                    id2: cardSingle.bookId,
+                    src: cardSingle.coverImgUrl,
+                    title: cardSingle.title
+                  }
+                ])
+                wx.setStorageSync("bookIdList", {
+                  bookId:cardSingle.bookId
+                });
+              }
+            let bookIdList = wx.getStorageSync('bookIdList') || []
+            let urls=  wx.getStorageSync('urls') || []
+            if (urls.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
+                let song = wx.getStorageSync('songInfo')
+                if(urls && urls.length){
+                  urls.forEach(item=>{
+                    if(item.bookId==song.bookId){
+                      song.src = item.dataUrl
+                    }
+                  })
+                }
+                app.globalData.songInfo = Object.assign({}, song)
+                this.setData({ songInfo: song })
+                wx.setStorageSync('songInfo', song)
+              };
+              if(options.fragmentId) tool.initAudioManager(app, that)
+              if (app.globalData.songInfo.src) this.play() 
+            }).catch(err => {
+              wx.showToast({
+                icon: 'none',
+                title: '网络错误，请稍后重试~',
+                duration: 1500,
+                mask: false,
+                })
+            })
         })
         .catch((err) => {
-          wx.showToast({
-            title: "接口请求错误，请稍后重试",
-            icon: "none",
-            duration: 1500,
-            mask: false,
-          });
-          tool.initAudioManager(app, that);
+          let { data } = err
+          if(!data){
+            this.setData({
+              showNonet:true
+            })
+          }else{
+            wx.showToast({
+              title: "接口请求错误，请稍后重试",
+              icon: "none",
+              duration: 1500,
+              mask: false,
+            });
+            tool.initAudioManager(app, that);
+          }
         });
     }
     if (options.noPlay !== 'true') {

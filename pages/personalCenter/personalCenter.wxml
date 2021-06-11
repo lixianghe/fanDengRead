@@ -16,7 +16,7 @@
       <!-- 登录非会员部分 -->
       <view class="adminCenter" wx:if="{{isLogin && !isVip}}">
         <image class="image" binderror="imgError" src="{{userInfo.avatar}}"></image>
-        <view class="adminCenterName">{{userInfo.nickname}}</view>
+        <view class="adminCenterName nickname">{{userInfo.nickname}}</view>
         <view class="viptime" style="color: #FF4C4C">会员畅听300+经典好书 ></view>
         <view class="buttomBox">
           <view class="adminBtno openVip" data-type="openVip" data-focusindex="2" bindtap="confirmHandle">开通VIP</view>
@@ -26,7 +26,7 @@
       <!-- 登录是会员部分 -->
       <view class="adminCenter" wx:if="{{isLogin && isVip}}">
         <image class="image" binderror="imgError" src="{{userInfo.avatar}}"></image>
-        <view class="adminCenterName">{{userInfo.nickname}}</view>
+        <view class="adminCenterName nickname">{{userInfo.nickname}}</view>
         <view class="viptime">{{userInfo.vipEndTime}}樊登讲书VIP到期 ></view>
         <view class="buttomBox">
           <view class="adminBtno openVip" data-type="renewalVip" data-focusindex="2" bindtap="confirmHandle" wx:if="{{userInfo.vipState === 1}}">立即续费</view>

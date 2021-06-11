@@ -167,12 +167,20 @@ module.exports = {
         console.log(res);
       })
       .catch((err) => {
+        let { data } = err
         wx.hideLoading();
-        this.setData({ req: true }, () => {
-          this.logOutCallback({
-            detail: { type: "open", text: "登录过期", btnTxt: "确定" },
+        if((data && data.status == '0001') || (data && data.status == '0003')){
+          this.setData({ req: true }, () => {
+            this.logOutCallback({
+              detail: { type: "open", text: "登录过期", btnTxt: "确定" },
+            });
           });
-        });
+        }else{
+          this.setData({
+            req: true,
+            showNonet:true
+          })
+        }
       });
   },
   close() {

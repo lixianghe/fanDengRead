@@ -4,6 +4,7 @@
   height: 68.35vh;
   overflow: hidden;
   margin-left: 6.6vh;
+  /* padding-top: 1.5vh; */
 }
 .loginVip {
   width: 84.83vh;
@@ -99,4 +100,7 @@
 }
 .xyread {
   padding: 1vh;
+}
+.nickname{
+  font-family:'Noto Sans CJK CS','Apple Color Emoji';
 }

@@ -192,8 +192,15 @@ Component({
             let contextList = JSON.parse(res.context)
             let {currentPosition,duration} = res.playState
             app.globalData.bookIdList = contextList.map(item=>item.id2)
-            app.globalData.cardList = res.playList
             let {src,id} = contextList[res.playState.curIndex]
+            app.globalData.cardList = res.playList.map((item,index)=>{
+              return{
+                bookId: contextList[index].id2,
+                coverImgUrl:item.coverImgUrl,
+                dataUrl:item.dataUrl,
+                title:item.title,
+              }
+            })
             await getMedia({fragmentId:id}, that)
             app.globalData.percent = tool.floatMul(tool.floatDiv(currentPosition,duration).toFixed(4), 100);
             app.globalData.currentPosition = currentPosition
@@ -205,6 +212,7 @@ Component({
               playing: playing,
               percent: app.globalData.percent || 0
             })
+            app.globalData.songInfo = songInfo
             wx.setStorageSync('songInfo',songInfo)
             wx.setStorageSync('playing', playing)
           } catch (error) {
@@ -212,6 +220,13 @@ Component({
           }
         }else{
           wx.setStorageSync('songInfo', {})
+        }
+      }else{
+        const playing = wx.getStorageSync('playing')
+        wx.setStorageSync('songInfo',{})
+        if(playing){
+          wx.stopBackgroundAudio()
+          wx.setStorageSync('playing', false)
         }
       }
     },
@@ -231,7 +246,8 @@ Component({
       // 是否被收藏
       if (songInfo) {
         this.setData({
-          existed: songInfo.existed
+          existed: songInfo.existed || false,
+          songInfo,
         })
       }
     },

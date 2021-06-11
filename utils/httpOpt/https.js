@@ -34,11 +34,11 @@ export function request(url, data = {}, method = 'POST') {
                 icon: 'none'
               })
             } else {
-              reject(res.data.message)
+              reject(res)
             }
           }
         } else {
-          reject(res.data.message)
+          reject(res)
         }
       },
       fail: function (err) {

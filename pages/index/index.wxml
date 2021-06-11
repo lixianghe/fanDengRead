@@ -37,10 +37,12 @@
       </view>
     </view>
     <!-- 加载中盒子 -->
-    <view class="albumCard" wx:if="{{!reqL}}" wx:for="{{3}}" wx:key="index">
-      <view class="imgB bone"></view>
-      <view class="albumTitB">
-        <view class="tb bone"></view>
+    <view wx:if="{{!reqL}}" class="skeletonScreen">
+      <view class="albumCard"  wx:for="{{3}}" wx:key="index">
+        <view class="imgB bones"></view>
+        <view class="albumTitB">
+          <view class="tb bone"></view>
+        </view>
       </view>
     </view>
   </scroll-view>

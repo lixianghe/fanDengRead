@@ -192,4 +192,5 @@
   </view>
 
 <view wx:if="{{showList}}" bindtap="closeList" class="mask"></view>
-
+<!-- 网络异常情况加载的盒子 -->
+<no-network wx:if="{{showNonet}}"></no-network>

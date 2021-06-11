@@ -33,17 +33,20 @@ html{
 }
 view[focus-select=true]{
 
-  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
+  box-shadow: inset 0px 0px 0px 5px#ffe600;
 }
 text[focus-select=true]{
 
-  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
+  box-shadow: inset 0px 0px 0px 5px#ffe600;
 }
 
 image[focus-select=true]{
-  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
+  box-shadow: inset 0px 0px 0px 5px#ffe600;
 }
 
 button[focus-select=true]{
-  box-shadow: inset 0px 0px 0px 5px#4e6ef2;
+  box-shadow: inset 0px 0px 0px 5px#ffe600;
+}
+.nickname{
+  font-family:'Noto Sans CJK CS','Apple Color Emoji';
 }

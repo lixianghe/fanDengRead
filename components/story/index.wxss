@@ -99,7 +99,7 @@
   padding-bottom: 131%;
   border-radius: 2vh;
   vertical-align: bottom;
-  box-shadow: inset 1.2vh 1.2vh #4e6ef2, inset -1.2vh -1.2vh #4e6ef2;
+  box-shadow: inset 1.2vh 1.2vh #e6d331, inset -1.2vh -1.2vh #e6d331;
   transform: translate(-1.7vh, -1.7vh);
   left: 0;
   top: 0;

@@ -14,7 +14,7 @@
       <view class="userTop">
         <image class="image" src="{{userInfo.avatar}}"></image>
         <view class="userInfo">
-          <view class="viptime">{{ userInfo.nickname }}</view>
+          <view class="viptime nickname">{{ userInfo.nickname }}</view>
           <view class="vipIntroduce">开通VIP畅听300+本经典好书</view>
         </view>
       </view>
@@ -24,7 +24,7 @@
       <view class="userTop">
         <image class="image" src="{{userInfo.avatar}}"></image>
         <view class="userInfo">
-          <view class="viptime">{{ userInfo.nickname }}</view>
+          <view class="viptime nickname">{{ userInfo.nickname }}</view>
           <view class="vipIntroduce">{{userInfo.vipEndTime}}樊登讲书VIP到期</view>
         </view>
       </view>
