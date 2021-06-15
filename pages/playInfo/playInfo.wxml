@@ -163,7 +163,7 @@
 <view class="playList {{noTransform}}" animation="{{animation}}">
   <view class="title">
     <text>播放列表({{canplay.length}})</text>
-    <button bindtap="closeList">
+    <button bindtap="closeList" data-closepopup>
       <image src="/images/closeList.png" />
     </button>
   </view>

@@ -55,7 +55,8 @@ App({
   // 小程序颜色主题
   sysInfo: {
     colorStyle: 'dark',
-    backgroundColor: 'transparent',
+    // backgroundColor: 'transparent',
+    backgroundColor:'#101010',
     defaultBgColor: '#151515'
   },
   audioManager: null,
