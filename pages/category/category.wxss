@@ -80,6 +80,7 @@
   font-size: 5.5vh;
 }
 .label-view .title {
+  box-shadow: inset 0px 0px 0px 5px rgba(255, 255, 255, 0);
   padding: 0 3.3vh;
   height: 9.81vh;
   line-height: 9.81vh;
@@ -90,6 +91,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.label-view .title[focus-select=true] {
+  border: 0.2vh solid #ffe600 !important;
 }
 .label-view .activeTitle {
   background: #49494B;

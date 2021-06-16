@@ -272,10 +272,11 @@ import { albumMedia } from '../utils/httpOpt/api'
     } else if (opt.detail.type === 'confirm') { // 模态框确认
       this.setData({
         bgShow: false
-      })
-      app.globalData.bgShow = false
-      wx.navigateTo({
-        url: '/pages/member/pay'
+      },()=>{
+        app.globalData.bgShow = false
+        wx.navigateTo({
+          url: '/pages/member/pay'
+        })
       })
     } else if (opt.detail.type === 'cancle') { // 模态框关闭
       this.setData({

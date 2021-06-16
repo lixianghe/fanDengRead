@@ -232,7 +232,8 @@ Page({
       percent: app.globalData.percent || 0,
 
     })
-    app.playing(app.audioManager.currentTime, that)
+    app.playing(null, that)
+    // app.playing(app.audioManager.currentTime, that)
   },
   noplay() {
     this.setData({
@@ -478,7 +479,7 @@ Page({
     query.select('.songList').boundingClientRect(rect=>{
       let listHeight = rect.height;
       this.setData({
-        scrolltop: index > 2 ? listHeight / this.data.canplay.length * (index - 2) : 0
+        scrolltop: index > 2 ? listHeight / this.data.canplay.length * (index - 2)-10 : 0
       })
     }).exec();
   }

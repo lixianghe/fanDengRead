@@ -70,6 +70,7 @@
 .playing-status .btns .image {
   width: 10vh;
   height: 10vh;
+  padding: 5px;
   vertical-align: middle;
 }
 .playing-status .btns .pic {
