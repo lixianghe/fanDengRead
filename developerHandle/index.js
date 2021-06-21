@@ -226,7 +226,7 @@ module.exports = {
     console.log(opt.detail.islogin)
     if(opt.detail.islogin && !wx.getStorageSync('isLogin')) {
       wx.showToast({
-        title: '请先登录后在操作',
+        title: '请先登录后再操作',
         icon: 'none'
       })
       return
