@@ -81,7 +81,7 @@ Page({
     if (!nativeList.length || abumInfoName !== options.abumInfoName) {
       wx.setStorageSync("nativeList", canplay);
       let [ids, urls] = [[], []],bookIdList = [];
-      if(canplay && canplay.length)canplay.forEach((n) => {ids.push(n.id2)});
+      if(canplay && canplay.length && !options.hasOwnProperty('fragmentId'))canplay.forEach((n) => {ids.push(n.id2)});
       const ArrayIndex = [
         ...Array.from({
           length: Math.ceil(tool.floatDiv(ids.length, 10)),

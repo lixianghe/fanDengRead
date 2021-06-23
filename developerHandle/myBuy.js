@@ -38,7 +38,12 @@ module.exports = {
     },
     req: false  // 数据请求完毕为true
   },
-  onLoad(options) {   
+  onLoad(options) {
+    if(!app.globalData.isLogin){
+      wx.switchTab({
+        url: '/pages/personalCenter/personalCenter'
+      })
+    }
     this._getList('专辑')
   },
   onReady() {

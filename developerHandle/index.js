@@ -35,8 +35,9 @@
  *  可选内容，当show为false时不显示分类列表,数量 1~2个
  */
 
-import { layoutGroup, feed } from '../utils/httpOpt/api'
+import { layoutGroup, feed,songsUrl} from '../utils/httpOpt/api'
 import { btnCallback, openVip, renewalVip } from '../utils/login'
+import { getMedia } from '../developerHandle/playInfo'
 import tool from '../utils/util'
 const app = getApp()
 
@@ -181,7 +182,6 @@ module.exports = {
       this.getFeed()
       
     }).catch(err => {
-      console.log(err)
       this.setData({
         // info: suggest,
         info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e'},
@@ -194,7 +194,6 @@ module.exports = {
   // 获取首页的书籍
   getFeed() {
     feed().then(res => {
-      console.log('res', res)
       let suggest = res.data.map(v => {
         let obj = {}
         obj.id = v.fragmentId
@@ -209,21 +208,18 @@ module.exports = {
         // info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
         reqL: true
       }, () => {
-        // setTimeout(() => {
           let playingId = wx.getStorageSync('songInfo').id
           this.story = this.selectComponent(`#story${playingId}`)
           if (this.story) {
             this.story._onshow()
           }
-        // },1000)
+          this.voicePath(this)
       })
-      
       wx.hideLoading()
     })
   },
   // 跳转到快捷入口页面
   tolatelyListen(opt) {
-    console.log(opt.detail.islogin)
     if(opt.detail.islogin && !wx.getStorageSync('isLogin')) {
       wx.showToast({
         title: '请先登录后再操作',
@@ -264,5 +260,96 @@ module.exports = {
     wx.navigateTo({
       url: url
     })
+  },
+  // 语音Path直达播放功能
+  voicePath(that) {
+    const pages = getCurrentPages();
+    const currentPage = pages[pages.length-1];
+    if(!currentPage.options.playing) return
+    let { info } = that.data
+    let [urls, bookIdList] = [[], []]
+    let ids = info.map((n) =>n.id2)|| []
+    const ArrayIndex = [
+      ...Array.from({
+        length: Math.ceil(tool.floatDiv(ids.length, 10)),
+      }).keys(),
+    ];
+    let funArray = ArrayIndex.map((n, i) =>
+      songsUrl({
+        bookIds: ids.slice(tool.floatMul(i, 10), tool.floatMul(i + 1, 10)),
+      })
+    );
+    Promise.all(funArray)
+    .then((res) => {
+      res.map((items) => {
+        that.setData({
+          showNonet:false
+        })
+        if (items.status == "0000" && items.data.length) {
+          items.data.forEach((item) => {
+            urls.push({
+              title: item.bookName,
+              coverImgUrl: item.coverImage,
+              dataUrl: item.mediaUrl,
+              bookId:item.bookId,
+            });
+            bookIdList.push(item.bookId);
+          });
+        } else {
+          wx.showToast({
+            title: "获取播放列表失败，请稍后重试",
+            icon: "none",
+            duration: 1500,
+            mask: false,
+          });
+        }
+      });
+      wx.setStorageSync('allList', info)
+      wx.setStorageSync("bookIdList", bookIdList);
+      wx.setStorageSync("urls", urls);
+      getMedia({ fragmentId: info[0].id }, that).then(res => {
+        let bookIdList = wx.getStorageSync('bookIdList') || []
+        let urls = wx.getStorageSync('urls') || []
+        if (urls.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
+          let song = wx.getStorageSync('songInfo')
+          if (urls && urls.length) {
+            urls.forEach(item => {
+              if (item.bookId == song.bookId) {
+                song.src = item.dataUrl
+                song.coverImgUrl = item.coverImgUrl
+              }
+            })
+          }
+          app.globalData.songInfo = Object.assign({}, song)
+          that.setData({ songInfo: song })
+          app.globalData.songInfo = song
+          wx.setStorageSync('songInfo', song)
+        };
+        tool.initAudioManager(app, that)
+        if (app.globalData.songInfo.src) app.playing(null, that)
+      }).catch(err => {
+        wx.showToast({
+          icon: 'none',
+          title: '网络错误，请稍后重试~',
+          duration: 1500,
+          mask: false,
+        })
+      })
+    }).catch((err) => {
+      let { data } = err
+      if (!data) {
+        that.setData({
+          showNonet: true
+        })
+      } else {
+        wx.showToast({
+          title: "接口请求错误，请稍后重试",
+          icon: "none",
+          duration: 1500,
+          mask: false,
+        });
+        tool.initAudioManager(app, that);
+      }
+    });
   }
 }

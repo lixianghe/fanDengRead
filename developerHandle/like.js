@@ -69,6 +69,11 @@ module.exports = {
     },
   },
   onShow() {
+    if(!app.globalData.isLogin){
+      wx.switchTab({
+        url: '/pages/personalCenter/personalCenter'
+      })
+    }
     // 卡片组件onshow
     let playingId = wx.getStorageSync("songInfo").id;
     this.story = this.selectComponent(`#story${playingId}`);

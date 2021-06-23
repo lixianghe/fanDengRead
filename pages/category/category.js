@@ -1,4 +1,4 @@
-import { layout, bookCategory, freeBook } from '../../utils/httpOpt/api'
+import { layoutGroup, bookCategory, freeBook } from '../../utils/httpOpt/api'
 import tool from '../../utils/util'
 const app = getApp()
 let pageNo = 1
@@ -38,17 +38,10 @@ Page({
     lowerThreshold: 500,
     id: 0
   },
-  onLoad(options) {
+  async onLoad(options) {
+    let params = { page: 1, pageSize: 10, categoryId: options.hasOwnProperty('groupId') ? options.groupId : 0 }
     pageNo = 1
-    // 检测网络
-    // let that = this
-    // app.getNetWork(that)
-    // 默认近期新书
-    let params = {
-      page: 1,
-      pageSize: 10,
-      categoryId: 0
-    }
+    await this.voicePath(options)
     this._getList(params, bookCategory)
   },
   onShow() {
@@ -215,5 +208,36 @@ Page({
     wx.navigateTo({
       url: url
     })
+  },
+  // 语音直达功能
+  async voicePath(options){
+    if (options.hasOwnProperty('groupId')) {
+      try {
+        let res = await layoutGroup()
+        const { categories, recentNewBooks: { categoryBooks } } = res
+        let categoryLabels = [
+          { "name": "近期新书", "id": '0' }, { "name": "免费体验", "id": 'freeBooks' },
+          ...categories.map(item => { return { name: item.name, id: item.id } }) || []
+        ]
+        let currentTap = categoryLabels.findIndex(item => item.id == options.groupId)
+        if (currentTap > -1) {
+          this.setData({
+            currentTap,
+            id: options.groupId
+          })
+        }
+        wx.setStorageSync('recentNewBooks', categoryBooks)
+        wx.setStorageSync('categoryLabels', categoryLabels)
+      } catch (error) {
+        let { data } = error
+        if (!data) {
+          this.setData({
+            showNonet: true
+          })
+          return
+        }
+        wx.showToast({ icon: 'none', title: '接口请求错误请稍后重试' })
+      }
+    }
   }
 })

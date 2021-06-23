@@ -28,6 +28,7 @@
 const app = getApp();
 import { logOutCallback } from "../utils/login";
 import { history } from "../utils/httpOpt/api";
+import { voicePath } from '../developerHandle/index'
 module.exports = {
   data: {
     showModal: false,
@@ -70,6 +71,11 @@ module.exports = {
     },
   },
   onShow() {
+    if(!app.globalData.isLogin){
+      wx.switchTab({
+        url: '/pages/personalCenter/personalCenter'
+      })
+    }
     // 卡片组件onshow
     let playingId = wx.getStorageSync("songInfo").id;
     this.story = this.selectComponent(`#story${playingId}`);
@@ -84,7 +90,7 @@ module.exports = {
   },
   onLoad(options) {
     this.logOutCallback = logOutCallback.bind(this);
-    this._getList("专辑");
+    this._getList("专辑",true);
   },
   onHide() {
     // 清空上一首播放态
@@ -124,7 +130,7 @@ module.exports = {
     });
     this._getList(name);
   },
-  _getList(name) {
+  _getList(name,state=false) {
     let params = { pageSize: 8, resourceType: [1] };
     console.log(params);
     console.log("historyhistory");
@@ -140,8 +146,6 @@ module.exports = {
           obj.title = v.bookTitle ? v.bookTitle : "";
           return obj;
         });
-        console.log(params);
-        console.log("historyList=====104");
         this.setData(
           {
             req: true,
@@ -156,6 +160,8 @@ module.exports = {
             if (this.story) {
               this.story._onshow();
             }
+            // 增加语音直达Path功能
+            if(state)voicePath(this)
           }
         );
         if (info.length === 0) {
