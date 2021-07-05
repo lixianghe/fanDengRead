@@ -270,13 +270,15 @@ import { albumMedia } from '../utils/httpOpt/api'
       })
       app.globalData.bgShow = true
     } else if (opt.detail.type === 'confirm') { // 模态框确认
+      app.globalData.bgShow = false
       this.setData({
         bgShow: false
       },()=>{
-        app.globalData.bgShow = false
-        wx.navigateTo({
-          url: '/pages/member/pay'
-        })
+        setTimeout(() => {          
+          wx.navigateTo({
+            url: '/pages/member/pay'
+          })
+        }, 200);
       })
     } else if (opt.detail.type === 'cancle') { // 模态框关闭
       this.setData({

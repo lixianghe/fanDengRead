@@ -479,7 +479,7 @@ Page({
     query.select('.songList').boundingClientRect(rect=>{
       let listHeight = rect.height;
       this.setData({
-        scrolltop: index > 2 ? listHeight / this.data.canplay.length * (index - 2)-10 : 100
+        scrolltop: index > 2 ? listHeight / this.data.canplay.length * (index - 2)- 10 : 0
       })
     }).exec();
   }

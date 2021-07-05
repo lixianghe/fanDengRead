@@ -204,7 +204,8 @@ Component({
             await getMedia({fragmentId:id}, that)
             app.globalData.percent = tool.floatMul(tool.floatDiv(currentPosition,duration).toFixed(4), 100);
             app.globalData.currentPosition = currentPosition
-            tool.initAudioManager(app, that,currentPosition)
+            // tool.initAudioManager(app, that,currentPosition)
+            tool.initAudioManager(app, that)
             let song= wx.getStorageSync('songInfo')
             let songInfo = Object.assign(song,{coverImgUrl:src})
             that.setData({
