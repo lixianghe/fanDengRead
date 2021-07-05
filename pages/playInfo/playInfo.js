@@ -240,8 +240,7 @@ Page({
       playtime: app.globalData.playtime || '00:00',
       percent: app.globalData.percent || 0
     })
-    // const playing = wx.getStorageSync('playing')
-    // if (playing) app.playing(app.audioManager.currentTime, this)
+    tool.EventListener(app,this)
   },
   btnsPlay(e) {
     const type = e.currentTarget.dataset.name

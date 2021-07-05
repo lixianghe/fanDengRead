@@ -121,13 +121,17 @@ module.exports = {
     // 登录组件onshow
     this.loginCard = this.selectComponent('#loginCard')
     this.loginCard._onshow()
-
     // 卡片组件onshow
-    let playingId = wx.getStorageSync('songInfo').id
-    this.story = this.selectComponent(`#story${playingId}`)
-    if (this.story) {
-      this.story._onshow()
-    }
+    setTimeout(() => {
+      let playing = wx.getStorageSync("playing");
+      if (playing) {
+        let playingId = wx.getStorageSync("songInfo").id;
+        this.story = this.selectComponent(`#story${playingId}`);
+        if (this.story) {
+          this.story._onshow()
+        }
+      }
+    }, 600);
   },
   onLoad(options) {
     this.btnCallback = btnCallback.bind(this)

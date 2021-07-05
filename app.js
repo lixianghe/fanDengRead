@@ -226,7 +226,7 @@ App({
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) miniPlayer.setData({ 
       songInfo: song,
-      playing:true
+      // playing:true
     })
     setTimeout(() => {
       this.globalData.syncStart = true

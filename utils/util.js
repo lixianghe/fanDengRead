@@ -57,36 +57,6 @@ function playAlrc(that, app) {
     }
   })
 }
-// function playAlrc(that, app) {
-//   wx.getBackgroundAudioPlayerState({
-//     complete: function (res) {
-//       var time = 0, playing = false, playtime = 0;
-//       // 1是正常播放，2是异常
-//       if (res.status != 2) {
-//         time = res.currentPosition / res.duration * 100 || 0
-//         playtime = res.currentPosition;
-//       }
-//       if (res.status == 1) {
-//         playing = true;
-//       }
-//       app.globalData.playing = playing;
-//       app.globalData.percent = time
-//       app.globalData.currentPosition = playtime
-//       if (that.data.isDrag) return
-//       that.setData({
-//         playtime: playtime ? formatduration(playtime * 1000) : '00:00',
-//         percent: time || 0,
-//         playing: playing
-//       })
-//       wx.setStorage({
-//         key: "playing",
-//         data: playing
-//       })
-//     }
-//   });
-// };
-
-
 function toggleplay(that, app) {
   let playingId = wx.getStorageSync('songInfo').id
   let story = getCurrentPages()[getCurrentPages().length - 1].selectComponent(`#story${playingId}`)
@@ -132,11 +102,9 @@ function initAudioManager(app, that,seek=null) {
 
 // 监听播放，上一首，下一首
 function EventListener(app, that){
-  
   //播放事件
   app.audioManager.onPlay(() => {
     wx.hideLoading()
-    // that.setData({ playing: true });
     wx.setStorageSync('playing', true)
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
@@ -151,7 +119,6 @@ function EventListener(app, that){
   //暂停事件
   app.audioManager.onPause(() => {
     console.log('触发播放暂停事件');
-    // that.setData({ playing: false });
     wx.setStorageSync('playing', false)
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
@@ -161,8 +128,6 @@ function EventListener(app, that){
   //上一首事件
   app.audioManager.onPrev(() => {
     console.log('触发上一首事件');
-    
-
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) {
@@ -170,13 +135,10 @@ function EventListener(app, that){
     } else {
       that.pre()
     }
-
-
   })
   //下一首事件
   app.audioManager.onNext(() => {
-    console.log('触发onNext事件');
-
+    console.log('触发上一首事件');
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) {

@@ -97,7 +97,7 @@
 }
 .label-view .activeTitle {
   background: #49494B;
-  border: none;
+  border: 0.2vh solid rgba(255,255,255, 0);
   color: #FDD000;
 }
 .label-view .titleBg {
