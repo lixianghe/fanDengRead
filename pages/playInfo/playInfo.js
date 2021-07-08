@@ -3,7 +3,7 @@ const app = getApp()
 import tool from '../../utils/util'
 import btnConfig from '../../utils/pageOtpions/pageOtpions'
 import { songsUrl } from '../../utils/httpOpt/api'
-
+import { logoutTap2 } from "../../utils/login";
 Page({
   mixins: [require('../../developerHandle/playInfo')],
   data: {
@@ -221,6 +221,20 @@ Page({
     this.queryProcessBarWidth()
     // 监听歌曲播放状态，比如进度，时间
     tool.playAlrc(that, app);
+    if(app.globalData.songInfo && app.globalData.songInfo.id){
+      this.logoutTap2 = logoutTap2.bind(this)
+      if(wx.canIUse('onTaiAccountStatusChange')){
+        wx.onTaiAccountStatusChange((res)=>{
+          if(!res.isLoginUser){
+            that.logoutTap2()
+            wx.setStorageSync('taiLogin', false)
+            that.setData({
+              taiLogin: false
+            })
+          }
+        })
+      }
+    }
   },
   imgOnLoad() {
     this.setData({ showImg: true })
@@ -374,7 +388,8 @@ Page({
         process = 1
     }
     let percent = (process * 100).toFixed(3)
-    let currentTime = process * tool.formatToSend(app.globalData.songInfo.dt)
+    // let currentTime = process * tool.formatToSend(app.globalData.songInfo.dt)
+    let currentTime = process * app.audioManager.duration
     let playtime = currentTime ? tool.formatduration(currentTime * 1000) : '00:00'
     this.setData({
       percent,

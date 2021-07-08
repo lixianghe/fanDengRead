@@ -212,12 +212,17 @@ module.exports = {
         // info: [{id: 123, title: '学习之路',src:'https://cdn-ali-images-test.dushu.io/159497393574fdef1c18a2ecf2e22fb4672c5a8930u2ne8e',count: 1000}],
         reqL: true
       }, () => {
-          let playingId = wx.getStorageSync('songInfo').id
-          this.story = this.selectComponent(`#story${playingId}`)
-          if (this.story) {
-            this.story._onshow()
+        setTimeout(() => {
+          let playing = wx.getStorageSync("playing");
+          if (playing) {
+            let playingId = wx.getStorageSync("songInfo").id;
+            this.story = this.selectComponent(`#story${playingId}`);
+            if (this.story) {
+              this.story._onshow()
+            }
           }
-          this.voicePath(this)
+        }, 600);
+        this.voicePath(this)
       })
       wx.hideLoading()
     })

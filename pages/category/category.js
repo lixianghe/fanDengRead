@@ -47,13 +47,17 @@ Page({
   onShow() {
     this.selectComponent('#miniPlayer').setOnShow()
     this.selectComponent('#miniPlayer').watchPlay()
-
     // 卡片组件onshow
-    let playingId = wx.getStorageSync('songInfo').id
-    this.story = this.selectComponent(`#story${playingId}`)
-    if (this.story) {
-      this.story._onshow()
-    }
+    setTimeout(() => {
+      let playing = wx.getStorageSync("playing");
+      if (playing) {
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
+      }
+    }, 600);
   },
   onHide() {
     this.selectComponent('#miniPlayer').setOnHide()
@@ -127,11 +131,17 @@ Page({
         info: data,
         totalCount: data.length 
       }, () => {
-        let playingId = wx.getStorageSync('songInfo').id
-        this.story = this.selectComponent(`#story${playingId}`)
-        if (this.story) {
-          this.story._onshow()
-        }
+        // 卡片组件onshow
+        setTimeout(() => {
+          let playing = wx.getStorageSync("playing");
+          if (playing) {
+            let playingId = wx.getStorageSync('songInfo').id
+            this.story = this.selectComponent(`#story${playingId}`)
+            if (this.story) {
+              this.story._onshow()
+            }
+          }
+        }, 600);
       })
       wx.hideLoading()
       return
@@ -155,11 +165,18 @@ Page({
         totalCount: res.totalCount
       }, () => {
         if (res.totalCount <= 10) this.setData({lowerThreshold: 50})
-        let playingId = wx.getStorageSync('songInfo').id
-        this.story = this.selectComponent(`#story${playingId}`)
-        if (this.story) {
-          this.story._onshow()
+      // 卡片组件onshow
+      setTimeout(() => {
+        let playing = wx.getStorageSync("playing");
+        if (playing) {
+          console.log('333333333333333333');
+          let playingId = wx.getStorageSync('songInfo').id
+          this.story = this.selectComponent(`#story${playingId}`)
+          if (this.story) {
+            this.story._onshow()
+          }
         }
+      }, 600);
       })
       wx.hideLoading()
     }).catch(err =>{

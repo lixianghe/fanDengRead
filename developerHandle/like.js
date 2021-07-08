@@ -75,11 +75,16 @@ module.exports = {
       })
     }
     // 卡片组件onshow
-    let playingId = wx.getStorageSync("songInfo").id;
-    this.story = this.selectComponent(`#story${playingId}`);
-    if (this.story) {
-      this.story._onshow();
-    }
+    setTimeout(() => {
+      let playing = wx.getStorageSync("playing");
+      if (playing) {
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
+      }
+    }, 600);
     this._getList("专辑");
   },
   onLoad(options) {
@@ -152,11 +157,17 @@ module.exports = {
           () => {
               this.selectComponent('#miniPlayer').setOnShow()
               this.selectComponent('#miniPlayer').watchPlay()
-            let playingId = wx.getStorageSync("songInfo").id;
-            this.story = this.selectComponent(`#story${playingId}`);
-            if (this.story) {
-              this.story._onshow();
-            }
+              // 卡片组件onshow
+              setTimeout(() => {
+                let playing = wx.getStorageSync("playing");
+                if (playing) {
+                  let playingId = wx.getStorageSync('songInfo').id
+                  this.story = this.selectComponent(`#story${playingId}`)
+                  if (this.story) {
+                    this.story._onshow()
+                  }
+                }
+              }, 600);
           }
         );
         wx.hideLoading();

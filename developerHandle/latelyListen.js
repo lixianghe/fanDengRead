@@ -77,11 +77,16 @@ module.exports = {
       })
     }
     // 卡片组件onshow
-    let playingId = wx.getStorageSync("songInfo").id;
-    this.story = this.selectComponent(`#story${playingId}`);
-    if (this.story) {
-      this.story._onshow();
-    }
+    setTimeout(() => {
+      let playing = wx.getStorageSync("playing");
+      if (playing) {
+        let playingId = wx.getStorageSync('songInfo').id
+        this.story = this.selectComponent(`#story${playingId}`)
+        if (this.story) {
+          this.story._onshow()
+        }
+      }
+    }, 600);
     let miniPlayer = this.selectComponent('#miniPlayer')
     if(miniPlayer){
       miniPlayer.setOnShow()
@@ -152,14 +157,19 @@ module.exports = {
             info: info,
           },
           () => {
-            // 卡片组件onshow
             this.selectComponent('#miniPlayer').setOnShow()
             this.selectComponent('#miniPlayer').watchPlay()
-            let playingId = wx.getStorageSync("songInfo").id;
-            this.story = this.selectComponent(`#story${playingId}`);
-            if (this.story) {
-              this.story._onshow();
-            }
+            // 卡片组件onshow
+            setTimeout(() => {
+              let playing = wx.getStorageSync("playing");
+              if (playing) {
+                let playingId = wx.getStorageSync('songInfo').id
+                this.story = this.selectComponent(`#story${playingId}`)
+                if (this.story) {
+                  this.story._onshow()
+                }
+              }
+            }, 600);
             // 增加语音直达Path功能
             if(state)voicePath(this)
           }

@@ -118,7 +118,6 @@ function EventListener(app, that){
   })
   //暂停事件
   app.audioManager.onPause(() => {
-    console.log('触发播放暂停事件');
     wx.setStorageSync('playing', false)
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
@@ -156,6 +155,7 @@ function EventListener(app, that){
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) miniPlayer.setData({ playing: false })
+    pages[pages.length - 1].setData({ playing: false })
   })
   //播放错误事件
   app.audioManager.onError(() => {
@@ -166,6 +166,7 @@ function EventListener(app, that){
     const pages = getCurrentPages()
     let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
     if (miniPlayer) miniPlayer.setData({ playing: false })
+      pages[pages.length - 1].setData({ playing: false })
   })
   //播放完成事件
   app.audioManager.onEnded(() => {

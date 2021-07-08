@@ -337,6 +337,9 @@ import { albumMedia } from '../utils/httpOpt/api'
       app.globalData.songInfo.existed = info.data.isFavorite
       wx.setStorageSync('songInfo', app.globalData.songInfo)
       const pages = getCurrentPages()
+      pages[pages.length - 1].setData({
+        songInfo: app.globalData.songInfo 
+      })
       let miniPlayer = pages[pages.length - 1].selectComponent('#miniPlayer')
       miniPlayer.setData({ songInfo: app.globalData.songInfo })
     }
