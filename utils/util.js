@@ -88,12 +88,17 @@ function initAudioManager(app, that,seek=null) {
   let list = wx.getStorageSync('urls') || []
   let bookIdList = wx.getStorageSync('bookIdList') || []
   if (list.length && JSON.stringify(bookIdList) != JSON.stringify(app.globalData.bookIdList)) {
+    let playList = list.map(item=>{
+      item.options = JSON.stringify(nativeList.find(i=>i.id2 == item.bookId))
+      return item
+    })
     app.globalData.bookIdList = bookIdList
     app.globalData.cardList = list
     const playing = wx.getStorageSync('playing')
     app.audioManager.playInfo = {
-      playList: list,
-      context:JSON.stringify(nativeList),
+      playList,
+      context:'',
+      // playDetailPagePath:'pages/playInfo/playInfo'
     };
     if (playing) app.playing(seek, that)
   }
