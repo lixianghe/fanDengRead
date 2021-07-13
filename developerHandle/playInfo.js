@@ -167,5 +167,121 @@ module.exports = {
     wx.switchTab({
       url: url,
     })
+  },
+  // 断点续播
+  async continuationPlay(){
+    const app = getApp()
+    let res = wx.getPlayInfoSync()
+    // let res = {
+    //   playList: [
+    //     {
+    //       title: "谁说商业直觉是天生的",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-ali-images.dushu365.com/1622183456fc20739490f95cfaee34912f6d0636e10is44b",
+    //       dataUrl:
+    //         "https://cdn-azure-dest.dushu365.com/media/audio/1596706811848960c9f9bf8c0787799fe93e6e6c33m4tvku.mp3",
+    //       options:
+    //         '{"id":901,"src":"https://cdn-ali-images.dushu365.com/1622183456fc20739490f95cfaee34912f6d0636e10is44b","title":"谁说商业直觉是天生的","count":5274109,"id2":173}',
+    //     },
+    //     {
+    //       title: "基因革命",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-azure-images.dushu365.com/157708840420d756d45a863471f5f084efcf65a4f44bzkiw",
+    //       dataUrl:
+    //         "https://cdn-azure-dest.dushu365.com/media/audio/15828100992b2fcf9dff616fef071050f184004c8bpi2tzi.mp3",
+    //       options:
+    //         '{"id":549,"src":"https://cdn-ali-images.dushu365.com/157708840420d756d45a863471f5f084efcf65a4f44bzkiw","title":"基因革命","count":4533530,"id2":182}',
+    //     },
+    //     {
+    //       title: "宽恕",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-azure-images.dushu365.com/1622439809e9a958f541395418ac4d29ac85b7c6efeumvod",
+    //       dataUrl:
+    //         "https://cdn-azure-dest.dushu365.com/media/audio/158286170312a1f7199597f6b3acb30abad15eef13u2tcqj.mp3",
+    //       options:
+    //         '{"id":1846,"src":"https://cdn-ali-images.dushu365.com/1622439809e9a958f541395418ac4d29ac85b7c6efeumvod","title":"宽恕","count":6849476,"id2":339}',
+    //     },
+    //     {
+    //       title: "你就是孩子最好的玩具",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-azure-images.dushu365.com/16214098386b6f068e20387ff0154ad74689836300m2klj7",
+    //       dataUrl:
+    //         "https://cdn-azure-dest.dushu365.com/media/audio/1582861715160ae571cd4be5e4d82d77cb34a4d505ipbe4z.mp3",
+    //       options:
+    //         '{"id":6,"src":"https://cdn-ali-images.dushu365.com/16214098386b6f068e20387ff0154ad74689836300m2klj7","title":"你就是孩子最好的玩具","count":33257087,"id2":19}',
+    //     },
+    //     {
+    //       title: "让大象飞",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-azure-images.dushu365.com/1622519044083539b11d9b0520787b6a7eb9d97a00pky8uv",
+    //       dataUrl:
+    //         "https://cdn-azure-dest.dushu365.com/media/audio/15828109286b9608995c3e82a3c881009fcfd6c85a9np74c.mp3",
+    //       options:
+    //         '{"id":2903,"src":"https://cdn-ali-images.dushu365.com/1622519044083539b11d9b0520787b6a7eb9d97a00pky8uv","title":"让大象飞","count":11023797,"id2":373}',
+    //     },
+    //     {
+    //       title: "养育女孩",
+    //       singer:'',
+    //       coverImgUrl:
+    //         "https://cdn-azure-images.dushu365.com/1624863317d028c749e1b83df2ba2768abf9455c94o5x93b",
+    //       dataUrl:
+    //         "https://cdn-upyun-dest.dushu365.com/media/audio/1568096967cd78402f4e3d9cb390420aca3c08a68ad7ysf4.mp3",
+    //       options:
+    //         '{"id":1285,"src":"https://cdn-ali-images.dushu365.com/1624863317d028c749e1b83df2ba2768abf9455c94o5x93b","title":"养育女孩","count":16030782,"id2":320}',
+    //     },
+    //   ],
+    //   playState: {
+    //     status: 1,
+    //     curIndex: 3,
+    //     currentPosition: 360,
+    //     duration: 859,
+    //   },
+    // };
+    let playing = res.playState && res.playState.status == 1 ? true : false
+    if(res.playList && res.playList.length){
+      try {
+        let contextList = res.playList.map(item=>JSON.parse(item.options))
+        let {currentPosition,duration} = res.playState
+        let {src,id} = contextList[res.playState.curIndex]
+        wx.setStorageSync('bookIdList',contextList.map(item=>item.id2) ||[])
+        // app.globalData.bookIdList = contextList.map(item=>item.id2) ||[]
+        wx.setStorageSync('nativeList',contextList)
+        wx.setStorageSync('allList',contextList)
+        wx.setStorageSync('playing', playing)
+        app.globalData.cardList = res.playList.map((item,index)=>{
+          return{
+            bookId: contextList[index].id2,
+            coverImgUrl:item.coverImgUrl,
+            dataUrl:item.dataUrl,
+            title:item.title,
+          }
+        })
+        wx.setStorageSync('urls',app.globalData.cardList)
+        await this.getMedia({fragmentId:id}, this)
+        app.globalData.percent = tool.floatMul(tool.floatDiv(currentPosition,duration).toFixed(4), 100);
+        app.globalData.currentPosition = currentPosition
+        app.globalData.playtime = currentPosition ? tool.formatduration(currentPosition * 1000) : '00:00',
+        tool.initAudioManager(app, this,currentPosition)
+        let song= wx.getStorageSync('songInfo')
+        let songInfo = Object.assign(song,{coverImgUrl:src})
+        this.setData({
+          songInfo,
+          playing: playing,
+          playtime: currentPosition ? tool.formatduration(currentPosition * 1000) : '00:00',
+          percent: app.globalData.percent || 0
+        })
+        app.globalData.songInfo = songInfo
+        wx.setStorageSync('songInfo',songInfo)
+      } catch (error) {
+        wx.showToast({ icon: 'none', title: '接口请求错误请稍后重试' })
+      }
+    }else{
+      wx.setStorageSync('songInfo', {})
+    }
   }
 }

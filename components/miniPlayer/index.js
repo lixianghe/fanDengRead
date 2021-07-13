@@ -187,11 +187,13 @@ Component({
       if (wx.canIUse('getPlayInfoSync')) {
         let res = wx.getPlayInfoSync()
         let playing = res.playState && res.playState.status == 1 ? true : false
-        if(res.playList && res.playList.length && res.context){
+        if(res.playList && res.playList.length){
           try {
-            let contextList = JSON.parse(res.context)
+            let contextList = res.playList.map(item=>JSON.parse(item.options))
             let {currentPosition,duration} = res.playState
             app.globalData.bookIdList = contextList.map(item=>item.id2)
+            wx.setStorageSync('nativeList',contextList)
+            wx.setStorageSync('allList',contextList)
             let {src,id} = contextList[res.playState.curIndex]
             app.globalData.cardList = res.playList.map((item,index)=>{
               return{
@@ -204,7 +206,6 @@ Component({
             await getMedia({fragmentId:id}, that)
             app.globalData.percent = tool.floatMul(tool.floatDiv(currentPosition,duration).toFixed(4), 100);
             app.globalData.currentPosition = currentPosition
-            // tool.initAudioManager(app, that,currentPosition)
             tool.initAudioManager(app, that)
             let song= wx.getStorageSync('songInfo')
             let songInfo = Object.assign(song,{coverImgUrl:src})
